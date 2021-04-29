@@ -1,0 +1,16 @@
+----------------------------------------------
+Communication, MiniONN train, P2: 81.7001MB (sent) 81.7001MB (recv)
+Rounds, MiniONN train, P2: 195(sends) 195(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 231.48MB (sent) and 231.48MB (recv)
+Total calls: 557 (sends) and 557 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, MiniONN train, P1: 74.89MB (sent) 74.89MB (recv)
+Rounds, MiniONN train, P1: 181(sends) 181(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, MiniONN train, P0: 74.89MB (sent) 74.89MB (recv)
+Rounds, MiniONN train, P0: 181(sends) 181(recvs)
+----------------------------------------------

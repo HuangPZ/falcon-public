@@ -1355,12 +1355,12 @@ void start_m()
 	start_communication();
 }
 
-void end_m(string str)
+void end_m(string str, string fn)
 {
 	end_time(str);
 	pause_communication();
-	aggregateCommunication();
-	end_communication(str);
+	aggregateCommunication(fn);
+	end_communication(str,fn);
 }
 
 void start_time()
@@ -1421,7 +1421,7 @@ void end_rounds(string str)
 	alreadyMeasuringRounds = false;
 }
 
-void aggregateCommunication()
+void aggregateCommunication(string fn)
 {
 	vector<myType> vec(4, 0), temp(4, 0);
 	vec[0] = commObject.getSent();
@@ -1448,6 +1448,13 @@ void aggregateCommunication()
 		cout << "Total communication: " << (float)vec[0]/1000000 << "MB (sent) and " << (float)vec[1]/1000000 << "MB (recv)\n";
 		cout << "Total calls: " << vec[2] << " (sends) and " << vec[3] << " (recvs)" << endl;
 		cout << "----------------------------------------------" << endl;
+		ofstream myfile;
+		myfile.open (fn.c_str(),fstream::app);
+		myfile << "----------------------------------------------" << endl;
+		myfile << "Total communication: " << (float)vec[0]/1000000 << "MB (sent) and " << (float)vec[1]/1000000 << "MB (recv)\n";
+		myfile << "Total calls: " << vec[2] << " (sends) and " << vec[3] << " (recvs)" << endl;
+		myfile << "----------------------------------------------" << endl;
+		myfile.close();
 	}
 }
 

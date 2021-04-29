@@ -1,0 +1,22 @@
+
+P2
+MatMul_Com: 4492896
+ReLU_Com: 7236096
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 527360
+P1
+MatMul_Com: 2246448
+ReLU_Com: 7236096
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 506880
+P0
+MatMul_Com: 2246448
+ReLU_Com: 7236096
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 506880

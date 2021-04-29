@@ -130,6 +130,7 @@ void receiveByte(int player, int length, int conn)
 void synchronize(int length)
 {
 	char* toSend = new char[length+1];
+	cout << length;
 	memset(toSend, '0', length+1);
 	vector<thread *> threads;
 	for (int i = 0; i < NUM_OF_PARTIES; i++)
@@ -176,7 +177,7 @@ void resume_communication()
 	commObject.setMeasurement(true);
 }
 
-void end_communication(string str)
+void end_communication(string str,string fn)
 {
 	cout << "----------------------------------------------" << endl;
 	cout << "Communication, " << str << ", P" << partyNum << ": " 
@@ -186,5 +187,16 @@ void end_communication(string str)
 		 << commObject.getRoundsSent() << "(sends) " 
 		 << commObject.getRoundsRecv() << "(recvs)" << endl; 
 	cout << "----------------------------------------------" << endl;	
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;
+	myfile << "Communication, " << str << ", P" << partyNum << ": " 
+		 << (float)commObject.getSent()/1000000 << "MB (sent) " 
+		 << (float)commObject.getRecv()/1000000 << "MB (recv)" << endl;
+	myfile << "Rounds, " << str << ", P" << partyNum << ": " 
+		 << commObject.getRoundsSent() << "(sends) " 
+		 << commObject.getRoundsRecv() << "(recvs)" << endl; 
+	myfile << "----------------------------------------------" << endl;
+	myfile.close();
 	commObject.reset();
 }

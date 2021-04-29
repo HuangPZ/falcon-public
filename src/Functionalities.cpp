@@ -155,8 +155,9 @@ void funcGetShares(RSSVectorSmallType &a, const vector<smallType> &data)
 }
 
 
-void funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t size, string str, bool print)
+int funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t size, string str, bool print)
 {
+	int sent;
 	log_print("Reconst: RSSSmallType (bits), smallType (bit)");
 
 	if (SECURITY_TYPE.compare("Semi-honest") == 0)
@@ -172,6 +173,7 @@ void funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_
 
 		thread *threads = new thread[2];
 		threads[0] = thread(sendVector<smallType>, ref(a_next), nextParty(partyNum), size);
+		sent+=sizeof(smallType)*size;
 		threads[1] = thread(receiveVector<smallType>, ref(a_prev), prevParty(partyNum), size);
 		for (int i = 0; i < 2; i++)
 			threads[i].join();
@@ -202,7 +204,9 @@ void funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_
 
 		thread *threads = new thread[4];
 		threads[0] = thread(sendVector<smallType>, ref(a_next_send), nextParty(partyNum), size);
+		sent+=sizeof(smallType)*size;
 		threads[1] = thread(sendVector<smallType>, ref(a_prev_send), prevParty(partyNum), size);
+		sent+=sizeof(smallType)*size;
 		threads[2] = thread(receiveVector<smallType>, ref(a_next_recv), nextParty(partyNum), size);
 		threads[3] = thread(receiveVector<smallType>, ref(a_prev_recv), prevParty(partyNum), size);
 		for (int i = 0; i < 4; i++)
@@ -226,6 +230,7 @@ void funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_
 			std::cout << std::endl;
 		}
 	}
+	return sent;
 }
 
 
@@ -591,15 +596,16 @@ void funcCheckMaliciousDotProdBits(const RSSVectorSmallType &a, const RSSVectorS
 
 
 //Asymmetric protocol for semi-honest setting.
-void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t size, string str, bool print)
+int funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t size, string str, bool print)
 {
+	int sent = 0;
 	log_print("Reconst: myType, myType");
 	assert(a.size() == size && "a.size mismatch for reconstruct function");
 
 	vector<myType> temp_A(size,0), temp_B(size, 0);
 
 	if (partyNum == PARTY_A or partyNum == PARTY_B)
-		sendVector<myType>(a, PARTY_C, size);
+		sent+=sendVector<myType>(a, PARTY_C, size);
 
 	if (partyNum == PARTY_C)
 	{
@@ -607,8 +613,8 @@ void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t siz
 		receiveVector<myType>(temp_B, PARTY_B, size);
 		addVectors<myType>(temp_A, a, temp_A, size);
 		addVectors<myType>(temp_B, temp_A, b, size);
-		sendVector<myType>(b, PARTY_A, size);
-		sendVector<myType>(b, PARTY_B, size);
+		sent+=sendVector<myType>(b, PARTY_A, size);
+		sent+=sendVector<myType>(b, PARTY_B, size);
 	}
 
 	if (partyNum == PARTY_A or partyNum == PARTY_B)
@@ -628,6 +634,7 @@ void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t siz
 
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 	{}
+	return sent;
 }
 
 //Symmetric variant of the reconstruct protocol.
@@ -674,6 +681,8 @@ void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t siz
 // Matrix Multiplication of a*b = c with transpose flags for a,b.
 // Output is a share between PARTY_A and PARTY_B.
 // a^transpose_a is rows*common_dim and b^transpose_b is common_dim*columns
+int MatMul_Com = 0;
+int *pt_MatMul_Com = &MatMul_Com;
 void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &c, 
 					size_t rows, size_t common_dim, size_t columns,
 				 	size_t transpose_a, size_t transpose_b, size_t truncation)
@@ -697,7 +706,8 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 	for (int i = 0; i < final_size; ++i)
 		temp3[i] = temp3[i] - rPrime[i].first;
 	
-	funcReconstruct3out3(temp3, diffReconst, final_size, "Mat-Mul diff reconst", false);
+	*pt_MatMul_Com+=funcReconstruct3out3(temp3, diffReconst, final_size, "Mat-Mul diff reconst", false);
+	// =*pt_MatMul_Com+final_size*sizeof(myType);
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 		funcCheckMaliciousMatMul(a, b, c, temp3, rows, common_dim, columns, transpose_a, transpose_b);
 	dividePlain(diffReconst, (1 << truncation));
@@ -736,9 +746,10 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 
 
 // Term by term multiplication of 64-bit vectors overriding precision
-void funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b, 
+int funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b, 
 						   RSSVectorMyType &c, size_t size, bool truncation, size_t precision) 
 {
+	int sent;
 	log_print("funcDotProduct");
 	assert(a.size() == size && "Matrix a incorrect for Mat-Mul");
 	assert(b.size() == size && "Matrix b incorrect for Mat-Mul");
@@ -759,6 +770,7 @@ void funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 		thread *threads = new thread[2];
 
 		threads[0] = thread(sendVector<myType>, ref(temp3), prevParty(partyNum), size);
+		sent+=sizeof(myType)*size;
 		threads[1] = thread(receiveVector<myType>, ref(recv), nextParty(partyNum), size);
 		
 		for (int i = 0; i < 2; i++)
@@ -785,7 +797,7 @@ void funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 					    rPrime[i].first;
 		}
 
-		funcReconstruct3out3(temp3, diffReconst, size, "Dot-product diff reconst", false);
+		sent+=funcReconstruct3out3(temp3, diffReconst, size, "Dot-product diff reconst", false);
 		dividePlain(diffReconst, (1 << precision));
 		if (partyNum == PARTY_A)
 		{
@@ -816,13 +828,15 @@ void funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 	}
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 		funcCheckMaliciousDotProd(a, b, c, temp3, size);
+	return sent;
 }
 
 
 // Term by term multiplication of mod 67 vectors 
-void funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
+int funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
 							 RSSVectorSmallType &c, size_t size) 
 {
+	int sent;
 	log_print("funcDotProduct");
 	assert(a.size() == size && "Matrix a incorrect for Mat-Mul");
 	assert(b.size() == size && "Matrix b incorrect for Mat-Mul");
@@ -841,6 +855,7 @@ void funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b,
 	thread *threads = new thread[2];
 
 	threads[0] = thread(sendVector<smallType>, ref(temp3), prevParty(partyNum), size);
+	sent += sizeof(smallType)*size;
 	threads[1] = thread(receiveVector<smallType>, ref(recv), nextParty(partyNum), size);
 
 	for (int i = 0; i < 2; i++)
@@ -856,13 +871,15 @@ void funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b,
 
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 		funcCheckMaliciousDotProd(a, b, c, temp3, size);
+	return sent;
 }
 
 
 // Term by term multiplication boolean shares
-void funcDotProductBits(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
+int funcDotProductBits(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
 							 RSSVectorSmallType &c, size_t size) 
 {
+	int sent;
 	log_print("funcDotProductBits");
 	assert(a.size() == size && "Matrix a incorrect for Mat-Mul");
 	assert(b.size() == size && "Matrix b incorrect for Mat-Mul");
@@ -879,6 +896,7 @@ void funcDotProductBits(const RSSVectorSmallType &a, const RSSVectorSmallType &b
 	//Add random shares of 0 locally
 	thread *threads = new thread[2];
 	threads[0] = thread(sendVector<smallType>, ref(temp3), prevParty(partyNum), size);
+	sent+=sizeof(smallType)*size;
 	threads[1] = thread(receiveVector<smallType>, ref(recv), nextParty(partyNum), size);
 	for (int i = 0; i < 2; i++)
 		threads[i].join();
@@ -892,12 +910,14 @@ void funcDotProductBits(const RSSVectorSmallType &a, const RSSVectorSmallType &b
 
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 		funcCheckMaliciousDotProdBits(a, b, c, temp3, size);
+	return sent;
 }
 
 
 //Multiply index 2i, 2i+1 of the first vector into the second one. The second vector is half the size.
-void funcMultiplyNeighbours(const RSSVectorSmallType &c_1, RSSVectorSmallType &c_2, size_t size)
+int funcMultiplyNeighbours(const RSSVectorSmallType &c_1, RSSVectorSmallType &c_2, size_t size)
 {
+	int sent;
 	assert (size % 2 == 0 && "Size should be 'half'able");
 	vector<smallType> temp3(size/2, 0), recv(size/2, 0);
 	for (int i = 0; i < size/2; ++i)
@@ -911,6 +931,7 @@ void funcMultiplyNeighbours(const RSSVectorSmallType &c_1, RSSVectorSmallType &c
 	thread *threads = new thread[2];
 
 	threads[0] = thread(sendVector<smallType>, ref(temp3), nextParty(partyNum), size/2);
+	sent += sizeof(smallType)*size/2;
 	threads[1] = thread(receiveVector<smallType>, ref(recv), prevParty(partyNum), size/2);
 
 	for (int i = 0; i < 2; i++)
@@ -927,11 +948,13 @@ void funcMultiplyNeighbours(const RSSVectorSmallType &c_1, RSSVectorSmallType &c
 	RSSVectorSmallType temp_a(size/2), temp_b(size/2), temp_c(size/2);
 	if (SECURITY_TYPE.compare("Malicious") == 0)
 		funcCheckMaliciousDotProd(temp_a, temp_b, temp_c, temp3, size/2);
+	return sent;
 }
 
 //Multiply each group of 64 with a random number in Z_p* and reconstruct output in betaPrime.
-void funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrime, size_t size)
+int funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrime, size_t size)
 {
+	int sent;
 	size_t sizeLong = size*BIT_SIZE;
 	RSSVectorSmallType c_0(sizeLong/2, make_pair(0,0)), c_1(sizeLong/4, make_pair(0,0)), 
 					   c_2(sizeLong/8, make_pair(0,0)), c_3(sizeLong/16, make_pair(0,0)), 
@@ -940,13 +963,13 @@ void funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 
 	vector<smallType> reconst(size, 0);
 
-	funcMultiplyNeighbours(c, c_0, sizeLong);
-	funcMultiplyNeighbours(c_0, c_1, sizeLong/2);
-	funcMultiplyNeighbours(c_1, c_2, sizeLong/4);
-	funcMultiplyNeighbours(c_2, c_3, sizeLong/8);
-	funcMultiplyNeighbours(c_3, c_4, sizeLong/16);
+	sent += funcMultiplyNeighbours(c, c_0, sizeLong);
+	sent+=funcMultiplyNeighbours(c_0, c_1, sizeLong/2);
+	sent +=funcMultiplyNeighbours(c_1, c_2, sizeLong/4);
+	sent+=funcMultiplyNeighbours(c_2, c_3, sizeLong/8);
+	sent +=funcMultiplyNeighbours(c_3, c_4, sizeLong/16);
 	if (BIT_SIZE == 64)
-		funcMultiplyNeighbours(c_4, c_5, sizeLong/32);
+		sent +=funcMultiplyNeighbours(c_4, c_5, sizeLong/32);
 
 	vector<smallType> a_next(size), a_prev(size);
 	if (BIT_SIZE == 64)
@@ -969,6 +992,7 @@ void funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 	thread *threads = new thread[2];
 
 	threads[0] = thread(sendVector<smallType>, ref(a_next), nextParty(partyNum), size);
+	sent += sizeof(smallType)*size;
 	threads[1] = thread(receiveVector<smallType>, ref(a_prev), prevParty(partyNum), size);
 	for (int i = 0; i < 2; i++)
 		threads[i].join();
@@ -982,6 +1006,7 @@ void funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 		if (reconst[i] == 0)
 			betaPrime[i] = 1;
 	}
+	return sent;
 }
 
 //Thread function for parallel private compare
@@ -1108,10 +1133,11 @@ void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* re
 
 
 // Private Compare functionality
-void funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &r, 
+int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &r, 
 							const RSSVectorSmallType &beta, vector<smallType> &betaPrime, 
 							size_t size)
 {
+	int sent;
 	log_print("funcPrivateCompare");
 	assert(share_m.size() == size*BIT_SIZE && "Input error share_m");
 	assert(r.size() == size && "Input error r");
@@ -1148,6 +1174,7 @@ void funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> 
 
 		//"Single" threaded execution
 		threads[0] = thread(sendVector<smallType>, ref(temp3), prevParty(partyNum), size);
+		sent += sizeof(smallType)*size;
 		threads[1] = thread(receiveVector<smallType>, ref(recv), nextParty(partyNum), size);
 
 		for (int i = 0; i < 2; i++)
@@ -1191,7 +1218,7 @@ void funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> 
 		}
 
 		//(-1)^beta * x[i] - r[i]
-		funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
+		sent += funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
 
 		for (int index2 = 0; index2 < size; ++index2)
 		{
@@ -1235,14 +1262,16 @@ void funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> 
 
 	//TODO 7 rounds of multiplication
 	// cout << "CM: \t\t" << funcTime(funcCrunchMultiply, c, betaPrime, size, dim) << endl;
-	funcCrunchMultiply(c, betaPrime, size);	
+	sent+=funcCrunchMultiply(c, betaPrime, size);
+	return sent;	
 }
 
 
 
 //Wrap functionality.
-void funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
+int funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 {
+	int sent =0;
 	log_print("funcWrap");
 	
 	size_t sizeLong = size*BIT_SIZE;
@@ -1272,6 +1301,7 @@ void funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 
 	thread *threads = new thread[2];
 	threads[0] = thread(sendVector<myType>, ref(x_next), nextParty(partyNum), size);
+	sent += sizeof(myType)*size;
 	threads[1] = thread(receiveVector<myType>, ref(x_prev), prevParty(partyNum), size);
 	for (int i = 0; i < 2; i++)
 		threads[i].join();
@@ -1284,7 +1314,7 @@ void funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 	PrecomputeObject.getRandomBitShares(eta, size);
 
 	// cout << "PC: \t\t" << funcTime(funcPrivateCompare, shares_r, reconst_x, eta, etaPrime, size, BIT_SIZE) << endl;
-	funcPrivateCompare(shares_r, reconst_x, eta, etaPrime, size);
+	sent += funcPrivateCompare(shares_r, reconst_x, eta, etaPrime, size);
 
 	if (partyNum == PARTY_A)
 	{
@@ -1308,8 +1338,9 @@ void funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 		{
 			theta[i].first = beta[i].first ^ alpha[i].first ^ eta[i].first;
 			theta[i].second = beta[i].second ^ delta[i] ^ alpha[i].second ^ eta[i].second ^ etaPrime[i];
-		}
+		}	
 	}
+	return sent;
 }
 
 
@@ -1363,10 +1394,11 @@ void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b,
 //Within each group of columns, select a0 or a1 depending on value of bit b into answer.
 //loopCounter is used to offset a1 by loopCounter*rows*columns
 //answer = ((a0 \oplus a1) b ) \oplus a0
-void funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &a1, 
+int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &a1, 
 						 const RSSVectorSmallType &b, RSSVectorSmallType &answer, 
 						 size_t rows, size_t columns, size_t loopCounter)
 {
+	int sent=0;
 	log_print("funcSelectBitShares");
 	size_t size = rows*columns;
 	assert(a0.size() == rows*columns && "a0 size incorrect");
@@ -1384,16 +1416,18 @@ void funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType 
 			tempXOR[i*columns+j] = a0[i*columns+j] ^
 								   a1[loopCounter*rows*columns+i*columns+j];
 
-	funcDotProductBits(tempXOR, bRepeated, answer, size);
+	sent+=funcDotProductBits(tempXOR, bRepeated, answer, size);
 
 	for (int i = 0; i < size; ++i)
 		answer[i] = answer[i] ^ a0[i];
+	return sent;
 }
 
 
 // b holds bits of ReLU' of a
-void funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
+int funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
 {
+	int sent=0;
 	log_print("funcRELUPrime");
 
 	RSSVectorMyType twoA(size);
@@ -1402,7 +1436,7 @@ void funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
 		twoA[i] = a[i] << 1;
 
 	// cout << "Wrap: \t\t" << funcTime(funcWrap, twoA, theta, size) << endl;
-	funcWrap(twoA, theta, size);
+	sent+=funcWrap(twoA, theta, size);
 
 
 	for (int i = 0; i < size; ++i)
@@ -1410,11 +1444,16 @@ void funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
 		b[i].first = theta[i].first ^ (getMSB(a[i].first));
 		b[i].second = theta[i].second ^ (getMSB(a[i].second));
 	}
+	return sent;
 }
 
 //Input is a, outputs are temp = ReLU'(a) and b = RELU(a).
-void funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size)
+int ReLU_Com = 0;
+int *pt_ReLU_Com = &ReLU_Com;
+int funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size)
 {
+	int sent = 0;
+	int tempsent = 0;
 	log_print("funcRELU");
 
 	RSSVectorSmallType c(size), bXORc(size);
@@ -1422,7 +1461,9 @@ void funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyTyp
 	vector<smallType> reconst_b(size);
 
 	// cout << "ReLU': \t\t" << funcTime(funcRELUPrime, a, temp, size) << endl;
-	funcRELUPrime(a, temp, size);
+	tempsent=funcRELUPrime(a, temp, size);
+	*pt_ReLU_Com+=tempsent;
+	sent+=tempsent;
 	PrecomputeObject.getSelectorBitShares(c, m_c, size);
 
 	for (int i = 0; i < size; ++i)
@@ -1431,7 +1472,11 @@ void funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyTyp
 		bXORc[i].second = c[i].second ^ temp[i].second;
 	}
 
-	funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
+	tempsent=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
+	*pt_ReLU_Com+=tempsent;
+	sent +=tempsent;
+
+
 	if (partyNum == PARTY_A)
 		for (int i = 0; i < size; ++i)
 			if (reconst_b[i] == 0)
@@ -1458,12 +1503,16 @@ void funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyTyp
 
 	// vector<myType> reconst_m_c(size);
 	// funcReconstruct(m_c, reconst_m_c, size, "m_c", true);
-	funcDotProduct(a, m_c, b, size, false, 0);
+	tempsent=funcDotProduct(a, m_c, b, size, false, 0);
+	sent+=tempsent;
+	*pt_ReLU_Com+=tempsent;
+	return sent;
 }
 
 
-void funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size)
+int funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size)
 {
+	int sent=0;
 	size_t ell = 5;
 	if (BIT_SIZE == 64)
 		ell = 6;
@@ -1482,19 +1531,24 @@ void funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size)
 		vector<myType> temp_1(size, (1 << ((1 << j) + (int)alpha[0])));
 		funcGetShares(temp, temp_1);
 		subtractVectors<RSSMyType>(x, temp, d, size);
-		funcRELUPrime(d, c, size);
-		funcReconstructBit(c, r_c, size, "null", false);
+		sent+=funcRELUPrime(d, c, size);
+		sent+=funcReconstructBit(c, r_c, size, "null", false);
 		if (r_c[0] == 0)
 		{
 			for (int i = 0; i < size; ++i)
 				alpha[i] += (1 << j);
 		}
 	}
+	return sent;
 }
 
 
 //All parties start with shares of a number in a and b and the quotient is in quotient.
 //alpha is the order of divisiors, 2^alpha =< b < 2^{alpha+1}.
+int Div_Com = 0;
+int *pt_Div_Com = &Div_Com;
+int Div_ReLU_Com = 0;
+int *pt_Div_ReLU_Com = &Div_ReLU_Com;
 void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
 							size_t size)
 {
@@ -1503,7 +1557,7 @@ void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorM
 	//TODO incorporate funcPow
 	//TODO Scale up and complete this computation with fixed-point precision
 	vector<smallType> alpha_temp(size);
-	funcPow(b, alpha_temp, size);
+	*pt_Div_Com+=funcPow(b, alpha_temp, size);
 
 	size_t alpha = alpha_temp[0];
 	size_t precision = alpha + 1;
@@ -1521,23 +1575,28 @@ void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorM
 	funcDotProduct(b, w0, xw0, size, true, precision); 
 	subtractVectors<RSSMyType>(ones, xw0, epsilon0, size);
 	if (PRECISE_DIVISION)
-		funcDotProduct(epsilon0, epsilon0, epsilon1, size, true, precision);
+		*pt_Div_Com+=funcDotProduct(epsilon0, epsilon0, epsilon1, size, true, precision);
 	addVectors(ones, epsilon0, termOne, size);
 	if (PRECISE_DIVISION)
 		addVectors(ones, epsilon1, termTwo, size);
-	funcDotProduct(w0, termOne, answer, size, true, precision);
+	*pt_Div_Com+=funcDotProduct(w0, termOne, answer, size, true, precision);
 	if (PRECISE_DIVISION)
-		funcDotProduct(answer, termTwo, answer, size, true, precision);
+		*pt_Div_Com+=funcDotProduct(answer, termTwo, answer, size, true, precision);
 
 	// RSSVectorMyType scaledA(size);
 	// multiplyByScalar(a, (1 << (alpha + 1)), scaledA);
-	funcDotProduct(answer, a, quotient, size, true, ((2*precision-FLOAT_PRECISION)));	
+	*pt_Div_Com+=funcDotProduct(answer, a, quotient, size, true, ((2*precision-FLOAT_PRECISION)));	
 }
 
 // a is of size batchSize*B, b is of size B and quotient is a/b (b from each group).
+int BN_Com = 0;
+int *pt_BN_Com = &BN_Com;
+// int BN_ReLU_Com = 0;
+// int *pt_BN_ReLU_Com = &BN_ReLU_Com;
 void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
 							size_t batchSize, size_t B)
 {
+	int tempsent=0;
 	log_print("funcBatchNorm");
 	//TODO Scale up and complete this computation with higher fixed-point precision
 
@@ -1546,7 +1605,8 @@ void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVector
 	assert(quotient.size() == batchSize*B && "funcBatchNorm quotient size incorrect");
 
 	vector<smallType> alpha_temp(B);
-	funcPow(b, alpha_temp, B);
+	tempsent=funcPow(b, alpha_temp, B);
+	*pt_BN_Com+=tempsent;
 
 	//TODO Get alpha from previous computation
 	size_t alpha = alpha_temp[0];
@@ -1562,30 +1622,35 @@ void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVector
 
 	multiplyByScalar(b, 2, twoX);
 	subtractVectors<RSSMyType>(twoPointNine, twoX, w0, B);
-	funcDotProduct(b, w0, xw0, B, true, precision); 
+	*pt_BN_Com+=funcDotProduct(b, w0, xw0, B, true, precision); 
 	subtractVectors<RSSMyType>(ones, xw0, epsilon0, B);
 	if (PRECISE_DIVISION)
-		funcDotProduct(epsilon0, epsilon0, epsilon1, B, true, precision);
+		*pt_BN_Com+=funcDotProduct(epsilon0, epsilon0, epsilon1, B, true, precision);
 	addVectors(ones, epsilon0, termOne, B);
 	if (PRECISE_DIVISION)
 		addVectors(ones, epsilon1, termTwo, B);
-	funcDotProduct(w0, termOne, answer, B, true, precision);
+	*pt_BN_Com+=funcDotProduct(w0, termOne, answer, B, true, precision);
 	if (PRECISE_DIVISION)
-		funcDotProduct(answer, termTwo, answer, B, true, precision);
+		*pt_BN_Com+=funcDotProduct(answer, termTwo, answer, B, true, precision);
 
 	RSSVectorMyType scaledA(batchSize*B), b_repeat(batchSize*B);
 	// multiplyByScalar(a, 2, scaledA); //So that a is of precision precision
 	for (int i = 0; i < B; ++i)
 		for (int j = 0; j < batchSize; ++j)
 			b_repeat[i*batchSize + j] = answer[i];
-	funcDotProduct(b_repeat, a, quotient, batchSize*B, true, (2*precision-FLOAT_PRECISION)); //Convert to fixed precision
+	*pt_BN_Com+=funcDotProduct(b_repeat, a, quotient, batchSize*B, true, (2*precision-FLOAT_PRECISION)); //Convert to fixed precision
 }
 
 //Chunk wise maximum of a vector of size rows*columns and maximum is caclulated of every 
 //column number of elements. max is a vector of size rows, maxPrime, of rows*columns*columns; 
+int MP_Com = 0;
+int *pt_MP_Com = &MP_Com;
+int MP_ReLU_Com = 0;
+int *pt_MP_ReLU_Com = &MP_ReLU_Com;
 void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &maxPrime,
 						 size_t rows, size_t columns)
 {
+	int tempsent=0;
 	log_print("funcMaxpool");
 	assert(columns < 256 && "Pooling size has to be smaller than 8-bits");
 
@@ -1610,8 +1675,11 @@ void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &m
 		for (size_t	j = 0; j < rows; ++j)
 			diff[j] = max[j] - a[j*columns + i];
 
-		funcRELU(diff, rp, max, rows);
-		funcSelectBitShares(maxPrime, dmpIndexShares, rp, temp, rows, columns, i);
+		tempsent = funcRELU(diff, rp, max, rows);
+		*pt_MP_Com+=tempsent;
+		*pt_MP_ReLU_Com+=tempsent;
+		*pt_MP_Com+=funcSelectBitShares(maxPrime, dmpIndexShares, rp, temp, rows, columns, i);
+		
 
 		for (size_t i = 0; i < size; ++i)
 			maxPrime[i] = temp[i];

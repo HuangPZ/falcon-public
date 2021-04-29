@@ -35,11 +35,11 @@ void synchronize(int length = 1);
 void start_communication();
 void pause_communication();
 void resume_communication();
-void end_communication(string str);
+void end_communication(string str,string fn);
 
 
 template<typename T>
-void sendVector(const vector<T> &vec, size_t player, size_t size);
+int sendVector(const vector<T> &vec, size_t player, size_t size);
 template<typename T>
 void receiveVector(vector<T> &vec, size_t player, size_t size);
 
@@ -145,7 +145,7 @@ void receiveSixVectors(vector<T> &vec1, vector<T> &vec2, vector<T> &vec3,
 
 
 template<typename T>
-void sendVector(const vector<T> &vec, size_t player, size_t size)
+int sendVector(const vector<T> &vec, size_t player, size_t size)
 {
 #if (LOG_DEBUG_NETWORK)
 	cout << "Sending " << size*sizeof(T) << " Bytes to player " << player << " via ";
@@ -161,6 +161,7 @@ void sendVector(const vector<T> &vec, size_t player, size_t size)
 
 	if(!communicationSenders[player]->sendMsg(vec.data(), size * sizeof(T), 0))
 		cout << "Send vector error" << endl;
+	return size * sizeof(T);
 }
 
 template<typename T>

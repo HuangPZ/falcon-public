@@ -20,12 +20,12 @@ void runOnly(NeuralNetwork* net, size_t l, string what, string& network);
 
 /********************* COMMUNICATION AND HELPERS *********************/
 void start_m();
-void end_m(std::string str);
+void end_m(std::string str,std::string fn);
 void start_time();
 void end_time(std::string str);
 void start_rounds();
 void end_rounds(std::string str);
-void aggregateCommunication();
+void aggregateCommunication(string fn);
 void print_usage(const char * bin);
 double diff(timespec start, timespec end);
 void deleteObjects();

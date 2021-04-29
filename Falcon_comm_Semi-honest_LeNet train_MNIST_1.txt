@@ -1,0 +1,16 @@
+----------------------------------------------
+Communication, LeNet train, P2: 123.227MB (sent) 123.227MB (recv)
+Rounds, LeNet train, P2: 195(sends) 195(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, LeNet train, P1: 111.552MB (sent) 111.552MB (recv)
+Rounds, LeNet train, P1: 181(sends) 181(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 346.332MB (sent) and 346.332MB (recv)
+Total calls: 557 (sends) and 557 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, LeNet train, P0: 111.552MB (sent) 111.552MB (recv)
+Rounds, LeNet train, P0: 181(sends) 181(recvs)
+----------------------------------------------

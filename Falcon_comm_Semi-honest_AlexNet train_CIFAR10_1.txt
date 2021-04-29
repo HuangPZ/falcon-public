@@ -1,0 +1,32 @@
+----------------------------------------------
+Communication, AlexNet train, P2: 246.157MB (sent) 246.157MB (recv)
+Rounds, AlexNet train, P2: 978(sends) 978(recvs)
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+Total communication: 665.514MB (sent) and 665.514MB (recv)
+Total calls: 2792 (sends) and 2792 (recvs)
+----------------------------------------------
+Communication, AlexNet train, P1: 209.679MB (sent) 209.679MB (recv)
+Rounds, AlexNet train, P1: 907(sends) 907(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, AlexNet train, P0: 209.679MB (sent) 209.679MB (recv)
+Rounds, AlexNet train, P0: 907(sends) 907(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, AlexNet train, P2: 246.157MB (sent) 246.157MB (recv)
+Rounds, AlexNet train, P2: 978(sends) 978(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, AlexNet train, P1: 209.679MB (sent) 209.679MB (recv)
+Rounds, AlexNet train, P1: 907(sends) 907(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 665.514MB (sent) and 665.514MB (recv)
+Total calls: 2792 (sends) and 2792 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, AlexNet train, P0: 209.679MB (sent) 209.679MB (recv)
+Rounds, AlexNet train, P0: 907(sends) 907(recvs)
+----------------------------------------------

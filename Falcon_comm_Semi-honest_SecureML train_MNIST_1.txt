@@ -1,0 +1,80 @@
+----------------------------------------------
+Communication, SecureML train, P2: 3.3539MB (sent) 3.3539MB (recv)
+Rounds, SecureML train, P2: 106(sends) 106(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P1: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P1: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 8.55231MB (sent) and 8.55231MB (recv)
+Total calls: 296 (sends) and 296 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P0: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P0: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P1: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P1: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P2: 3.3539MB (sent) 3.3539MB (recv)
+Rounds, SecureML train, P2: 106(sends) 106(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 8.55231MB (sent) and 8.55231MB (recv)
+Total calls: 296 (sends) and 296 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P0: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P0: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P2: 3.3539MB (sent) 3.3539MB (recv)
+Rounds, SecureML train, P2: 106(sends) 106(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P1: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P1: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 8.55231MB (sent) and 8.55231MB (recv)
+Total calls: 296 (sends) and 296 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P0: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P0: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P1: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P1: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P2: 3.3539MB (sent) 3.3539MB (recv)
+Rounds, SecureML train, P2: 106(sends) 106(recvs)
+----------------------------------------------
+Total communication: 8.55231MB (sent) and 8.55231MB (recv)
+Total calls: 296 (sends) and 296 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P0: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P0: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P2: 3.3539MB (sent) 3.3539MB (recv)
+Rounds, SecureML train, P2: 106(sends) 106(recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P1: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P1: 95(sends) 95(recvs)
+----------------------------------------------
+----------------------------------------------
+Total communication: 8.55231MB (sent) and 8.55231MB (recv)
+Total calls: 296 (sends) and 296 (recvs)
+----------------------------------------------
+----------------------------------------------
+Communication, SecureML train, P0: 2.59921MB (sent) 2.59921MB (recv)
+Rounds, SecureML train, P0: 95(sends) 95(recvs)
+----------------------------------------------
