@@ -14,7 +14,7 @@ void test(bool PRELOADING, string network, NeuralNetwork* net);
 void preload_network(bool PRELOADING, string network, NeuralNetwork* net);
 void loadData(string net, string dataset);
 void readMiniBatch(NeuralNetwork* net, string phase);
-void printNetwork(NeuralNetwork* net);
+void printNetwork(NeuralNetwork* net,string fn);
 void selectNetwork(string network, string dataset, string security, NeuralNetConfig* config);
 void runOnly(NeuralNetwork* net, size_t l, string what, string& network);
 
@@ -22,7 +22,7 @@ void runOnly(NeuralNetwork* net, size_t l, string what, string& network);
 void start_m();
 void end_m(std::string str,std::string fn);
 void start_time();
-void end_time(std::string str);
+void end_time(std::string str, std::string fn);
 void start_rounds();
 void end_rounds(std::string str);
 void aggregateCommunication(string fn);

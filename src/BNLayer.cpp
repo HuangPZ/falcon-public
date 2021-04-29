@@ -19,11 +19,17 @@ BNLayer::BNLayer(BNConfig* conf, int _layerNum)
 void BNLayer::initialize() {};
 
 
-void BNLayer::printLayer()
+void BNLayer::printLayer(std::string fn)
 {
 	cout << "----------------------------------------------" << endl;  	
 	cout << "(" << layerNum+1 << ") BN Layer\t\t  " << conf.inputSize << " x " 
 		 << conf.numBatches << endl;
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;  	
+	myfile << "(" << layerNum+1 << ") BN Layer\t\t  " << conf.inputSize << " x " 
+		 << conf.numBatches << endl;
+	myfile.close();
 }
 
 void BNLayer::forward(const RSSVectorMyType& inputActivation)

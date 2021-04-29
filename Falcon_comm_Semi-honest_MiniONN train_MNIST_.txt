@@ -1,3 +1,9 @@
+----------------------------------------------
+Run details: 3PC (P1), 1 iterations, batch size 128
+Running Semi-honest MiniONN train on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
 
 P2
 MatMul_Com: 18082336
@@ -6,6 +12,19 @@ MP_Com: 45219840
 MP_ReLU_Com: 41287680
 BN_Com: 0
 Div_Com: 791040
+PP_Com: 50037504
+SS_Com: 13056000
+----------------------------------------------
+
+P2
+MatMul_time: 4.23
+ReLU_time: 1.93
+MP_time: 1.36
+MP_ReLU_time: 1.26
+BN_time: 0
+Div_time: 0.05
+----------------------------------------------
+
 P1
 MatMul_Com: 9041168
 ReLU_Com: 62877696
@@ -13,6 +32,19 @@ MP_Com: 45219840
 MP_ReLU_Com: 41287680
 BN_Com: 0
 Div_Com: 760320
+PP_Com: 50037504
+SS_Com: 13056000
+----------------------------------------------
+
+P1
+MatMul_time: 4.2
+ReLU_time: 1.94
+MP_time: 1.34
+MP_ReLU_time: 1.26
+BN_time: 0
+Div_time: 0.03
+----------------------------------------------
+
 P0
 MatMul_Com: 9041168
 ReLU_Com: 62877696
@@ -20,3 +52,14 @@ MP_Com: 45219840
 MP_ReLU_Com: 41287680
 BN_Com: 0
 Div_Com: 760320
+PP_Com: 50037504
+SS_Com: 13056000
+----------------------------------------------
+
+P0
+MatMul_time: 4.2
+ReLU_time: 1.99
+MP_time: 1.37
+MP_ReLU_time: 1.28
+BN_time: 0
+Div_time: 0.01

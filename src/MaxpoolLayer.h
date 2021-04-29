@@ -21,7 +21,7 @@ public:
 	MaxpoolLayer(MaxpoolConfig* conf, int _layerNum);
 
 	//Functions
-	void printLayer() override;
+	void printLayer(std::string fn) override;
 	void forward(const RSSVectorMyType& inputActivation) override;
 	void computeDelta(RSSVectorMyType& prevDelta) override;
 	void updateEquations(const RSSVectorMyType& prevActivations) override;

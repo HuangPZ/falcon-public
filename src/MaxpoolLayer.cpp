@@ -20,7 +20,7 @@ MaxpoolLayer::MaxpoolLayer(MaxpoolConfig* conf, int _layerNum)
 {};
 
 
-void MaxpoolLayer::printLayer()
+void MaxpoolLayer::printLayer(std::string fn)
 {
 	cout << "----------------------------------------------" << endl;  	
 	cout << "(" << layerNum+1 << ") Maxpool Layer\t  " << conf.imageHeight << " x " << conf.imageWidth 
@@ -28,6 +28,15 @@ void MaxpoolLayer::printLayer()
 		 << conf.poolSize << "  \t\t(Pooling Size)" << endl << "\t\t\t  " 
 		 << conf.stride << " \t\t(Stride)" << endl << "\t\t\t  " 
 		 << conf.batchSize << "\t\t(Batch Size)" << endl;
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;  	
+	myfile << "(" << layerNum+1 << ") Maxpool Layer\t  " << conf.imageHeight << " x " << conf.imageWidth 
+		 << " x " << conf.features << endl << "\t\t\t  " 
+		 << conf.poolSize << "  \t\t(Pooling Size)" << endl << "\t\t\t  " 
+		 << conf.stride << " \t\t(Stride)" << endl << "\t\t\t  " 
+		 << conf.batchSize << "\t\t(Batch Size)" << endl;
+	myfile.close();
 }
 
 void MaxpoolLayer::forward(const RSSVectorMyType& inputActivation)

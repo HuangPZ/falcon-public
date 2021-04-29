@@ -13,10 +13,15 @@ ReLULayer::ReLULayer(ReLUConfig* conf, int _layerNum)
 {}
 
 
-void ReLULayer::printLayer()
+void ReLULayer::printLayer(std::string fn)
 {
 	cout << "----------------------------------------------" << endl;  	
 	cout << "(" << layerNum+1 << ") ReLU Layer\t\t  " << conf.batchSize << " x " << conf.inputDim << endl;
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;  	
+	myfile << "(" << layerNum+1 << ") ReLU Layer\t\t  " << conf.batchSize << " x " << conf.inputDim << endl;
+	myfile.close();
 }
 
 

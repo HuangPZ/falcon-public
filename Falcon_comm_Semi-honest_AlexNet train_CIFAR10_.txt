@@ -1,3 +1,27 @@
+----------------------------------------------
+Run details: 3PC (P1), 1 iterations, batch size 128
+Running Semi-honest AlexNet train on CIFAR10 dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 92567616
+ReLU_Com: 281573376
+MP_Com: 248930304
+MP_ReLU_Com: 214867968
+BN_Com: 5544960
+Div_Com: 1265664
+----------------------------------------------
+
+P2
+MatMul_time: 112.42
+ReLU_time: 8.25
+MP_time: 7.01
+MP_ReLU_time: 6.31
+BN_time: 0.04
+Div_time: 0.14
+----------------------------------------------
 
 P1
 MatMul_Com: 46283808
@@ -6,6 +30,17 @@ MP_Com: 248930304
 MP_ReLU_Com: 214867968
 BN_Com: 2821120
 Div_Com: 1216512
+----------------------------------------------
+
+P1
+MatMul_time: 113.82
+ReLU_time: 8.15
+MP_time: 6.9
+MP_ReLU_time: 6.25
+BN_time: 0.07
+Div_time: 0.12
+----------------------------------------------
+
 P0
 MatMul_Com: 46283808
 ReLU_Com: 281573376
@@ -13,3 +48,12 @@ MP_Com: 248930304
 MP_ReLU_Com: 214867968
 BN_Com: 2821120
 Div_Com: 1216512
+----------------------------------------------
+
+P0
+MatMul_time: 112.58
+ReLU_time: 8.28
+MP_time: 7.06
+MP_ReLU_time: 6.36
+BN_time: 0.05
+Div_time: 0.12

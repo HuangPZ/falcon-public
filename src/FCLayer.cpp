@@ -44,11 +44,17 @@ void FCLayer::initialize()
 }
 
 
-void FCLayer::printLayer()
+void FCLayer::printLayer(std::string fn)
 {
 	cout << "----------------------------------------------" << endl;  	
 	cout << "(" << layerNum+1 << ") FC Layer\t\t  " << conf.inputDim << " x " << conf.outputDim << endl << "\t\t\t  "
 		 << conf.batchSize << "\t\t (Batch Size)" << endl;
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;  	
+	myfile << "(" << layerNum+1 << ") FC Layer\t\t  " << conf.inputDim << " x " << conf.outputDim << endl << "\t\t\t  "
+		 << conf.batchSize << "\t\t (Batch Size)" << endl;
+	myfile.close();
 }
 
 

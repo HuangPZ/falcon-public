@@ -931,10 +931,14 @@ void readMiniBatch(NeuralNetwork* net, string phase)
 		testLabelsBatchCounter -= q;
 }
 
-void printNetwork(NeuralNetwork* net)
+void printNetwork(NeuralNetwork* net,string fn)
 {
 	for (int i = 0; i < net->layers.size(); ++i)
-		net->layers[i]->printLayer();
+		net->layers[i]->printLayer(fn);
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;
+	myfile.close();
 	cout << "----------------------------------------------" << endl;  	
 }
 
@@ -1357,7 +1361,7 @@ void start_m()
 
 void end_m(string str, string fn)
 {
-	end_time(str);
+	end_time(str,fn);
 	pause_communication();
 	aggregateCommunication(fn);
 	end_communication(str,fn);
@@ -1376,7 +1380,7 @@ void start_time()
 	alreadyMeasuringTime = true;
 }
 
-void end_time(string str)
+void end_time(string str, string fn)
 {
 	if (!alreadyMeasuringTime)
 	{
@@ -1389,6 +1393,14 @@ void end_time(string str)
 	cout << "Wall Clock time for " << str << ": " << diff(requestStart, requestEnd) << " sec\n";
 	cout << "CPU time for " << str << ": " << (double)(clock() - tStart)/CLOCKS_PER_SEC << " sec\n";
 	cout << "----------------------------------------------" << endl;	
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;
+	myfile << "Wall Clock time for " << str << ": " << diff(requestStart, requestEnd) << " sec\n";
+	myfile << "CPU time for " << str << ": " << (double)(clock() - tStart)/CLOCKS_PER_SEC << " sec\n";
+	myfile << "----------------------------------------------" << endl;
+	myfile.close();
+
 	alreadyMeasuringTime = false;
 }
 

@@ -7,7 +7,7 @@ using namespace std;
 
 extern void start_time();
 extern void start_communication();
-extern void end_time(string str);
+extern void end_time(string str, string fn);
 extern void end_communication(string str,string fn);
 
 

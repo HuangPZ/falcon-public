@@ -1,3 +1,29 @@
+----------------------------------------------
+Run details: 3PC (P2), 1 iterations, batch size 128
+Running Semi-honest SecureML train on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 739328
+ReLU_Com: 1430016
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 253440
+PP_Com: 1334784
+SS_Com: 170240
+----------------------------------------------
+
+P1
+MatMul_time: 0.11
+ReLU_time: 0.04
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0.01
+----------------------------------------------
 
 P2
 MatMul_Com: 1478656
@@ -6,13 +32,19 @@ MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
 Div_Com: 263680
-P1
-MatMul_Com: 739328
-ReLU_Com: 1430016
-MP_Com: 0
-MP_ReLU_Com: 0
-BN_Com: 0
-Div_Com: 253440
+PP_Com: 1334784
+SS_Com: 170240
+----------------------------------------------
+
+P2
+MatMul_time: 0.1
+ReLU_time: 0.05
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0.02
+----------------------------------------------
+
 P0
 MatMul_Com: 739328
 ReLU_Com: 1430016
@@ -20,3 +52,14 @@ MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
 Div_Com: 253440
+PP_Com: 1334784
+SS_Com: 170240
+----------------------------------------------
+
+P0
+MatMul_time: 0.11
+ReLU_time: 0.05
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0

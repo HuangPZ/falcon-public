@@ -16,16 +16,17 @@ AESObject* aes_next;
 AESObject* aes_prev;
 Precompute PrecomputeObject;
 
-extern int MatMul_Com,ReLU_Com,MP_Com,MP_ReLU_Com,Div_Com,BN_Com;
+extern int MatMul_Com,ReLU_Com,MP_Com,MP_ReLU_Com,Div_Com,BN_Com,PP_Com,SS_Com;
+extern int MatMul_time,ReLU_time,MP_time,MP_ReLU_time,Div_time,BN_time;
 extern CommunicationObject commObject;
 int main(int argc, char** argv)
 {
 	string Network_l[6]={"SecureML", "Sarda", "MiniONN", "LeNet", "AlexNet", "VGG16"};
-	string Dataset_l[3]={"MNIST", "CIFAR10", "ImageNet"};
+	string Dataset_l[3]={"MNIST", "CIFAR10", };//"ImageNet"};
 	string network, dataset, security;
 	security = "Semi-honest";
 	for (int networki = 0; networki < 6; networki++) {
-		for (int dataseti = 0; dataseti < 3; dataseti++){
+		for (int dataseti = 0; dataseti < 2; dataseti++){
 
 			network = Network_l[networki];
 			dataset = Dataset_l[dataseti];
@@ -38,9 +39,9 @@ int main(int argc, char** argv)
 			else if ((network=="AlexNet"||network=="VGG16")&&(dataset=="MNIST")){
 				continue;
 			}
-			else if (dataset=="MNIST"||(dataset=="CIFAR10")){
-				continue; //TODO: to be deleted
-			}
+			// else if (dataset=="MNIST"||(dataset=="CIFAR10")){
+			// 	continue; //TODO: to be deleted
+			// }
 			cout << network << dataset << security<< endl;
 
 		/****************************** PREPROCESSING ******************************/ 
@@ -115,7 +116,7 @@ int main(int argc, char** argv)
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
 			string filename1 = "Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
-			myfile.open (filename.c_str());
+			myfile.open (filename1.c_str());
 			myfile << endl;
 			myfile.close();	
 			end_m(network,filename1);
@@ -132,6 +133,8 @@ int main(int argc, char** argv)
 			// cout << "BN_Com: "<< BN_Com << endl;
 			// cout << "Div_Com: "<< Div_Com << endl;
 			myfile.open (filename.c_str(),fstream::app);
+			myfile << "----------------------------------------------" << endl << endl; 
+			
 			myfile << "P" << partyNum << endl;
 			myfile << "MatMul_Com: "<< MatMul_Com << endl;
 			myfile << "ReLU_Com: "<< ReLU_Com << endl;
@@ -139,6 +142,16 @@ int main(int argc, char** argv)
 			myfile << "MP_ReLU_Com: "<< MP_ReLU_Com << endl;
 			myfile << "BN_Com: "<< BN_Com << endl;
 			myfile << "Div_Com: "<< Div_Com << endl;
+			myfile << "PP_Com: "<< PP_Com << endl;
+			myfile << "SS_Com: "<< SS_Com << endl;
+			myfile << "----------------------------------------------" << endl << endl; 
+			myfile << "P" << partyNum << endl;
+			myfile << "MatMul_time: "<< (double)(MatMul_time)/CLOCKS_PER_SEC << endl;
+			myfile << "ReLU_time: "<< (double)(ReLU_time)/CLOCKS_PER_SEC << endl;
+			myfile << "MP_time: "<< (double)(MP_time)/CLOCKS_PER_SEC << endl;
+			myfile << "MP_ReLU_time: "<< (double)(MP_ReLU_time)/CLOCKS_PER_SEC << endl;
+			myfile << "BN_time: "<< (double)(BN_time)/CLOCKS_PER_SEC << endl;
+			myfile << "Div_time: "<< (double)(Div_time)/CLOCKS_PER_SEC << endl;
 
 
 
@@ -146,7 +159,7 @@ int main(int argc, char** argv)
 
 
 
-			printNetwork(net);
+			printNetwork(net,filename1);
 
 		/****************************** CLEAN-UP ******************************/ 
 			delete aes_indep;

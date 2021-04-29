@@ -36,7 +36,7 @@ void CNNLayer::initialize()
 }
 
 
-void CNNLayer::printLayer()
+void CNNLayer::printLayer(std::string fn)
 {
 	cout << "----------------------------------------------" << endl;  	
 	cout << "(" << layerNum+1 << ") CNN Layer\t\t  " << conf.imageHeight << " x " << conf.imageWidth 
@@ -47,6 +47,18 @@ void CNNLayer::printLayer()
 		 << (((conf.imageWidth - conf.filterSize + 2*conf.padding)/conf.stride) + 1) << " x " 
 		 << (((conf.imageHeight - conf.filterSize + 2*conf.padding)/conf.stride) + 1) << " x " 
 		 << conf.filters << " \t(Output)" << endl;
+	ofstream myfile;
+	myfile.open (fn.c_str(),fstream::app);
+	myfile << "----------------------------------------------" << endl;  	
+	myfile << "(" << layerNum+1 << ") CNN Layer\t\t  " << conf.imageHeight << " x " << conf.imageWidth 
+		 << " x " << conf.inputFeatures << endl << "\t\t\t  " 
+		 << conf.filterSize << " x " << conf.filterSize << "  \t(Filter Size)" << endl << "\t\t\t  " 
+		 << conf.stride << " , " << conf.padding << " \t(Stride, padding)" << endl << "\t\t\t  " 
+		 << conf.batchSize << "\t\t(Batch Size)" << endl << "\t\t\t  " 
+		 << (((conf.imageWidth - conf.filterSize + 2*conf.padding)/conf.stride) + 1) << " x " 
+		 << (((conf.imageHeight - conf.filterSize + 2*conf.padding)/conf.stride) + 1) << " x " 
+		 << conf.filters << " \t(Output)" << endl;
+	myfile.close();
 }
 
 void CNNLayer::forward(const RSSVectorMyType& inputActivation)

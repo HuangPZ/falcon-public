@@ -1,3 +1,9 @@
+----------------------------------------------
+Run details: 3PC (P0), 1 iterations, batch size 128
+Running Semi-honest LeNet train on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
 
 P2
 MatMul_Com: 41402176
@@ -6,6 +12,19 @@ MP_Com: 110223360
 MP_ReLU_Com: 100638720
 BN_Com: 0
 Div_Com: 1054720
+PP_Com: 114580224
+SS_Com: 30810880
+----------------------------------------------
+
+P2
+MatMul_time: 20.81
+ReLU_time: 4.4
+MP_time: 3.32
+MP_ReLU_time: 3.08
+BN_time: 0
+Div_time: 0.06
+----------------------------------------------
+
 P1
 MatMul_Com: 20701088
 ReLU_Com: 144754176
@@ -13,6 +32,19 @@ MP_Com: 110223360
 MP_ReLU_Com: 100638720
 BN_Com: 0
 Div_Com: 1013760
+PP_Com: 114580224
+SS_Com: 30810880
+----------------------------------------------
+
+P1
+MatMul_time: 21.11
+ReLU_time: 4.39
+MP_time: 3.24
+MP_ReLU_time: 3.05
+BN_time: 0
+Div_time: 0.04
+----------------------------------------------
+
 P0
 MatMul_Com: 20701088
 ReLU_Com: 144754176
@@ -20,3 +52,14 @@ MP_Com: 110223360
 MP_ReLU_Com: 100638720
 BN_Com: 0
 Div_Com: 1013760
+PP_Com: 114580224
+SS_Com: 30810880
+----------------------------------------------
+
+P0
+MatMul_time: 21.21
+ReLU_time: 4.48
+MP_time: 3.32
+MP_ReLU_time: 3.12
+BN_time: 0
+Div_time: 0.03

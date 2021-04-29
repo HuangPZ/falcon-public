@@ -683,10 +683,13 @@ int funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t size
 // a^transpose_a is rows*common_dim and b^transpose_b is common_dim*columns
 int MatMul_Com = 0;
 int *pt_MatMul_Com = &MatMul_Com;
+int MatMul_time = 0;
+int *pt_MatMul_time = &MatMul_time; 
 void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &c, 
 					size_t rows, size_t common_dim, size_t columns,
 				 	size_t transpose_a, size_t transpose_b, size_t truncation)
 {
+	int clock_begin = clock();
 	log_print("funcMatMul");
 	assert(a.size() == rows*common_dim && "Matrix a incorrect for Mat-Mul");
 	assert(b.size() == common_dim*columns && "Matrix b incorrect for Mat-Mul");
@@ -742,6 +745,7 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 			c[i].second = r[i].second + diffReconst[i];
 		}
 	}	
+	*pt_MatMul_time+=clock()-clock_begin;
 }
 
 
@@ -1133,11 +1137,14 @@ void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* re
 
 
 // Private Compare functionality
+int PP_Com = 0;
+int *pt_PP_Com = &PP_Com;
 int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &r, 
 							const RSSVectorSmallType &beta, vector<smallType> &betaPrime, 
 							size_t size)
 {
 	int sent;
+	int tempsent;
 	log_print("funcPrivateCompare");
 	assert(share_m.size() == size*BIT_SIZE && "Input error share_m");
 	assert(r.size() == size && "Input error r");
@@ -1174,7 +1181,9 @@ int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &
 
 		//"Single" threaded execution
 		threads[0] = thread(sendVector<smallType>, ref(temp3), prevParty(partyNum), size);
-		sent += sizeof(smallType)*size;
+		tempsent= sizeof(smallType)*size;
+		sent+=tempsent;
+		*pt_PP_Com+=tempsent;
 		threads[1] = thread(receiveVector<smallType>, ref(recv), nextParty(partyNum), size);
 
 		for (int i = 0; i < 2; i++)
@@ -1218,7 +1227,9 @@ int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &
 		}
 
 		//(-1)^beta * x[i] - r[i]
-		sent += funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
+		tempsent= funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
+		sent+=tempsent;
+		*pt_PP_Com+=tempsent;
 
 		for (int index2 = 0; index2 < size; ++index2)
 		{
@@ -1262,7 +1273,9 @@ int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &
 
 	//TODO 7 rounds of multiplication
 	// cout << "CM: \t\t" << funcTime(funcCrunchMultiply, c, betaPrime, size, dim) << endl;
-	sent+=funcCrunchMultiply(c, betaPrime, size);
+	tempsent=funcCrunchMultiply(c, betaPrime, size);
+	sent+=tempsent;
+	*pt_PP_Com+=tempsent;
 	return sent;	
 }
 
@@ -1346,6 +1359,8 @@ int funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 
 // Set c[i] = a[i] if b[i] = 0
 // Set c[i] = 0    if b[i] = 1
+int SS_Com = 0;
+int *pt_SS_Com = &SS_Com;
 void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b, 
 								RSSVectorMyType &selected, size_t size)
 {
@@ -1362,7 +1377,7 @@ void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b,
 		bXORc[i].second = c[i].second ^ b[i].second;
 	}
 
-	funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
+	*pt_SS_Com+=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
 
 	if (partyNum == PARTY_A)
 		for (int i = 0; i < size; ++i)
@@ -1388,7 +1403,7 @@ void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b,
 				m_c[i].second = (myType)1 - m_c[i].second;
 			}
 
-	funcDotProduct(a, m_c, selected, size, false, 0);
+	*pt_SS_Com+=funcDotProduct(a, m_c, selected, size, false, 0);
 }
 
 //Within each group of columns, select a0 or a1 depending on value of bit b into answer.
@@ -1399,6 +1414,7 @@ int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &
 						 size_t rows, size_t columns, size_t loopCounter)
 {
 	int sent=0;
+	int temp=0;
 	log_print("funcSelectBitShares");
 	size_t size = rows*columns;
 	assert(a0.size() == rows*columns && "a0 size incorrect");
@@ -1416,7 +1432,9 @@ int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &
 			tempXOR[i*columns+j] = a0[i*columns+j] ^
 								   a1[loopCounter*rows*columns+i*columns+j];
 
-	sent+=funcDotProductBits(tempXOR, bRepeated, answer, size);
+	temp=funcDotProductBits(tempXOR, bRepeated, answer, size);
+	sent+=temp;
+	*pt_SS_Com+=temp;
 
 	for (int i = 0; i < size; ++i)
 		answer[i] = answer[i] ^ a0[i];
@@ -1450,8 +1468,11 @@ int funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
 //Input is a, outputs are temp = ReLU'(a) and b = RELU(a).
 int ReLU_Com = 0;
 int *pt_ReLU_Com = &ReLU_Com;
+int ReLU_time = 0;
+int *pt_ReLU_time = &ReLU_time;
 int funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size)
 {
+	int clock_begin=clock();
 	int sent = 0;
 	int tempsent = 0;
 	log_print("funcRELU");
@@ -1506,6 +1527,7 @@ int funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType
 	tempsent=funcDotProduct(a, m_c, b, size, false, 0);
 	sent+=tempsent;
 	*pt_ReLU_Com+=tempsent;
+	*pt_ReLU_time+=clock()-clock_begin;
 	return sent;
 }
 
@@ -1547,11 +1569,12 @@ int funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size)
 //alpha is the order of divisiors, 2^alpha =< b < 2^{alpha+1}.
 int Div_Com = 0;
 int *pt_Div_Com = &Div_Com;
-int Div_ReLU_Com = 0;
-int *pt_Div_ReLU_Com = &Div_ReLU_Com;
+int Div_time = 0;
+int *pt_Div_time = &Div_time;
 void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
 							size_t size)
 {
+	int clock_begin=clock();
 	log_print("funcDivision");
 
 	//TODO incorporate funcPow
@@ -1586,16 +1609,20 @@ void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorM
 	// RSSVectorMyType scaledA(size);
 	// multiplyByScalar(a, (1 << (alpha + 1)), scaledA);
 	*pt_Div_Com+=funcDotProduct(answer, a, quotient, size, true, ((2*precision-FLOAT_PRECISION)));	
+	*pt_Div_time+=clock()-clock_begin;
 }
 
 // a is of size batchSize*B, b is of size B and quotient is a/b (b from each group).
 int BN_Com = 0;
 int *pt_BN_Com = &BN_Com;
+int BN_time = 0;
+int *pt_BN_time = &BN_time;
 // int BN_ReLU_Com = 0;
 // int *pt_BN_ReLU_Com = &BN_ReLU_Com;
 void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
 							size_t batchSize, size_t B)
 {
+	int clock_begin=clock();
 	int tempsent=0;
 	log_print("funcBatchNorm");
 	//TODO Scale up and complete this computation with higher fixed-point precision
@@ -1639,6 +1666,7 @@ void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVector
 		for (int j = 0; j < batchSize; ++j)
 			b_repeat[i*batchSize + j] = answer[i];
 	*pt_BN_Com+=funcDotProduct(b_repeat, a, quotient, batchSize*B, true, (2*precision-FLOAT_PRECISION)); //Convert to fixed precision
+	*pt_BN_time+=clock()-clock_begin;
 }
 
 //Chunk wise maximum of a vector of size rows*columns and maximum is caclulated of every 
@@ -1647,10 +1675,16 @@ int MP_Com = 0;
 int *pt_MP_Com = &MP_Com;
 int MP_ReLU_Com = 0;
 int *pt_MP_ReLU_Com = &MP_ReLU_Com;
+int MP_time = 0;
+int *pt_MP_time = &MP_time;
+int MP_ReLU_time = 0;
+int *pt_MP_ReLU_time = &MP_ReLU_time;
 void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &maxPrime,
 						 size_t rows, size_t columns)
 {
+	int clock_begin=clock();
 	int tempsent=0;
+	int clock_relu=clock();
 	log_print("funcMaxpool");
 	assert(columns < 256 && "Pooling size has to be smaller than 8-bits");
 
@@ -1674,8 +1708,9 @@ void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &m
 	{
 		for (size_t	j = 0; j < rows; ++j)
 			diff[j] = max[j] - a[j*columns + i];
-
+		clock_relu=clock();
 		tempsent = funcRELU(diff, rp, max, rows);
+		*pt_MP_ReLU_time+=clock()-clock_relu;
 		*pt_MP_Com+=tempsent;
 		*pt_MP_ReLU_Com+=tempsent;
 		*pt_MP_Com+=funcSelectBitShares(maxPrime, dmpIndexShares, rp, temp, rows, columns, i);
@@ -1687,6 +1722,7 @@ void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &m
 		for (size_t	j = 0; j < rows; ++j)
 			max[j] = max[j] + a[j*columns + i];
 	}
+	*pt_MP_time+=clock()-clock_begin;
 }
 
 
