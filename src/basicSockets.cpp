@@ -321,11 +321,13 @@ bool BmrNet::sendMsg(const void* data, int size, int conn){
 		// cout << "n " << n << " size " << size << endl;
 		n = Sockwrite(this->socketFd[conn], &((char*)data)[size - left], left);
 		// cout << "sockwrite called " << n << endl;
+		cout<<"left:"<<left<<" n:"<<n<<endl;
 		if (n < 0) {
 			cout << "ERROR writing to socket" << endl;
 			return false;
 		}
 		left -= n;
+		
 	}
 	commObject.incrementSent(size);
 

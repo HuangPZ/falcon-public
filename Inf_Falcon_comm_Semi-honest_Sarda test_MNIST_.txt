@@ -1,0 +1,101 @@
+----------------------------------------------
+Run details: 3PC (P2), 1 iterations, batch size 128
+Running Semi-honest Sarda test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 1.38854
+ReLU_Com: 7.23628
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 5.68572
+SS_Com: 0
+----------------------------------------------
+
+P2
+MatMul_time: 0.09
+ReLU_time: 0.25
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P2
+MatMul_rounds: 6
+ReLU_rounds: 50
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 0.694272
+ReLU_Com: 7.23628
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 5.68572
+SS_Com: 0
+----------------------------------------------
+
+P1
+MatMul_time: 0.09
+ReLU_time: 0.24
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P1
+MatMul_rounds: 6
+ReLU_rounds: 50
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P0
+MatMul_Com: 0.694272
+ReLU_Com: 7.23628
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 5.68572
+SS_Com: 0
+----------------------------------------------
+
+P0
+MatMul_time: 0.12
+ReLU_time: 0.21
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P0
+MatMul_rounds: 6
+ReLU_rounds: 50
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+

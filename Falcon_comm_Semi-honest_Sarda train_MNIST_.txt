@@ -1,44 +1,44 @@
 ----------------------------------------------
-Run details: 3PC (P2), 1 iterations, batch size 128
+Run details: 3PC (P1), 1 iterations, batch size 128
 Running Semi-honest Sarda train on MNIST dataset
 ----------------------------------------------
 
 ----------------------------------------------
 
-P1
-MatMul_Com: 2246448
-ReLU_Com: 7236096
+P2
+MatMul_Com: 4.4929
+ReLU_Com: 7.2361
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
-Div_Com: 506880
-PP_Com: 6107904
-SS_Com: 861440
+Div_Com: 0.52736
+PP_Com: 6.1079
+SS_Com: 0.86144
 ----------------------------------------------
 
-P1
-MatMul_time: 0.22
-ReLU_time: 0.25
+P2
+MatMul_time: 0.21
+ReLU_time: 0.22
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0
-Div_time: 0.01
+Div_time: 0.03
 ----------------------------------------------
 
-P2
-MatMul_Com: 4492896
-ReLU_Com: 7236096
+P1
+MatMul_Com: 2.24645
+ReLU_Com: 7.2361
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
-Div_Com: 527360
-PP_Com: 6107904
-SS_Com: 861440
+Div_Com: 0.50688
+PP_Com: 6.1079
+SS_Com: 0.86144
 ----------------------------------------------
 
-P2
-MatMul_time: 0.22
-ReLU_time: 0.24
+P1
+MatMul_time: 0.2
+ReLU_time: 0.23
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0
@@ -46,20 +46,20 @@ Div_time: 0.03
 ----------------------------------------------
 
 P0
-MatMul_Com: 2246448
-ReLU_Com: 7236096
+MatMul_Com: 2.24645
+ReLU_Com: 7.2361
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
-Div_Com: 506880
-PP_Com: 6107904
-SS_Com: 861440
+Div_Com: 0.50688
+PP_Com: 6.1079
+SS_Com: 0.86144
 ----------------------------------------------
 
 P0
-MatMul_time: 0.21
-ReLU_time: 0.26
+MatMul_time: 0.22
+ReLU_time: 0.23
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0
-Div_time: 0
+Div_time: 0.03

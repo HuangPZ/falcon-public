@@ -22,8 +22,15 @@ BmrNet ** communicationReceivers;
 //Communication measurements object
 extern CommunicationObject commObject;
 
+// extern float LAN_ping;
+// extern float LAN_Com;
+// extern float WAN_ping;
+// extern float WAN_Com;
 
-
+float LAN_ping = 0.0002;
+float LAN_Com = 625000;
+float WAN_ping = 0.07;
+float WAN_Com = 40000;
 
 //setting up communication
 void initCommunication(string addr, int port, int player, int mode)
@@ -186,6 +193,12 @@ void end_communication(string str,string fn)
 	cout << "Rounds, " << str << ", P" << partyNum << ": " 
 		 << commObject.getRoundsSent() << "(sends) " 
 		 << commObject.getRoundsRecv() << "(recvs)" << endl; 
+	cout << "WAN comm time: " 
+		 << (float)commObject.getRoundsSent()/WAN_Com +
+		  (float)commObject.getRoundsRecv()*WAN_ping  << endl; 
+	cout << "LAN comm time: " 
+		 << (float)commObject.getRoundsSent()/LAN_Com +
+		  (float)commObject.getRoundsRecv()*LAN_ping  << endl; 
 	cout << "----------------------------------------------" << endl;	
 	ofstream myfile;
 	myfile.open (fn.c_str(),fstream::app);
@@ -196,6 +209,12 @@ void end_communication(string str,string fn)
 	myfile << "Rounds, " << str << ", P" << partyNum << ": " 
 		 << commObject.getRoundsSent() << "(sends) " 
 		 << commObject.getRoundsRecv() << "(recvs)" << endl; 
+	myfile << "WAN comm time: " 
+		 << (float)commObject.getRoundsSent()/WAN_Com +
+		  (float)commObject.getRoundsRecv()*WAN_ping  << endl; 
+	myfile << "LAN comm time: " 
+		 << (float)commObject.getRoundsSent()/LAN_Com +
+		  (float)commObject.getRoundsRecv()*LAN_ping  << endl; 
 	myfile << "----------------------------------------------" << endl;
 	myfile.close();
 	commObject.reset();

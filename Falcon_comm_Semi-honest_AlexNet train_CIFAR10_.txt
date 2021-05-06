@@ -6,54 +6,60 @@ Running Semi-honest AlexNet train on CIFAR10 dataset
 ----------------------------------------------
 
 P2
-MatMul_Com: 92567616
-ReLU_Com: 281573376
-MP_Com: 248930304
-MP_ReLU_Com: 214867968
-BN_Com: 5544960
-Div_Com: 1265664
+MatMul_Com: 92.5676
+ReLU_Com: 281.573
+MP_Com: 248.93
+MP_ReLU_Com: 214.868
+BN_Com: 5.54496
+Div_Com: 1.26566
+PP_Com: 222.334
+SS_Com: 66.8867
 ----------------------------------------------
 
 P2
-MatMul_time: 112.42
-ReLU_time: 8.25
-MP_time: 7.01
-MP_ReLU_time: 6.31
-BN_time: 0.04
-Div_time: 0.14
-----------------------------------------------
-
-P1
-MatMul_Com: 46283808
-ReLU_Com: 281573376
-MP_Com: 248930304
-MP_ReLU_Com: 214867968
-BN_Com: 2821120
-Div_Com: 1216512
-----------------------------------------------
-
-P1
-MatMul_time: 113.82
-ReLU_time: 8.15
-MP_time: 6.9
-MP_ReLU_time: 6.25
-BN_time: 0.07
+MatMul_time: 90.48
+ReLU_time: 8.3
+MP_time: 7.02
+MP_ReLU_time: 6.34
+BN_time: 0.03
 Div_time: 0.12
 ----------------------------------------------
 
-P0
-MatMul_Com: 46283808
-ReLU_Com: 281573376
-MP_Com: 248930304
-MP_ReLU_Com: 214867968
-BN_Com: 2821120
-Div_Com: 1216512
+P1
+MatMul_Com: 46.2838
+ReLU_Com: 281.573
+MP_Com: 248.93
+MP_ReLU_Com: 214.868
+BN_Com: 2.82112
+Div_Com: 1.21651
+PP_Com: 222.334
+SS_Com: 66.8867
+----------------------------------------------
+
+P1
+MatMul_time: 90.95
+ReLU_time: 8.2
+MP_time: 6.89
+MP_ReLU_time: 6.26
+BN_time: 0.04
+Div_time: 0.13
 ----------------------------------------------
 
 P0
-MatMul_time: 112.58
-ReLU_time: 8.28
-MP_time: 7.06
-MP_ReLU_time: 6.36
-BN_time: 0.05
+MatMul_Com: 46.2838
+ReLU_Com: 281.573
+MP_Com: 248.93
+MP_ReLU_Com: 214.868
+BN_Com: 2.82112
+Div_Com: 1.21651
+PP_Com: 222.334
+SS_Com: 66.8867
+----------------------------------------------
+
+P0
+MatMul_time: 90.68
+ReLU_time: 8.32
+MP_time: 7.04
+MP_ReLU_time: 6.38
+BN_time: 0.04
 Div_time: 0.12

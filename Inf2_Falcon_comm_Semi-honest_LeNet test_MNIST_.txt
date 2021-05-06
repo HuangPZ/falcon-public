@@ -1,0 +1,101 @@
+----------------------------------------------
+Run details: 3PC (P2), 1 iterations, batch size 128
+Running Semi-honest LeNet test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 13.7912
+ReLU_Com: 5.25184
+MP_Com: 4.79232
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 2.39616
+----------------------------------------------
+
+P1
+MatMul_time: 5.88
+ReLU_time: 0.02
+MP_time: 0.07
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P1
+MatMul_rounds: 14
+ReLU_rounds: 13
+MP_rounds: 24
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 12
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 27.5825
+ReLU_Com: 0
+MP_Com: 2.39616
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 2.39616
+----------------------------------------------
+
+P2
+MatMul_time: 5.92
+ReLU_time: 0
+MP_time: 0.08
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P2
+MatMul_rounds: 14
+ReLU_rounds: 0
+MP_rounds: 12
+BN_rounds: 0
+----------------------------------------------
+Div_rounds: 0
+
+PP_rounds: 0
+P0
+SS_rounds: 12
+----------------------------------------------
+
+MatMul_Com: 13.7912
+ReLU_Com: 4.20147
+MP_Com: 11.9808
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 2.39616
+----------------------------------------------
+
+P0
+MatMul_time: 5.9
+ReLU_time: 0.01
+MP_time: 0.06
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P0
+MatMul_rounds: 14
+ReLU_rounds: 13
+MP_rounds: 24
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 12
+----------------------------------------------
+

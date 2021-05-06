@@ -23,21 +23,21 @@ int funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t size
 void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &c, 
 				size_t rows, size_t common_dim, size_t columns,
 			 	size_t transpose_a, size_t transpose_b, size_t truncation);
-int funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b, 
+int* funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b, 
 					   RSSVectorMyType &c, size_t size, bool truncation, size_t precision);
-int funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
+int* funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b, 
 							 RSSVectorSmallType &c, size_t size);
-int funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &r, 
+int* funcPrivateCompare(const RSSVectorSmallType &share_m, const vector<myType> &r, 
 							  const RSSVectorSmallType &beta, vector<smallType> &betaPrime, 
 							  size_t size);
-int funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size);
+int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size);
 void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b, RSSVectorMyType &selected, size_t size);
 int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &a1, 
 						 const RSSVectorSmallType &b, RSSVectorSmallType &answer, 
 						 size_t rows, size_t columns, size_t loopCounter);
-int funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size);
-int funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size);
-int funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size);
+int* funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size);
+int* funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size);
+int* funcPow(const RSSVectorMyType &b, vector<smallType> &alpha, size_t size);
 void funcDivision(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
 							size_t size);
 void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyType &quotient, 
@@ -45,6 +45,10 @@ void funcBatchNorm(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVector
 void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &maxPrime, 
 				size_t rows, size_t columns);
 void aggregateCommunication(std::string fn);
+template <typename T>
+void mask_Gen(T d, size_t size);
+template <typename T>
+void share_Gen(T d, size_t size);
 
 
 //Debug

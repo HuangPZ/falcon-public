@@ -5,15 +5,46 @@ Running Semi-honest SecureML train on MNIST dataset
 
 ----------------------------------------------
 
+P2
+MatMul_Com:     1.47866
+ReLU_Com:       1.43002
+MP_Com:         0
+MP_ReLU_Com:    0
+BN_Com:         0
+Div_Com:        0.26368
+PP_Com:         1.33478
+SS_Com:         0.17024
+----------------------------------------------
+
+P2
+MatMul_time:    0.11
+ReLU_time:      0.04
+MP_time:        0
+MP_ReLU_time:   0
+BN_time:        0
+Div_time:       0.01
+----------------------------------------------
+\begin{center}
+\begin{tabular}{ |c|l|l|l|l|l|l| }
+\hline
+        & SecureML      & Sarda         & MiniONN   & LeNet     & AlexNet       & VGG16 \\\hline
+ MatMul & 0.11          & 0.21          & 4.19      & 4.19      & 21.07         &       \\\hline
+ ReLU   & 0.04          & 0.22          & 1.92      & 1.92      & 4.36          &       \\\hline
+ MaxPool& 0             & 0             & 1.33      & 1.33      & 3.24          &       \\\hline
+ MP-ReLU& 0             & 0             & 1.25      & 1.25      & 3.03          &       \\\hline
+ BatchNm& 0             & 0             & 0         & 0         & 0             &       \\\hline
+ Div    & 0.01          & 0.03          & 0.05      & 0.05      & 0.06          &       \\\hline
+\end{tabular}
+\end{center}
 P1
-MatMul_Com: 739328
-ReLU_Com: 1430016
+MatMul_Com: 0.739328
+ReLU_Com: 1.43002
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
-Div_Com: 253440
-PP_Com: 1334784
-SS_Com: 170240
+Div_Com: 0.25344
+PP_Com: 1.33478
+SS_Com: 0.17024
 ----------------------------------------------
 
 P1
@@ -25,41 +56,21 @@ BN_time: 0
 Div_time: 0.01
 ----------------------------------------------
 
-P2
-MatMul_Com: 1478656
-ReLU_Com: 1430016
+P0
+MatMul_Com: 0.739328
+ReLU_Com: 1.43002
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
-Div_Com: 263680
-PP_Com: 1334784
-SS_Com: 170240
-----------------------------------------------
-
-P2
-MatMul_time: 0.1
-ReLU_time: 0.05
-MP_time: 0
-MP_ReLU_time: 0
-BN_time: 0
-Div_time: 0.02
+Div_Com: 0.25344
+PP_Com: 1.33478
+SS_Com: 0.17024
 ----------------------------------------------
 
 P0
-MatMul_Com: 739328
-ReLU_Com: 1430016
-MP_Com: 0
-MP_ReLU_Com: 0
-BN_Com: 0
-Div_Com: 253440
-PP_Com: 1334784
-SS_Com: 170240
-----------------------------------------------
-
-P0
-MatMul_time: 0.11
-ReLU_time: 0.05
+MatMul_time: 0.12
+ReLU_time: 0.04
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0
-Div_time: 0
+Div_time: 0.01

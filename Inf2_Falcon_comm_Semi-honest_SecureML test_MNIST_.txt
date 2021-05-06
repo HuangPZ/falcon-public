@@ -1,0 +1,101 @@
+----------------------------------------------
+Run details: 3PC (P0), 1 iterations, batch size 128
+Running Semi-honest SecureML test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 0.272384
+ReLU_Com: 0
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 0
+----------------------------------------------
+
+P2
+MatMul_time: 0.06
+ReLU_time: 0
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P2
+MatMul_rounds: 3
+ReLU_rounds: 0
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 0.136192
+ReLU_Com: 0.17024
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 0
+----------------------------------------------
+
+P1
+MatMul_time: 0.05
+ReLU_time: 0
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P1
+MatMul_rounds: 3
+ReLU_rounds: 3
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P0
+MatMul_Com: 0.136192
+ReLU_Com: 0.136192
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 0
+----------------------------------------------
+
+P0
+MatMul_time: 0.06
+ReLU_time: 0
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P0
+MatMul_rounds: 3
+ReLU_rounds: 3
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+

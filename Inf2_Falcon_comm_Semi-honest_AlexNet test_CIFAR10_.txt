@@ -1,0 +1,101 @@
+----------------------------------------------
+Run details: 3PC (P0), 1 iterations, batch size 128
+Running Semi-honest AlexNet test on CIFAR10 dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 43.4196
+ReLU_Com: 0
+MP_Com: 34.0623
+MP_ReLU_Com: 0
+BN_Com: 2.77284
+Div_Com: 0.212384
+PP_Com: 0.21335
+SS_Com: 34.0623
+----------------------------------------------
+
+P2
+MatMul_time: 25.99
+ReLU_time: 0.11
+MP_time: 0.73
+MP_ReLU_time: 0.08
+BN_time: 0.05
+Div_time: 0.05
+----------------------------------------------
+
+P2
+MatMul_rounds: 22
+ReLU_rounds: 0
+MP_rounds: 28
+BN_rounds: 96
+Div_rounds: 376
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 21.7098
+ReLU_Com: 33.5206
+MP_Com: 59.6419
+MP_ReLU_Com: 25.5795
+BN_Com: 1.41092
+Div_Com: 0.204192
+PP_Com: 0.21335
+SS_Com: 34.0623
+----------------------------------------------
+
+P1
+MatMul_time: 26.35
+ReLU_time: 0.12
+MP_time: 0.73
+MP_ReLU_time: 0.08
+BN_time: 0.03
+Div_time: 0.07
+----------------------------------------------
+
+P1
+MatMul_rounds: 22
+ReLU_rounds: 49
+MP_rounds: 56
+BN_rounds: 96
+Div_rounds: 376
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+----------------------------------------------
+
+P0
+MatMul_Com: 21.7098
+ReLU_Com: 26.8165
+MP_Com: 54.526
+MP_ReLU_Com: 20.4636
+BN_Com: 1.41092
+Div_Com: 0.204192
+PP_Com: 0.21335
+SS_Com: 34.0623
+----------------------------------------------
+
+P0
+MatMul_time: 25.95
+ReLU_time: 0.09
+MP_time: 0.72
+MP_ReLU_time: 0.07
+BN_time: 0.03
+Div_time: 0.07
+----------------------------------------------
+
+P0
+MatMul_rounds: 22
+ReLU_rounds: 49
+MP_rounds: 56
+BN_rounds: 96
+Div_rounds: 376
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+

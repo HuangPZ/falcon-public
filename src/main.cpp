@@ -10,13 +10,18 @@
 #include <fstream>
 
 
+
 int partyNum;
 AESObject* aes_indep;
 AESObject* aes_next;
 AESObject* aes_prev;
 Precompute PrecomputeObject;
-
+// extern float LAN_ping;
+// extern float LAN_Com;
+// extern float WAN_ping;
+// extern float WAN_Com;
 extern int MatMul_Com,ReLU_Com,MP_Com,MP_ReLU_Com,Div_Com,BN_Com,PP_Com,SS_Com;
+extern int MatMul_rounds,ReLU_rounds,MP_rounds,Div_rounds,BN_rounds,PP_rounds,SS_rounds;
 extern int MatMul_time,ReLU_time,MP_time,MP_ReLU_time,Div_time,BN_time;
 extern CommunicationObject commObject;
 int main(int argc, char** argv)
@@ -98,16 +103,16 @@ int main(int argc, char** argv)
 			// string what = "F";
 			// runOnly(net, l, what, network);
 
-			//Run training
-			network += " train";
-			train(net);
+			// //Run training
+			// network += " train";
+			// train(net);
 
 			//Run inference (possibly with preloading a network)
-			// network += " test";
-			// test(PRELOADING, network, net);
+			network += " test";
+			test(PRELOADING, network, net);
 			ofstream myfile;
 			string filename;
-			filename = "Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+".txt";
+			filename = "Inf2_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+".txt";
 			myfile.open (filename.c_str());
 			myfile << "----------------------------------------------" << endl;  	
 			myfile << "Run details: " << NUM_OF_PARTIES << "PC (P" << partyNum 
@@ -115,7 +120,7 @@ int main(int argc, char** argv)
 				<< "Running " << security << " " << network << " on " << dataset << " dataset" << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
-			string filename1 = "Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
+			string filename1 = "Inf2_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
 			myfile.open (filename1.c_str());
 			myfile << endl;
 			myfile.close();	
@@ -136,22 +141,33 @@ int main(int argc, char** argv)
 			myfile << "----------------------------------------------" << endl << endl; 
 			
 			myfile << "P" << partyNum << endl;
-			myfile << "MatMul_Com: "<< MatMul_Com << endl;
-			myfile << "ReLU_Com: "<< ReLU_Com << endl;
-			myfile << "MP_Com: "<< MP_Com << endl;
-			myfile << "MP_ReLU_Com: "<< MP_ReLU_Com << endl;
-			myfile << "BN_Com: "<< BN_Com << endl;
-			myfile << "Div_Com: "<< Div_Com << endl;
-			myfile << "PP_Com: "<< PP_Com << endl;
-			myfile << "SS_Com: "<< SS_Com << endl;
+			myfile << "MatMul_Com: "<< (float)(MatMul_Com)/1000000 << endl;
+			myfile << "ReLU_Com: "<< (float)(ReLU_Com)/1000000<<   endl;
+			myfile << "MP_Com: "<< (float)(MP_Com)/1000000 << endl;
+			myfile << "MP_ReLU_Com: "<< (float)(MP_ReLU_Com)/1000000 << endl;
+			myfile << "BN_Com: "<< (float)(BN_Com)/1000000 << endl;
+			myfile << "Div_Com: "<< (float)(Div_Com)/1000000 << endl;
+			myfile << "PP_Com: "<< (float)(PP_Com)/1000000 << endl;
+			myfile << "SS_Com: "<< (float)(SS_Com)/1000000 << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile << "P" << partyNum << endl;
-			myfile << "MatMul_time: "<< (double)(MatMul_time)/CLOCKS_PER_SEC << endl;
-			myfile << "ReLU_time: "<< (double)(ReLU_time)/CLOCKS_PER_SEC << endl;
-			myfile << "MP_time: "<< (double)(MP_time)/CLOCKS_PER_SEC << endl;
-			myfile << "MP_ReLU_time: "<< (double)(MP_ReLU_time)/CLOCKS_PER_SEC << endl;
-			myfile << "BN_time: "<< (double)(BN_time)/CLOCKS_PER_SEC << endl;
-			myfile << "Div_time: "<< (double)(Div_time)/CLOCKS_PER_SEC << endl;
+			myfile << "MatMul_time: "<< (float)(MatMul_time)/CLOCKS_PER_SEC << endl;
+			myfile << "ReLU_time: "<< (float)(ReLU_time)/CLOCKS_PER_SEC << endl;
+			myfile << "MP_time: "<< (float)(MP_time)/CLOCKS_PER_SEC << endl;
+			myfile << "MP_ReLU_time: "<< (float)(MP_ReLU_time)/CLOCKS_PER_SEC << endl;
+			myfile << "BN_time: "<< (float)(BN_time)/CLOCKS_PER_SEC << endl;
+			myfile << "Div_time: "<< (float)(Div_time)/CLOCKS_PER_SEC << endl;
+			myfile << "----------------------------------------------" << endl << endl; 
+			myfile << "P" << partyNum << endl;
+			myfile << "MatMul_rounds: "<< MatMul_rounds << endl;
+			myfile << "ReLU_rounds: "<< ReLU_rounds << endl;
+			myfile << "MP_rounds: "<< MP_rounds << endl;
+			myfile << "BN_rounds: "<< BN_rounds << endl;
+			myfile << "Div_rounds: "<< Div_rounds << endl;
+			myfile << "PP_rounds: "<< PP_rounds << endl;
+			myfile << "SS_rounds: "<< SS_rounds << endl;
+			myfile << "----------------------------------------------" << endl << endl; 
+
 
 
 

@@ -1,32 +1,23 @@
 
 ----------------------------------------------
-(1) CNN Layer		  33 x 33 x 3
-			  11 x 11  	(Filter Size)
-			  4 , 9 	(Stride, padding)
-			  128		(Batch Size)
-			  11 x 11 x 96 	(Output)
-----------------------------------------------
-Wall Clock time for AlexNet train: 75.5018 sec
-CPU time for AlexNet train: 75.23 sec
+Communication, AlexNet test, P2: 185.576MB (sent) 185.576MB (recv)
+Rounds, AlexNet test, P2: 803(sends) 803(recvs)
+WAN comm time: 56.2301
+LAN comm time: 0.161885
 ----------------------------------------------
 ----------------------------------------------
-(2) Maxpool Layer	  11 x 11 x 96
-			  3  		(Pooling Size)
-			  2 		(Stride)
-			  128		(Batch Size)
-----------------------------------------------
-Communication, AlexNet train, P1: 209.679MB (sent) 209.679MB (recv)
-Rounds, AlexNet train, P1: 907(sends) 907(recvs)
+Wall Clock time for AlexNet test: 20.5743 sec
+CPU time for AlexNet test: 20.46 sec
 ----------------------------------------------
 ----------------------------------------------
-(3) ReLU Layer		  2400 x 128
-----------------------------------------------
-Total communication: 665.514MB (sent) and 665.514MB (recv)
-Total calls: 2792 (sends) and 2792 (recvs)
+Wall Clock time for AlexNet test: 20.5739 sec
+CPU time for AlexNet test: 20.51 sec
 ----------------------------------------------
 ----------------------------------------------
-Communication, AlexNet train, P0: 209.679MB (sent) 209.679MB (recv)
-Rounds, AlexNet train, P0: 907(sends) 907(recvs)
+Communication, AlexNet test, P1: 173.564MB (sent) 173.564MB (recv)
+Rounds, AlexNet test, P1: 761(sends) 761(recvs)
+WAN comm time: 53.289
+LAN comm time: 0.153418
 ----------------------------------------------
 ----------------------------------------------
 (1) CNN Layer		  33 x 33 x 3
@@ -35,12 +26,16 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  128		(Batch Size)
 			  11 x 11 x 96 	(Output)
 ----------------------------------------------
-(4) BN Layer		  2400 x 128
+Total communication: 532.704MB (sent) and 532.704MB (recv)
+Total calls: 2325 (sends) and 2325 (recvs)
 ----------------------------------------------
-(2) Maxpool Layer	  11 x 11 x 96
-			  3  		(Pooling Size)
-			  2 		(Stride)
-			  128		(Batch Size)
+0000000
+----------------------------------------------
+Communication, AlexNet test, P0: 173.564MB (sent) 173.564MB (recv)
+Rounds, AlexNet test, P0: 761(sends) 761(recvs)
+WAN comm time: 53.289
+LAN comm time: 0.153418
+----------------------------------------------
 ----------------------------------------------
 (1) CNN Layer		  33 x 33 x 3
 			  11 x 11  	(Filter Size)
@@ -48,11 +43,24 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  128		(Batch Size)
 			  11 x 11 x 96 	(Output)
 ----------------------------------------------
-(5) CNN Layer		  5 x 5 x 96
-			  5 x 5  	(Filter Size)
-			  1 , 1 	(Stride, padding)
+(2) Maxpool Layer	  11 x 11 x 96
+			  3  		(Pooling Size)
+			  2 		(Stride)
 			  128		(Batch Size)
-			  3 x 3 x 256 	(Output)
+0000000
+----------------------------------------------
+(1) CNN Layer		  33 x 33 x 3
+			  11 x 11  	(Filter Size)
+			  4 , 9 	(Stride, padding)
+			  128		(Batch Size)
+			  11 x 11 x 96 	(Output)
+1111111
+----------------------------------------------
+(2) Maxpool Layer	  11 x 11 x 96
+			  3  		(Pooling Size)
+			  2 		(Stride)
+			  128		(Batch Size)
+0000000
 ----------------------------------------------
 (3) ReLU Layer		  2400 x 128
 ----------------------------------------------
@@ -60,32 +68,24 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  3  		(Pooling Size)
 			  2 		(Stride)
 			  128		(Batch Size)
+1111111
+2222222
 ----------------------------------------------
-(6) Maxpool Layer	  3 x 3 x 256
-			  3  		(Pooling Size)
-			  2 		(Stride)
-			  128		(Batch Size)
+(3) ReLU Layer		  2400 x 128
+1111111
 ----------------------------------------------
 (4) BN Layer		  2400 x 128
+2222222
 ----------------------------------------------
 (3) ReLU Layer		  2400 x 128
 ----------------------------------------------
-(7) ReLU Layer		  256 x 128
-----------------------------------------------
-(5) CNN Layer		  5 x 5 x 96
-			  5 x 5  	(Filter Size)
-			  1 , 1 	(Stride, padding)
-			  128		(Batch Size)
-			  3 x 3 x 256 	(Output)
+(4) BN Layer		  2400 x 128
+2222222
+3333333
 ----------------------------------------------
 (4) BN Layer		  2400 x 128
-----------------------------------------------
-(8) BN Layer		  256 x 128
-----------------------------------------------
-(6) Maxpool Layer	  3 x 3 x 256
-			  3  		(Pooling Size)
-			  2 		(Stride)
-			  128		(Batch Size)
+3333333
+3333333
 ----------------------------------------------
 (5) CNN Layer		  5 x 5 x 96
 			  5 x 5  	(Filter Size)
@@ -93,40 +93,70 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  128		(Batch Size)
 			  3 x 3 x 256 	(Output)
 ----------------------------------------------
-(7) ReLU Layer		  256 x 128
+(5) CNN Layer		  5 x 5 x 96
+			  5 x 5  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  3 x 3 x 256 	(Output)
+4444444
 ----------------------------------------------
+(5) CNN Layer		  5 x 5 x 96
+			  5 x 5  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  3 x 3 x 256 	(Output)
+4444444
 ----------------------------------------------
 (6) Maxpool Layer	  3 x 3 x 256
-(9) CNN Layer		  1 x 1 x 256
 			  3  		(Pooling Size)
-			  3 x 3  	(Filter Size)
 			  2 		(Stride)
-			  1 , 1 	(Stride, padding)
 			  128		(Batch Size)
-			  128		(Batch Size)
-			  1 x 1 x 384 	(Output)
 ----------------------------------------------
-(8) BN Layer		  256 x 128
+(6) Maxpool Layer	  3 x 3 x 256
+			  3  		(Pooling Size)
+			  2 		(Stride)
+			  128		(Batch Size)
+4444444
+5555555
+----------------------------------------------
+(6) Maxpool Layer	  3 x 3 x 256
+			  3  		(Pooling Size)
+			  2 		(Stride)
+			  128		(Batch Size)
+5555555
 ----------------------------------------------
 (7) ReLU Layer		  256 x 128
 ----------------------------------------------
-(10) ReLU Layer		  384 x 128
+(7) ReLU Layer		  256 x 128
+5555555
+6666666
+6666666
 ----------------------------------------------
-(9) CNN Layer		  1 x 1 x 256
-			  3 x 3  	(Filter Size)
-			  1 , 1 	(Stride, padding)
-			  128		(Batch Size)
-			  1 x 1 x 384 	(Output)
+----------------------------------------------
+(7) ReLU Layer		  256 x 128
+(8) BN Layer		  256 x 128
+6666666
+7777777
 ----------------------------------------------
 (8) BN Layer		  256 x 128
 ----------------------------------------------
-(11) CNN Layer		  1 x 1 x 384
+(9) CNN Layer		  1 x 1 x 256
 			  3 x 3  	(Filter Size)
 			  1 , 1 	(Stride, padding)
 			  128		(Batch Size)
 			  1 x 1 x 384 	(Output)
+7777777
 ----------------------------------------------
-(10) ReLU Layer		  384 x 128
+(8) BN Layer		  256 x 128
+8888888
+----------------------------------------------
+(9) CNN Layer		  1 x 1 x 256
+			  3 x 3  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  1 x 1 x 384 	(Output)
+7777777
+8888888
 ----------------------------------------------
 (9) CNN Layer		  1 x 1 x 256
 			  3 x 3  	(Filter Size)
@@ -134,23 +164,28 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  128		(Batch Size)
 			  1 x 1 x 384 	(Output)
 ----------------------------------------------
-(12) ReLU Layer		  384 x 128
+(10) ReLU Layer		  384 x 128
 ----------------------------------------------
-(11) CNN Layer		  1 x 1 x 384
-			  3 x 3  	(Filter Size)
-			  1 , 1 	(Stride, padding)
-			  128		(Batch Size)
-			  1 x 1 x 384 	(Output)
+(10) ReLU Layer		  384 x 128
+8888888
+9999999
+9999999
 ----------------------------------------------
 (10) ReLU Layer		  384 x 128
 ----------------------------------------------
-(13) CNN Layer		  1 x 1 x 384
+(11) CNN Layer		  1 x 1 x 384
 			  3 x 3  	(Filter Size)
 			  1 , 1 	(Stride, padding)
 			  128		(Batch Size)
-			  1 x 1 x 256 	(Output)
+			  1 x 1 x 384 	(Output)
 ----------------------------------------------
-(12) ReLU Layer		  384 x 128
+(11) CNN Layer		  1 x 1 x 384
+			  3 x 3  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  1 x 1 x 384 	(Output)
+9999999
+10101010101010
 ----------------------------------------------
 (11) CNN Layer		  1 x 1 x 384
 			  3 x 3  	(Filter Size)
@@ -158,70 +193,109 @@ Rounds, AlexNet train, P0: 907(sends) 907(recvs)
 			  128		(Batch Size)
 			  1 x 1 x 384 	(Output)
 ----------------------------------------------
-(14) ReLU Layer		  256 x 128
-----------------------------------------------
-(13) CNN Layer		  1 x 1 x 384
-			  3 x 3  	(Filter Size)
-			  1 , 1 	(Stride, padding)
-			  128		(Batch Size)
-			  1 x 1 x 256 	(Output)
+(12) ReLU Layer		  384 x 128
+10101010101010
 ----------------------------------------------
 (12) ReLU Layer		  384 x 128
-----------------------------------------------
-(15) FC Layer		  256 x 256
-			  128		 (Batch Size)
-----------------------------------------------
-(14) ReLU Layer		  256 x 128
+11111111111111
+11111111111111
 ----------------------------------------------
 (13) CNN Layer		  1 x 1 x 384
 			  3 x 3  	(Filter Size)
 			  1 , 1 	(Stride, padding)
 			  128		(Batch Size)
 			  1 x 1 x 256 	(Output)
+10101010101010
 ----------------------------------------------
-(15) FC Layer		  256 x 256
+(13) CNN Layer		  1 x 1 x 384
+			  3 x 3  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  1 x 1 x 256 	(Output)
+12121212121212
 ----------------------------------------------
-			  128		 (Batch Size)
-(16) ReLU Layer		  256 x 128
+(12) ReLU Layer		  384 x 128
+12121212121212
 ----------------------------------------------
 (14) ReLU Layer		  256 x 128
 ----------------------------------------------
-(16) ReLU Layer		  256 x 128
+(14) ReLU Layer		  256 x 128
+11111111111111
+13131313131313
+----------------------------------------------
+(13) CNN Layer		  1 x 1 x 384
+			  3 x 3  	(Filter Size)
+			  1 , 1 	(Stride, padding)
+			  128		(Batch Size)
+			  1 x 1 x 256 	(Output)
+13131313131313
+12121212121212
 ----------------------------------------------
 (15) FC Layer		  256 x 256
 			  128		 (Batch Size)
 ----------------------------------------------
-(17) FC Layer		  256 x 256
+(14) ReLU Layer		  256 x 128
+14141414141414
+13131313131313
+----------------------------------------------
+(15) FC Layer		  256 x 256
 			  128		 (Batch Size)
+----------------------------------------------
+(16) ReLU Layer		  256 x 128
+----------------------------------------------
+(15) FC Layer		  256 x 256
+			  128		 (Batch Size)
+14141414141414
+15151515151515
+14141414141414
 ----------------------------------------------
 (17) FC Layer		  256 x 256
 			  128		 (Batch Size)
 ----------------------------------------------
 (16) ReLU Layer		  256 x 128
 ----------------------------------------------
-(18) ReLU Layer		  256 x 128
+(16) ReLU Layer		  256 x 128
+16161616161616
+15151515151515
+15151515151515
 ----------------------------------------------
 (18) ReLU Layer		  256 x 128
 ----------------------------------------------
 (17) FC Layer		  256 x 256
 			  128		 (Batch Size)
 ----------------------------------------------
-(19) FC Layer		  256 x 10
+(17) FC Layer		  256 x 256
 			  128		 (Batch Size)
+16161616161616
+17171717171717
 ----------------------------------------------
-----------------------------------------------
-(19) FC Layer		  256 x 10
 (18) ReLU Layer		  256 x 128
+----------------------------------------------
+(19) FC Layer		  256 x 10
+			  128		 (Batch Size)
+16161616161616
+17171717171717
+18181818181818
+----------------------------------------------
+(19) FC Layer		  256 x 10
 			  128		 (Batch Size)
 ----------------------------------------------
+(18) ReLU Layer		  256 x 128
+----------------------------------------------
 (20) ReLU Layer		  10 x 128
+18181818181818
+17171717171717
+19191919191919
 ----------------------------------------------
 (19) FC Layer		  256 x 10
 			  128		 (Batch Size)
 ----------------------------------------------
 ----------------------------------------------
 (20) ReLU Layer		  10 x 128
+18181818181818
 ----------------------------------------------
 (20) ReLU Layer		  10 x 128
+19191919191919
+19191919191919
 ----------------------------------------------
 ----------------------------------------------

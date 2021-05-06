@@ -1,27 +1,37 @@
 
 ----------------------------------------------
-Wall Clock time for Sarda train: 0.3304 sec
-CPU time for Sarda train: 0.32 sec
+Wall Clock time for Sarda test: 0.233242 sec
+CPU time for Sarda test: 0.24 sec
 ----------------------------------------------
 ----------------------------------------------
-Wall Clock time for Sarda train: 0.327716 sec
-CPU time for Sarda train: 0.31 sec
+Wall Clock time for Sarda test: 0.232958 sec
+CPU time for Sarda test: 0.23 sec
 ----------------------------------------------
 ----------------------------------------------
-Wall Clock time for Sarda train: 0.329003 sec
-CPU time for Sarda train: 0.31 sec
+Wall Clock time for Sarda test: 0.233337 sec
+CPU time for Sarda test: 0.24 sec
 ----------------------------------------------
 ----------------------------------------------
-Communication, Sarda train, P2: 9.7859MB (sent) 9.7859MB (recv)
-Rounds, Sarda train, P2: 94(sends) 94(recvs)
 ----------------------------------------------
 ----------------------------------------------
-Communication, Sarda train, P1: 8.26342MB (sent) 8.26342MB (recv)
-Rounds, Sarda train, P1: 83(sends) 83(recvs)
+Communication, Sarda test, P2: 6.92736MB (sent) 6.92736MB (recv)
+Communication, Sarda test, P1: 6.36928MB (sent) 6.36928MB (recv)
+Rounds, Sarda test, P2: 27(sends) 27(recvs)
+Total communication: 19.6659MB (sent) and 19.6659MB (recv)
+Total calls: 75 (sends) and 75 (recvs)
+WAN comm time: 1.89067
+----------------------------------------------
+Rounds, Sarda test, P1: 24(sends) 24(recvs)
+LAN comm time: 0.0054432
+----------------------------------------------
+WAN comm time: 1.6806
+LAN comm time: 0.0048384
 ----------------------------------------------
 ----------------------------------------------
-Total communication: 26.3127MB (sent) and 26.3127MB (recv)
-Total calls: 260 (sends) and 260 (recvs)
+Communication, Sarda test, P0: 6.36928MB (sent) 6.36928MB (recv)
+Rounds, Sarda test, P0: 24(sends) 24(recvs)
+WAN comm time: 1.6806
+LAN comm time: 0.0048384
 ----------------------------------------------
 ----------------------------------------------
 (1) CNN Layer		  28 x 28 x 1
@@ -30,51 +40,62 @@ Total calls: 260 (sends) and 260 (recvs)
 			  128		(Batch Size)
 			  14 x 14 x 5 	(Output)
 ----------------------------------------------
-Communication, Sarda train, P0: 8.26342MB (sent) 8.26342MB (recv)
-Rounds, Sarda train, P0: 83(sends) 83(recvs)
-----------------------------------------------
+(1) CNN Layer		  28 x 28 x 1
+			  2 x 2  	(Filter Size)
+			  2 , 0 	(Stride, padding)
+			  128		(Batch Size)
+			  14 x 14 x 5 	(Output)
+0000000
 ----------------------------------------------
 (1) CNN Layer		  28 x 28 x 1
 			  2 x 2  	(Filter Size)
 			  2 , 0 	(Stride, padding)
 			  128		(Batch Size)
 			  14 x 14 x 5 	(Output)
+0000000
 ----------------------------------------------
 (2) ReLU Layer		  980 x 128
+0000000
 ----------------------------------------------
+(2) ReLU Layer		  980 x 128
+1111111
+----------------------------------------------
+1111111
 (2) ReLU Layer		  980 x 128
 ----------------------------------------------
 (3) FC Layer		  980 x 100
 			  128		 (Batch Size)
 ----------------------------------------------
-(1) CNN Layer		  28 x 28 x 1
-			  2 x 2  	(Filter Size)
-			  2 , 0 	(Stride, padding)
-			  128		(Batch Size)
-			  14 x 14 x 5 	(Output)
+(3) FC Layer		  980 x 100
+			  128		 (Batch Size)
+1111111
+2222222
+2222222
 ----------------------------------------------
 (3) FC Layer		  980 x 100
 			  128		 (Batch Size)
 ----------------------------------------------
 (4) ReLU Layer		  100 x 128
 ----------------------------------------------
-(2) ReLU Layer		  980 x 128
+(4) ReLU Layer		  100 x 128
+2222222
+3333333
+3333333
 ----------------------------------------------
 (4) ReLU Layer		  100 x 128
 ----------------------------------------------
 (5) FC Layer		  100 x 10
 			  128		 (Batch Size)
 ----------------------------------------------
-(3) FC Layer		  980 x 100
+(5) FC Layer		  100 x 10
 			  128		 (Batch Size)
+3333333
+4444444
 ----------------------------------------------
 (5) FC Layer		  100 x 10
 			  128		 (Batch Size)
+4444444
 ----------------------------------------------
 ----------------------------------------------
-(4) ReLU Layer		  100 x 128
-----------------------------------------------
-----------------------------------------------
-(5) FC Layer		  100 x 10
-			  128		 (Batch Size)
+4444444
 ----------------------------------------------

@@ -19,7 +19,6 @@ extern BmrNet ** communicationReceivers;
 extern int partyNum;
 
 
-
 //setting up communication
 void initCommunication(string addr, int port, int player, int mode);
 void initializeCommunication(int* ports);
