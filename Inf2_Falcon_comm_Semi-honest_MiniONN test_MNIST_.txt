@@ -1,14 +1,14 @@
 ----------------------------------------------
-Run details: 3PC (P0), 1 iterations, batch size 128
+Run details: 3PC (P1), 1 iterations, batch size 128
 Running Semi-honest MiniONN test on MNIST dataset
 ----------------------------------------------
 
 ----------------------------------------------
 
-P0
-MatMul_Com: 5.99347
-ReLU_Com: 2.05619
-MP_Com: 4.9152
+P2
+MatMul_Com: 11.9869
+ReLU_Com: 0
+MP_Com: 0.98304
 MP_ReLU_Com: 0
 BN_Com: 0
 Div_Com: 0
@@ -16,18 +16,82 @@ PP_Com: 0
 SS_Com: 0.98304
 ----------------------------------------------
 
-P0
-MatMul_time: 1.35
-ReLU_time: 0
-MP_time: 0.03
+P2
+MatMul_time: 0.441885
+ReLU_time: 0.002536
+MP_time: 0.021953
 MP_ReLU_time: 0
 BN_time: 0
-Div_time: 0
 ----------------------------------------------
+Div_time: 0
 
-P0
+----------------------------------------------
+P1
+
+P2
+MatMul_Com: 5.99347
 MatMul_rounds: 10
+ReLU_rounds: 0
+ReLU_Com: 2.57024
+MP_rounds: 6
+BN_rounds: 0
+MP_Com: 1.96608
+Div_rounds: 0
+MP_ReLU_Com: 0
+PP_rounds: 0
+----------------------------------------------
+BN_Com: 0
+SS_rounds: 6
+
+Div_Com: 0
+----------------------------------------------
+P0
+PP_Com: 0
+
+MatMul_Com: 5.99347
+SS_Com: 0.98304
+ReLU_Com: 2.05619
+----------------------------------------------
+MP_Com: 4.9152
+
+MP_ReLU_Com: 0
+P1
+BN_Com: 0
+MatMul_time: 0.709213
+Div_Com: 0
+ReLU_time: 0.004869
+PP_Com: 0
+MP_time: 0.027851
+SS_Com: 0.98304
+MP_ReLU_time: 0
+----------------------------------------------
+BN_time: 0
+
+Div_time: 0
+P0
+----------------------------------------------
+MatMul_time: 0.538119
+
+ReLU_time: 0.005098
+P1
+MP_time: 0.027665
+MatMul_rounds: 10
+MP_ReLU_time: 0
 ReLU_rounds: 9
+BN_time: 0
+MP_rounds: 12
+Div_time: 0
+BN_rounds: 0
+----------------------------------------------
+Div_rounds: 0
+
+PP_rounds: 0
+P0
+SS_rounds: 6
+MatMul_rounds: 10
+----------------------------------------------
+ReLU_rounds: 9
+
 MP_rounds: 12
 BN_rounds: 0
 Div_rounds: 0

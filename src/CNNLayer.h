@@ -7,7 +7,7 @@
 #include "globals.h"
 using namespace std;
 
-
+// extern void log_print(string str);
 class CNNLayer : public Layer
 {
 private:

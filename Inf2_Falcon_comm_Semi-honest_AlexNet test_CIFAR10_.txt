@@ -3,99 +3,94 @@ Run details: 3PC (P0), 1 iterations, batch size 128
 Running Semi-honest AlexNet test on CIFAR10 dataset
 ----------------------------------------------
 
-----------------------------------------------
-
-P2
-MatMul_Com: 43.4196
-ReLU_Com: 0
-MP_Com: 34.0623
+P_Com: 5.1159
 MP_ReLU_Com: 0
-BN_Com: 2.77284
-Div_Com: 0.212384
-PP_Com: 0.21335
-SS_Com: 34.0623
+BN_Com: 2.72512
+Div_Com: 0.021504
+PP_Com: 0
 ----------------------------------------------
+SS_Com: 5.1159
+
+----------------------------------------------
+P1
 
 P2
-MatMul_time: 25.99
-ReLU_time: 0.11
-MP_time: 0.73
-MP_ReLU_time: 0.08
-BN_time: 0.05
-Div_time: 0.05
+MatMul_Com: 21.7098
+MatMul_time: 8.30683
+ReLU_Com: 7.94112
+ReLU_time: 0.007474
+MP_Com: 10.2318
+MP_time: 0.135585
+MP_ReLU_Com: 0
+MP_ReLU_time: 0
+BN_Com: 1.36448
+BN_time: 0.01166
+Div_Com: 0.018432
+Div_time: 0.003822
+PP_Com: 0
 ----------------------------------------------
+SS_Com: 5.1159
 
+----------------------------------------------
 P2
+
 MatMul_rounds: 22
+P1
 ReLU_rounds: 0
+MatMul_time: 7.63156
 MP_rounds: 28
-BN_rounds: 96
-Div_rounds: 376
+ReLU_time: 0.01582
+BN_rounds: 16
+MP_time: 0.16056
+Div_rounds: 56
+MP_ReLU_time: 0
 PP_rounds: 0
-SS_rounds: 0
+BN_time: 0.009772
+SS_rounds: 28
+Div_time: 0.004129
+----------------------------------------------
 ----------------------------------------------
 
-----------------------------------------------
-
-P1
-MatMul_Com: 21.7098
-ReLU_Com: 33.5206
-MP_Com: 59.6419
-MP_ReLU_Com: 25.5795
-BN_Com: 1.41092
-Div_Com: 0.204192
-PP_Com: 0.21335
-SS_Com: 34.0623
-----------------------------------------------
-
-P1
-MatMul_time: 26.35
-ReLU_time: 0.12
-MP_time: 0.73
-MP_ReLU_time: 0.08
-BN_time: 0.03
-Div_time: 0.07
-----------------------------------------------
 
 P1
 MatMul_rounds: 22
-ReLU_rounds: 49
+ReLU_rounds: 21
 MP_rounds: 56
-BN_rounds: 96
-Div_rounds: 376
+BN_rounds: 26
+Div_rounds: 96
 PP_rounds: 0
-SS_rounds: 0
+SS_rounds: 28
 ----------------------------------------------
 
 ----------------------------------------------
 
 P0
 MatMul_Com: 21.7098
-ReLU_Com: 26.8165
-MP_Com: 54.526
-MP_ReLU_Com: 20.4636
-BN_Com: 1.41092
-Div_Com: 0.204192
-PP_Com: 0.21335
-SS_Com: 34.0623
+ReLU_Com: 6.3529
+MP_Com: 25.5795
+MP_ReLU_Com: 0
+BN_Com: 1.36832
+Div_Com: 0.033792
+PP_Com: 0
+SS_Com: 5.1159
 ----------------------------------------------
 
 P0
-MatMul_time: 25.95
-ReLU_time: 0.09
-MP_time: 0.72
-MP_ReLU_time: 0.07
-BN_time: 0.03
-Div_time: 0.07
+MatMul_time: 7.84811
+ReLU_time: 0.014614
+MP_time: 0.158441
+MP_ReLU_time: 0
+BN_time: 0.009972
+Div_time: 0.004546
 ----------------------------------------------
 
 P0
 MatMul_rounds: 22
-ReLU_rounds: 49
+ReLU_rounds: 21
 MP_rounds: 56
-BN_rounds: 96
-Div_rounds: 376
+BN_rounds: 26
+Div_rounds: 96
 PP_rounds: 0
-SS_rounds: 0
+SS_rounds: 28
 ----------------------------------------------
 

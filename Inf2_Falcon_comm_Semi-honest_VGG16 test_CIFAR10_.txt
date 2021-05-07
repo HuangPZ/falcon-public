@@ -5,97 +5,65 @@ Running Semi-honest VGG16 test on CIFAR10 dataset
 
 ----------------------------------------------
 
-P2
-MatMul_Com: 335.948
-ReLU_Com: 0
-MP_Com: 82.0347
+P1
+MatMul_Com: 167.974
+ReLU_Com: 130.806
+MP_Com: 34.218
 MP_ReLU_Com: 0
-BN_Com: 2.77284
-Div_Com: 0.212384
-PP_Com: 0.21335
-SS_Com: 82.0347
-----------------------------------------------
-
-P2
-MatMul_time: 1158.61
-ReLU_time: 0.65
-MP_time: 1.98
-MP_ReLU_time: 0.25
-BN_time: 0.05
-Div_time: 0.05
-----------------------------------------------
-
-P2
-MatMul_rounds: 38
-ReLU_rounds: 0
-MP_rounds: 43
-BN_rounds: 96
-Div_rounds: 376
-PP_rounds: 0
-SS_rounds: 0
+BN_Com: 1.36448
+Div_Com: 0.018432
+PP_Com: 0
+SS_Com: 17.109
 ----------------------------------------------
 
 ----------------------------------------------
-
 P1
+
+MatMul_time: 462.825
+P0
+ReLU_time: 0.50758
 MatMul_Com: 167.974
-ReLU_Com: 216.351
-MP_Com: 167.58
-MP_ReLU_Com: 85.545
-BN_Com: 1.41092
-Div_Com: 0.204192
-PP_Com: 0.21335
-SS_Com: 82.0347
+MP_time: 0.64883
+ReLU_Com: 104.645
+MP_ReLU_time: 0
+MP_Com: 85.545
+BN_time: 0.009772
+MP_ReLU_Com: 0
+Div_time: 0.004129
+BN_Com: 1.36832
 ----------------------------------------------
+Div_Com: 0.033792
 
+PP_Com: 0
 P1
-MatMul_time: 1162.26
-ReLU_time: 0.92
-MP_time: 2.09
-MP_ReLU_time: 0.32
-BN_time: 0.03
-Div_time: 0.07
-----------------------------------------------
-
-P1
+SS_Com: 17.109
 MatMul_rounds: 38
-ReLU_rounds: 80
+----------------------------------------------
+ReLU_rounds: 37
+
 MP_rounds: 86
-BN_rounds: 96
-Div_rounds: 376
+P0
+BN_rounds: 26
+MatMul_time: 483.178
+Div_rounds: 96
+ReLU_time: 0.457569
+MP_time: 0.649167
 PP_rounds: 0
-SS_rounds: 0
+MP_ReLU_time: 0
+SS_rounds: 43
+BN_time: 0.009972
 ----------------------------------------------
+Div_time: 0.004546
 
-----------------------------------------------
-
-P0
-MatMul_Com: 167.974
-ReLU_Com: 173.081
-MP_Com: 150.471
-MP_ReLU_Com: 68.436
-BN_Com: 1.41092
-Div_Com: 0.204192
-PP_Com: 0.21335
-SS_Com: 82.0347
-----------------------------------------------
-
-P0
-MatMul_time: 1151.45
-ReLU_time: 0.88
-MP_time: 2.12
-MP_ReLU_time: 0.32
-BN_time: 0.03
-Div_time: 0.07
 ----------------------------------------------
 
 P0
 MatMul_rounds: 38
-ReLU_rounds: 80
+ReLU_rounds: 37
 MP_rounds: 86
-BN_rounds: 96
-Div_rounds: 376
+BN_rounds: 26
+Div_rounds: 96
 PP_rounds: 0
-SS_rounds: 0
+SS_rounds: 43
 ----------------------------------------------
 
