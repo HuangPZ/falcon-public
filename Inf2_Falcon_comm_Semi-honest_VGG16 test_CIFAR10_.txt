@@ -5,56 +5,24 @@ Running Semi-honest VGG16 test on CIFAR10 dataset
 
 ----------------------------------------------
 
-P1
-MatMul_Com: 167.974
-ReLU_Com: 130.806
-MP_Com: 34.218
-MP_ReLU_Com: 0
-BN_Com: 1.36448
-Div_Com: 0.018432
-PP_Com: 0
-SS_Com: 17.109
-----------------------------------------------
-
-----------------------------------------------
-P1
-
-MatMul_time: 462.825
 P0
-ReLU_time: 0.50758
 MatMul_Com: 167.974
-MP_time: 0.64883
 ReLU_Com: 104.645
-MP_ReLU_time: 0
 MP_Com: 85.545
-BN_time: 0.009772
 MP_ReLU_Com: 0
-Div_time: 0.004129
 BN_Com: 1.36832
-----------------------------------------------
 Div_Com: 0.033792
-
 PP_Com: 0
-P1
 SS_Com: 17.109
-MatMul_rounds: 38
 ----------------------------------------------
-ReLU_rounds: 37
 
-MP_rounds: 86
 P0
-BN_rounds: 26
-MatMul_time: 483.178
-Div_rounds: 96
-ReLU_time: 0.457569
-MP_time: 0.649167
-PP_rounds: 0
+MatMul_time: 361.038
+ReLU_time: 0.347733
+MP_time: 0.577347
 MP_ReLU_time: 0
-SS_rounds: 43
-BN_time: 0.009972
-----------------------------------------------
-Div_time: 0.004546
-
+BN_time: 0.009579
+Div_time: 0.004274
 ----------------------------------------------
 
 P0

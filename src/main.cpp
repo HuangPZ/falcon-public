@@ -112,7 +112,7 @@ int main(int argc, char** argv)
 			test(PRELOADING, network, net);
 			ofstream myfile;
 			string filename;
-			filename = "Inf2_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+".txt";
+			filename = "Inf_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+".txt";
 			myfile.open (filename.c_str());
 			myfile << "----------------------------------------------" << endl;  	
 			myfile << "Run details: " << NUM_OF_PARTIES << "PC (P" << partyNum 
@@ -120,7 +120,7 @@ int main(int argc, char** argv)
 				<< "Running " << security << " " << network << " on " << dataset << " dataset" << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
-			string filename1 = "Inf2_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
+			string filename1 = "Inf_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
 			myfile.open (filename1.c_str());
 			myfile << endl;
 			myfile.close();	

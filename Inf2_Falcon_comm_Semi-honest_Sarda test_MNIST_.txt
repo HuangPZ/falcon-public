@@ -5,52 +5,20 @@ Running Semi-honest Sarda test on MNIST dataset
 
 ----------------------------------------------
 
-P1
-MatMul_Com: 0.694272
-ReLU_Com: 0.86144
-MP_Com: 0
-MP_ReLU_Com: 0
-BN_Com: 0
-Div_Com: 0
-PP_Com: 0
-SS_Com: 0
-----------------------------------------------
-
-P1
-MatMul_time: 0.116354
-ReLU_time: 0.001909
-MP_time: 0
-MP_ReLU_time: 0
-----------------------------------------------
-BN_time: 0
-
-Div_time: 0
 P0
-----------------------------------------------
 MatMul_Com: 0.694272
-
 ReLU_Com: 0.689152
-P1
 MP_Com: 0
-MatMul_rounds: 6
 MP_ReLU_Com: 0
-ReLU_rounds: 5
 BN_Com: 0
-MP_rounds: 0
 Div_Com: 0
-BN_rounds: 0
 PP_Com: 0
-Div_rounds: 0
 SS_Com: 0
-PP_rounds: 0
 ----------------------------------------------
-SS_rounds: 0
 
-----------------------------------------------
 P0
-
-MatMul_time: 0.126735
-ReLU_time: 0.001796
+MatMul_time: 0.076328
+ReLU_time: 0.001759
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0

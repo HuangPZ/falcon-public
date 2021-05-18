@@ -1,90 +1,83 @@
 ----------------------------------------------
-Run details: 3PC (P0), 1 iterations, batch size 128
+Run details: 3PC (P2), 1 iterations, batch size 128
 Running Semi-honest MiniONN test on MNIST dataset
+----------------------------------------------
+
+N_Com: 0
+Div_Com: 0
+PP_Com: 71.363
+SS_Com: 3.93216
+----------------------------------------------
+
+P1
+MatMul_time: 0.346981
+ReLU_time: 1.41676
+MP_time: 0.981353
+MP_ReLU_time: 0.918169
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P1
+MatMul_rounds: 10
+ReLU_rounds: 150
+MP_rounds: 66
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
 ----------------------------------------------
 
 ----------------------------------------------
 
 P2
 MatMul_Com: 11.9869
-ReLU_Com: 62.8782
-MP_Com: 45.2201
-MP_ReLU_Com: 41.2879
+ReLU_Com: 84.8367
+MP_Com: 59.9083
+MP_ReLU_Com: 55.9761
 BN_Com: 0
 Div_Com: 0
-PP_Com: 49.4045
+PP_Com: 71.363
 SS_Com: 3.93216
 ----------------------------------------------
 
 P2
-MatMul_time: 1.33
-ReLU_time: 1.96
-MP_time: 1.34
-MP_ReLU_time: 1.26
-BN_time: 0
-Div_time: 0
+MatMul_time: 0.352147
+ReLU_time: 1.43296
+MP_time: 0.968798
+MP_ReLU_time: 0.906958
 ----------------------------------------------
+BN_time: 0
 
+Div_time: 0
+P0
+----------------------------------------------
+MatMul_Com: 5.99347
+
+ReLU_Com: 84.8367
 P2
+MP_Com: 59.9083
 MatMul_rounds: 10
+MP_ReLU_Com: 55.9761
 ReLU_rounds: 150
-MP_rounds: 66
-BN_rounds: 0
-Div_rounds: 0
-PP_rounds: 0
-SS_rounds: 0
-----------------------------------------------
-
-----------------------------------------------
-
-P1
-MatMul_Com: 5.99347
-ReLU_Com: 62.8782
-MP_Com: 45.2201
-MP_ReLU_Com: 41.2879
 BN_Com: 0
-Div_Com: 0
-PP_Com: 49.4045
-SS_Com: 3.93216
-----------------------------------------------
-
-P1
-MatMul_time: 1.32
-ReLU_time: 1.93
-MP_time: 1.34
-MP_ReLU_time: 1.25
-BN_time: 0
-Div_time: 0
-----------------------------------------------
-
-P1
-MatMul_rounds: 10
-ReLU_rounds: 150
 MP_rounds: 66
-BN_rounds: 0
-Div_rounds: 0
-PP_rounds: 0
-SS_rounds: 0
-----------------------------------------------
-
-----------------------------------------------
-
-P0
-MatMul_Com: 5.99347
-ReLU_Com: 62.8782
-MP_Com: 45.2201
-MP_ReLU_Com: 41.2879
-BN_Com: 0
 Div_Com: 0
-PP_Com: 49.4045
+BN_rounds: 0
+PP_Com: 71.363
+Div_rounds: 0
 SS_Com: 3.93216
+PP_rounds: 0
 ----------------------------------------------
+SS_rounds: 0
 
+----------------------------------------------
 P0
-MatMul_time: 1.35
-ReLU_time: 1.92
-MP_time: 1.35
-MP_ReLU_time: 1.26
+
+MatMul_time: 0.347423
+ReLU_time: 1.41786
+MP_time: 0.978083
+MP_ReLU_time: 0.914368
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
