@@ -1,0 +1,51 @@
+----------------------------------------------
+Run details: 3PC (P1), 1 iterations, batch size 128
+Running Semi-honest VGG16 test on CIFAR10 dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 167.974
+ReLU_Com: 104.645
+MP_Com: 88.9815
+MP_ReLU_Com: 0
+BN_Com: 1.36448
+Div_Com: 0.018432
+PP_Com: 0
+SS_Com: 0
+----------------------------------------------
+
+P1
+MatMul_time: 359.174
+ReLU_time: 0.152809
+MP_time: 0.149272
+MP_ReLU_time: 0
+BN_time: 0.011417
+Div_time: 0.004332
+----------------------------------------------
+
+P1
+MatMul_rounds: 38
+ReLU_rounds: 37
+MP_rounds: 11
+BN_rounds: 26
+Div_rounds: 96
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+AddTimes: 242032640
+AddBits: 968.131
+CompareTimes: 48406528
+CompareBits: 0
+AESTimes: 193626112
+AESBits: 774.504
+XORTimes: 48406528
+TransInBits: 1549.01
+TransInTimes: 96
+TransOutBits: 1549.01
+TransOutTimes: 96
+ClockTime: 138
+----------------------------------------------
+

@@ -1,0 +1,37 @@
+----------------------------------------------
+Run details: 3PC (P2), 1 iterations, batch size 128
+Running Semi-honest LeNet test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P2
+MatMul_Com: 27.5825
+ReLU_Com: 197.888
+MP_Com: 147.522
+MP_ReLU_Com: 137.937
+BN_Com: 0
+Div_Com: 0
+PP_Com: 166.87
+SS_Com: 9.58464
+----------------------------------------------
+
+P2
+MatMul_time: 1.15202
+ReLU_time: 3.41837
+MP_time: 2.54429
+MP_ReLU_time: 2.37365
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P2
+MatMul_rounds: 14
+ReLU_rounds: 250
+MP_rounds: 132
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+

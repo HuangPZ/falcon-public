@@ -1,0 +1,11 @@
+
+----------------------------------------------
+Wall Clock time for Sarda test: 0.0326507 sec
+CPU time for Sarda test: 0.031434 sec
+----------------------------------------------
+----------------------------------------------
+Communication, Sarda test, P1: 1.11616MB (sent) 1.11616MB (recv)
+Rounds, Sarda test, P1: 6(sends) 6(recvs)
+WAN comm time: 0.42015
+LAN comm time: 0.0012096
+----------------------------------------------

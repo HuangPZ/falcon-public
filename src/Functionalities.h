@@ -3,6 +3,7 @@
 #include "tools.h"
 #include "connect.h"
 #include "globals.h"
+#include "Chip.h"
 using namespace std;
 
 extern void start_time();

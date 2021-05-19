@@ -7,6 +7,7 @@
 #include "NeuralNetConfig.h"
 #include "NeuralNetwork.h"
 #include "unitTests.h"
+#include "Chip.h"
 #include <fstream>
 
 
@@ -24,6 +25,7 @@ extern int MatMul_Com,ReLU_Com,MP_Com,MP_ReLU_Com,Div_Com,BN_Com,PP_Com,SS_Com;
 extern int MatMul_rounds,ReLU_rounds,MP_rounds,Div_rounds,BN_rounds,PP_rounds,SS_rounds;
 extern int MatMul_time,ReLU_time,MP_time,MP_ReLU_time,Div_time,BN_time;
 extern CommunicationObject commObject;
+
 int main(int argc, char** argv)
 {
 	string Network_l[6]={"SecureML", "Sarda", "MiniONN", "LeNet", "AlexNet", "VGG16"};
@@ -112,7 +114,7 @@ int main(int argc, char** argv)
 			test(PRELOADING, network, net);
 			ofstream myfile;
 			string filename;
-			filename = "Inf_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+".txt";
+			filename = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+".txt";
 			myfile.open (filename.c_str());
 			myfile << "----------------------------------------------" << endl;  	
 			myfile << "Run details: " << NUM_OF_PARTIES << "PC (P" << partyNum 
@@ -120,7 +122,7 @@ int main(int argc, char** argv)
 				<< "Running " << security << " " << network << " on " << dataset << " dataset" << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
-			string filename1 = "Inf_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+"1.txt";
+			string filename1 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";
 			myfile.open (filename1.c_str());
 			myfile << endl;
 			myfile.close();	
@@ -167,7 +169,24 @@ int main(int argc, char** argv)
 			myfile << "PP_rounds: "<< PP_rounds << endl;
 			myfile << "SS_rounds: "<< SS_rounds << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
-
+			extern Chip chip;
+			// myfile << "ChipCrossBitsIn: " <<(float)(chip.ChipCrossBitsIn)/1000000 << endl;
+			// myfile << "ChipCrossTimesIn: " <<chip.ChipCrossTimesIn << endl;
+			// myfile << "ChipCrossBitsOut: " <<(float)(chip.ChipCrossBitsOut)/1000000 << endl;
+			// myfile << "ChipCrossTimesOut: " <<chip.ChipCrossTimesOut << endl;
+			myfile << "AddTimes: " <<chip.AddTimes << endl;
+			myfile << "AddBits: " <<(float)(chip.AddBits)/1000000 << endl;
+			myfile << "CompareTimes: " <<chip.CompareTimes << endl;
+			myfile << "CompareBits: " <<(float)(chip.CompareBits)/1000000 << endl;
+			myfile << "AESTimes: " <<chip.AESTimes << endl;
+			myfile << "AESBits: " <<(float)(chip.AESBits)/1000000 << endl;
+			myfile << "XORTimes: " <<chip.XORTimes << endl;
+			myfile << "TransInBits: " <<(float)(chip.TransInBits)/1000000 << endl;
+			myfile << "TransInTimes: " <<chip.TransInTimes << endl;
+			myfile << "TransOutBits: " <<(float)(chip.TransOutBits)/1000000 << endl;
+			myfile << "TransOutTimes: " <<chip.TransOutTimes << endl;
+			myfile << "ClockTime: " <<chip.ClockTime << endl;
+			myfile << "----------------------------------------------" << endl << endl; 	
 
 
 

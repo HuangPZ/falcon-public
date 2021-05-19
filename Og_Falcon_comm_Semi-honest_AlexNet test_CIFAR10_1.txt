@@ -1,0 +1,37 @@
+----------------------------------------------
+Run details: 3PC (P1), 1 iterations, batch size 128
+Running Semi-honest AlexNet test on CIFAR10 dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 21.7098
+ReLU_Com: 379.006
+MP_Com: 325.584
+MP_ReLU_Com: 291.521
+BN_Com: 1.45152
+Div_Com: 0.366592
+PP_Com: 319.086
+SS_Com: 34.0623
+----------------------------------------------
+
+P1
+MatMul_time: 6.55671
+ReLU_time: 6.33121
+MP_time: 5.31139
+MP_ReLU_time: 4.79775
+BN_time: 0.018803
+Div_time: 0.042677
+----------------------------------------------
+
+P1
+MatMul_rounds: 22
+ReLU_rounds: 490
+MP_rounds: 308
+BN_rounds: 96
+Div_rounds: 376
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+

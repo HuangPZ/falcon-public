@@ -1,0 +1,51 @@
+----------------------------------------------
+Run details: 3PC (P1), 1 iterations, batch size 128
+Running Semi-honest MiniONN test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P1
+MatMul_Com: 5.99347
+ReLU_Com: 2.05619
+MP_Com: 5.24288
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 0
+SS_Com: 0
+----------------------------------------------
+
+P1
+MatMul_time: 0.347088
+ReLU_time: 0.003233
+MP_time: 0.009564
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P1
+MatMul_rounds: 10
+ReLU_rounds: 9
+MP_rounds: 2
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
+AddTimes: 9123840
+AddBits: 36.4954
+CompareTimes: 1824768
+CompareBits: 0
+AESTimes: 7299072
+AESBits: 29.1963
+XORTimes: 1824768
+TransInBits: 58.3926
+TransInTimes: 22
+TransOutBits: 58.3926
+TransOutTimes: 22
+ClockTime: 21
+----------------------------------------------
+

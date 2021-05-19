@@ -936,14 +936,11 @@ void printNetwork(NeuralNetwork* net,string fn)
 	ofstream myfile;
 	for (int i = 0; i < net->layers.size(); ++i){
 		net->layers[i]->printLayer(fn);
-		myfile.open (fn.c_str(),fstream::app);
-		myfile << i << i << i << i << i << i << i << endl;
-		myfile.close();
 	}
-	myfile.open (fn.c_str(),fstream::app);
-	myfile << "----------------------------------------------" << endl;
-	myfile.close();
-	cout << "----------------------------------------------" << endl;  	
+	// myfile.open (fn.c_str(),fstream::app);
+	// myfile << "----------------------------------------------" << endl;
+	// myfile.close();
+	// cout << "----------------------------------------------" << endl;  	
 }
 
 

@@ -1,0 +1,37 @@
+----------------------------------------------
+Run details: 3PC (P0), 1 iterations, batch size 128
+Running Semi-honest SecureML test on MNIST dataset
+----------------------------------------------
+
+----------------------------------------------
+
+P0
+MatMul_Com: 0.136192
+ReLU_Com: 1.9585
+MP_Com: 0
+MP_ReLU_Com: 0
+BN_Com: 0
+Div_Com: 0
+PP_Com: 1.65208
+SS_Com: 0
+----------------------------------------------
+
+P0
+MatMul_time: 0.073183
+ReLU_time: 0.033923
+MP_time: 0
+MP_ReLU_time: 0
+BN_time: 0
+Div_time: 0
+----------------------------------------------
+
+P0
+MatMul_rounds: 3
+ReLU_rounds: 30
+MP_rounds: 0
+BN_rounds: 0
+Div_rounds: 0
+PP_rounds: 0
+SS_rounds: 0
+----------------------------------------------
+
