@@ -7,22 +7,22 @@ Running Semi-honest AlexNet test on CIFAR10 dataset
 
 P2
 MatMul_Com: 43.4196
-ReLU_Com: 379.006
-MP_Com: 325.584
-MP_ReLU_Com: 291.521
-BN_Com: 2.81344
-Div_Com: 0.374784
-PP_Com: 319.086
+ReLU_Com: 281.575
+MP_Com: 248.931
+MP_ReLU_Com: 214.869
+BN_Com: 2.77284
+Div_Com: 0.212384
+PP_Com: 221.452
 SS_Com: 34.0623
 ----------------------------------------------
 
 P2
-MatMul_time: 6.67444
-ReLU_time: 6.34051
-MP_time: 5.35607
-MP_ReLU_time: 4.82192
-BN_time: 0.02038
-Div_time: 0.042237
+MatMul_time: 21.59
+ReLU_time: 8.32
+MP_time: 7.09
+MP_ReLU_time: 6.39
+BN_time: 0.04
+Div_time: 0.08
 ----------------------------------------------
 
 P2

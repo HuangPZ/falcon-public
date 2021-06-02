@@ -17,12 +17,12 @@ SS_Com: 0
 ----------------------------------------------
 
 P1
-MatMul_time: 359.174
-ReLU_time: 0.152809
-MP_time: 0.149272
+MatMul_time: 1072.45
+ReLU_time: 0.19
+MP_time: 0.2
 MP_ReLU_time: 0
-BN_time: 0.011417
-Div_time: 0.004332
+BN_time: 0
+Div_time: 0.02
 ----------------------------------------------
 
 P1
@@ -46,6 +46,6 @@ TransInBits: 1549.01
 TransInTimes: 96
 TransOutBits: 1549.01
 TransOutTimes: 96
-ClockTime: 138
+ClockTime: 0
 ----------------------------------------------
 

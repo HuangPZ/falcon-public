@@ -49,9 +49,9 @@ int main(int argc, char** argv)
 			else if ((network=="AlexNet"||network=="VGG16")&&(dataset=="MNIST")){
 				continue;
 			}
-			else if (network=="VGG16"){
-				continue;
-			}
+			// else if (network!="VGG16"){
+			// 	continue;
+			// }
 			// else if (dataset=="MNIST"||(dataset=="CIFAR10")){
 			// 	continue; //TODO: to be deleted
 			// }
@@ -112,13 +112,13 @@ int main(int argc, char** argv)
 			// runOnly(net, l, what, network);
 
 			// //Run training
-			network += " train";
-			train(net);
+			// network += " train";
+			// train(net);
 
 			//Run inference (possibly with preloading a network)
-			// network += " test";
+			network += " test";
 
-			// test(PRELOADING, network, net);
+			test(PRELOADING, network, net);
 			ofstream myfile;
 			string filename;
 			if(functype==2){

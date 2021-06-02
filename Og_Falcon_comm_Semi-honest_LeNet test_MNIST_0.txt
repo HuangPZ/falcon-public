@@ -7,20 +7,20 @@ Running Semi-honest LeNet test on MNIST dataset
 
 P0
 MatMul_Com: 13.7912
-ReLU_Com: 197.888
-MP_Com: 147.522
-MP_ReLU_Com: 137.937
+ReLU_Com: 144.755
+MP_Com: 110.224
+MP_ReLU_Com: 100.639
 BN_Com: 0
 Div_Com: 0
-PP_Com: 166.87
+PP_Com: 113.736
 SS_Com: 9.58464
 ----------------------------------------------
 
 P0
-MatMul_time: 1.19721
-ReLU_time: 3.42241
-MP_time: 2.56594
-MP_ReLU_time: 2.39428
+MatMul_time: 5.71
+ReLU_time: 4.37
+MP_time: 3.29
+MP_ReLU_time: 3.06
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
