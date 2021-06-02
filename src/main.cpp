@@ -17,6 +17,7 @@ AESObject* aes_indep;
 AESObject* aes_next;
 AESObject* aes_prev;
 Precompute PrecomputeObject;
+extern int functype;
 // extern float LAN_ping;
 // extern float LAN_Com;
 // extern float WAN_ping;
@@ -27,7 +28,9 @@ extern int MatMul_time,ReLU_time,MP_time,MP_ReLU_time,Div_time,BN_time;
 extern CommunicationObject commObject;
 
 int main(int argc, char** argv)
-{
+{	
+
+	cout<<"functype"<<functype<<endl;
 	string Network_l[6]={"SecureML", "Sarda", "MiniONN", "LeNet", "AlexNet", "VGG16"};
 	string Dataset_l[3]={"MNIST", "CIFAR10", };//"ImageNet"};
 	string network, dataset, security;
@@ -44,6 +47,9 @@ int main(int argc, char** argv)
 				continue;
 			} 
 			else if ((network=="AlexNet"||network=="VGG16")&&(dataset=="MNIST")){
+				continue;
+			}
+			else if (network=="VGG16"){
 				continue;
 			}
 			// else if (dataset=="MNIST"||(dataset=="CIFAR10")){
@@ -106,15 +112,21 @@ int main(int argc, char** argv)
 			// runOnly(net, l, what, network);
 
 			// //Run training
-			// network += " train";
-			// train(net);
+			network += " train";
+			train(net);
 
 			//Run inference (possibly with preloading a network)
-			network += " test";
-			test(PRELOADING, network, net);
+			// network += " test";
+
+			// test(PRELOADING, network, net);
 			ofstream myfile;
 			string filename;
-			filename = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+".txt";
+			if(functype==2){
+				filename = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+".txt";	
+			}
+			else{
+				filename = "Og_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+".txt";	
+			}
 			myfile.open (filename.c_str());
 			myfile << "----------------------------------------------" << endl;  	
 			myfile << "Run details: " << NUM_OF_PARTIES << "PC (P" << partyNum 
@@ -122,7 +134,14 @@ int main(int argc, char** argv)
 				<< "Running " << security << " " << network << " on " << dataset << " dataset" << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
-			string filename1 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";
+			string filename1;
+			if(functype==2){
+				filename1 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";	
+			}
+			else{
+				filename1 = "Og_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";	
+			}
+
 			myfile.open (filename1.c_str());
 			myfile << endl;
 			myfile.close();	
@@ -169,24 +188,26 @@ int main(int argc, char** argv)
 			myfile << "PP_rounds: "<< PP_rounds << endl;
 			myfile << "SS_rounds: "<< SS_rounds << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
-			extern Chip chip;
-			// myfile << "ChipCrossBitsIn: " <<(float)(chip.ChipCrossBitsIn)/1000000 << endl;
-			// myfile << "ChipCrossTimesIn: " <<chip.ChipCrossTimesIn << endl;
-			// myfile << "ChipCrossBitsOut: " <<(float)(chip.ChipCrossBitsOut)/1000000 << endl;
-			// myfile << "ChipCrossTimesOut: " <<chip.ChipCrossTimesOut << endl;
-			myfile << "AddTimes: " <<chip.AddTimes << endl;
-			myfile << "AddBits: " <<(float)(chip.AddBits)/1000000 << endl;
-			myfile << "CompareTimes: " <<chip.CompareTimes << endl;
-			myfile << "CompareBits: " <<(float)(chip.CompareBits)/1000000 << endl;
-			myfile << "AESTimes: " <<chip.AESTimes << endl;
-			myfile << "AESBits: " <<(float)(chip.AESBits)/1000000 << endl;
-			myfile << "XORTimes: " <<chip.XORTimes << endl;
-			myfile << "TransInBits: " <<(float)(chip.TransInBits)/1000000 << endl;
-			myfile << "TransInTimes: " <<chip.TransInTimes << endl;
-			myfile << "TransOutBits: " <<(float)(chip.TransOutBits)/1000000 << endl;
-			myfile << "TransOutTimes: " <<chip.TransOutTimes << endl;
-			myfile << "ClockTime: " <<chip.ClockTime << endl;
-			myfile << "----------------------------------------------" << endl << endl; 	
+			if(functype==2){
+				extern Chip chip;
+				// myfile << "ChipCrossBitsIn: " <<(float)(chip.ChipCrossBitsIn)/1000000 << endl;
+				// myfile << "ChipCrossTimesIn: " <<chip.ChipCrossTimesIn << endl;
+				// myfile << "ChipCrossBitsOut: " <<(float)(chip.ChipCrossBitsOut)/1000000 << endl;
+				// myfile << "ChipCrossTimesOut: " <<chip.ChipCrossTimesOut << endl;
+				myfile << "AddTimes: " <<chip.AddTimes << endl;
+				myfile << "AddBits: " <<(float)(chip.AddBits)/1000000 << endl;
+				myfile << "CompareTimes: " <<chip.CompareTimes << endl;
+				myfile << "CompareBits: " <<(float)(chip.CompareBits)/1000000 << endl;
+				myfile << "AESTimes: " <<chip.AESTimes << endl;
+				myfile << "AESBits: " <<(float)(chip.AESBits)/1000000 << endl;
+				myfile << "XORTimes: " <<chip.XORTimes << endl;
+				myfile << "TransInBits: " <<(float)(chip.TransInBits)/1000000 << endl;
+				myfile << "TransInTimes: " <<chip.TransInTimes << endl;
+				myfile << "TransOutBits: " <<(float)(chip.TransOutBits)/1000000 << endl;
+				myfile << "TransOutTimes: " <<chip.TransOutTimes << endl;
+				myfile << "ClockTime: " <<chip.ClockTime << endl;
+				myfile << "----------------------------------------------" << endl << endl; 	
+			}
 
 
 
