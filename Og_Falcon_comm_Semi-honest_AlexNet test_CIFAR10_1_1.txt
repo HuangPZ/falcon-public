@@ -1,7 +1,7 @@
 
 ----------------------------------------------
-Wall Clock time for AlexNet test: 20.6255 sec
-CPU time for AlexNet test: 20.54 sec
+Wall Clock time for AlexNet test: 21.057 sec
+CPU time for AlexNet test: 20.89 sec
 ----------------------------------------------
 ----------------------------------------------
 Communication, AlexNet test, P1: 173.564MB (sent) 173.564MB (recv)

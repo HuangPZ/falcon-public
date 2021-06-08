@@ -5,6 +5,7 @@
 #include "globals.h"
 using namespace std;
 
+
 // extern void log_print(string str);
 class Chip
 {
@@ -19,14 +20,15 @@ public:
     int AddTimes,AddBits,CompareTimes,CompareBits,AESTimes,AESBits;
     int XORTimes;
     int TransInBits,TransInTimes,TransOutBits,TransOutTimes;
-    int ClockTime;
+    float ClockTime,Simtime;
+    float AES_throughput,AES_latency,Add_gate_latency,frequency,Adder_numbers;
 
 
 	//Constructor and initializer
 	Chip();
 
 	//Functions
-
+    void Reset();
     void ChipGenMask(const vector<myType> & x, vector<myType>& x_dot, size_t size);
     void ChipGenMask(const vector<smallType> & x, vector<smallType>& x_dot, size_t size);
     void ChipGenShare(const vector<myType>& x, const RSSVectorMyType& x_share, RSSVectorMyType& x_dot, size_t size);

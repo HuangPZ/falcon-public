@@ -6,8 +6,8 @@ Running Semi-honest MiniONN test on MNIST dataset
 ----------------------------------------------
 
 P2
-MatMul_Com: 11.9869
-ReLU_Com: 2.05619
+MatMul_Com: 10.5984
+ReLU_Com: 1.36704
 MP_Com: 5.24288
 MP_ReLU_Com: 0
 BN_Com: 0
@@ -17,17 +17,17 @@ SS_Com: 0
 ----------------------------------------------
 
 P2
-MatMul_time: 1.34
-ReLU_time: 0.01
-MP_time: 0
+MatMul_time: 1.25
+ReLU_time: 0
+MP_time: 0.01
 MP_ReLU_time: 0
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
 
 P2
-MatMul_rounds: 10
-ReLU_rounds: 9
+MatMul_rounds: 4
+ReLU_rounds: 4
 MP_rounds: 2
 BN_rounds: 0
 Div_rounds: 0
@@ -35,17 +35,17 @@ PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 9123840
-AddBits: 36.4954
-CompareTimes: 1824768
+AddTimes: 8.2624
+AddBits: 33.0496
+CompareTimes: 1.65248
 CompareBits: 0
-AESTimes: 7299072
-AESBits: 29.1963
-XORTimes: 1824768
-TransInBits: 58.3926
-TransInTimes: 22
-TransOutBits: 58.3926
-TransOutTimes: 22
-ClockTime: 0
-----------------------------------------------
+AESTimes: 6.60992
+AESBits: 26.4397
+XORTimes: 1.65248
+TransInBits: 52.8794
+TransInTimes: 12
+TransOutBits: 85.929
+TransOutTimes: 12
+SimTime: 0.061947
+TotalSimtime:0.200779----------------------------------------------
 

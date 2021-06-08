@@ -1,7 +1,7 @@
 
 ----------------------------------------------
-Wall Clock time for VGG16 test: 1160.91 sec
-CPU time for VGG16 test: 1150.58 sec
+Wall Clock time for VGG16 test: 1111.25 sec
+CPU time for VGG16 test: 1106.7 sec
 ----------------------------------------------
 ----------------------------------------------
 Communication, VGG16 test, P1: 1730.52MB (sent) 1730.52MB (recv)

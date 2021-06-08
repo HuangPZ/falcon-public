@@ -6,28 +6,28 @@ Running Semi-honest MiniONN test on MNIST dataset
 ----------------------------------------------
 
 P0
-MatMul_Com: 5.99347
-ReLU_Com: 62.8782
+MatMul_Com: 5.2992
+ReLU_Com: 55.642
 MP_Com: 45.2201
 MP_ReLU_Com: 41.2879
 BN_Com: 0
 Div_Com: 0
-PP_Com: 49.4045
+PP_Com: 43.7188
 SS_Com: 3.93216
 ----------------------------------------------
 
 P0
-MatMul_time: 1.33
-ReLU_time: 1.92
-MP_time: 1.37
-MP_ReLU_time: 1.27
+MatMul_time: 1.25
+ReLU_time: 1.67
+MP_time: 1.35
+MP_ReLU_time: 1.24
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
 
 P0
-MatMul_rounds: 10
-ReLU_rounds: 150
+MatMul_rounds: 4
+ReLU_rounds: 100
 MP_rounds: 66
 BN_rounds: 0
 Div_rounds: 0

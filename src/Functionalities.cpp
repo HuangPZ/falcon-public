@@ -1198,7 +1198,7 @@
 // 		tempsent= sizeof(smallType)*size;
 // 		sent[0]+=tempsent;
 // 		sent[1]+=1;
-// 		*pt_PP_Com+=tempsent;
+// 		// *pt_PP_Com+=tempsent;
 // 		threads[1] = thread(receiveVector<smallType>, ref(recv), nextParty(partyNum), size);
 
 // 		for (int i = 0; i < 2; i++)
@@ -1245,7 +1245,7 @@
 // 		tempsent2= funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
 // 		sent[0]+=tempsent2[0];
 // 		sent[1]+=tempsent2[1];
-// 		*pt_PP_Com+=tempsent;
+// 		// *pt_PP_Com+=tempsent;
 
 // 		for (int index2 = 0; index2 < size; ++index2)
 // 		{
@@ -1292,7 +1292,7 @@
 // 	tempsent2=funcCrunchMultiply(c, betaPrime, size);
 // 	sent[0]+=tempsent2[0];
 // 	sent[1]+=tempsent2[1];
-// 	*pt_PP_Com+=tempsent2[0];
+// 	*pt_PP_Com+=sent[0];
 // 	*pt_PP_rounds+=sent[1];
 // 	return sent;	
 // }
@@ -1403,6 +1403,7 @@
 // 	}
 
 // 	*pt_SS_Com+=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
+//     *pt_SS_rounds+=1;
 
 // 	if (partyNum == PARTY_A)
 // 		for (int i = 0; i < size; ++i)
@@ -1516,8 +1517,8 @@
 
 // 	// cout << "ReLU': \t\t" << funcTime(funcRELUPrime, a, temp, size) << endl;
 // 	tempsent2=funcRELUPrime(a, temp, size);
-// 	*pt_ReLU_Com+=tempsent2[0];
-// 	*pt_ReLU_rounds+=tempsent2[1];
+// 	// *pt_ReLU_Com+=tempsent2[0];
+// 	// *pt_ReLU_rounds+=tempsent2[1];
 // 	sent[0]+=tempsent2[0];
 // 	sent[1]+=tempsent2[1];
 // 	PrecomputeObject.getSelectorBitShares(c, m_c, size);
@@ -1529,8 +1530,8 @@
 // 	}
 
 // 	tempsent=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
-// 	*pt_ReLU_Com+=tempsent;
-// 	*pt_ReLU_rounds+=1;
+// 	// *pt_ReLU_Com+=tempsent;
+// 	// *pt_ReLU_rounds+=1;
 // 	sent[0]+=tempsent;
 // 	sent[1]+=1;
 
@@ -1564,8 +1565,10 @@
 // 	tempsent2=funcDotProduct(a, m_c, b, size, false, 0);
 // 	sent[0]+=tempsent2[0];
 // 	sent[1]+=tempsent2[1];
-// 	*pt_ReLU_Com+=tempsent2[0];
-// 	*pt_ReLU_rounds+=tempsent2[1];
+//     *pt_ReLU_Com+=sent[0];
+//     *pt_ReLU_rounds+=sent[1];
+// 	// *pt_ReLU_Com+=tempsent2[0];
+// 	// *pt_ReLU_rounds+=tempsent2[1];
 // 	*pt_ReLU_time+=clock()-clock_begin;
 // 	return sent;
 // }

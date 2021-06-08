@@ -6,46 +6,46 @@ Running Semi-honest VGG16 test on CIFAR10 dataset
 ----------------------------------------------
 
 P2
-MatMul_Com: 335.948
-ReLU_Com: 104.645
-MP_Com: 88.9815
+MatMul_Com: 292.528
+ReLU_Com: 98.2917
+MP_Com: 63.9631
 MP_ReLU_Com: 0
-BN_Com: 2.72512
-Div_Com: 0.021504
+BN_Com: 0
+Div_Com: 0
 PP_Com: 0
 SS_Com: 0
 ----------------------------------------------
 
 P2
-MatMul_time: 1083.35
-ReLU_time: 0.21
-MP_time: 0.19
+MatMul_time: 1205.31
+ReLU_time: 0.22
+MP_time: 0.14
 MP_ReLU_time: 0
-BN_time: 0.02
-Div_time: 0.01
+BN_time: 0
+Div_time: 0
 ----------------------------------------------
 
 P2
-MatMul_rounds: 38
-ReLU_rounds: 37
-MP_rounds: 11
-BN_rounds: 16
-Div_rounds: 56
+MatMul_rounds: 16
+ReLU_rounds: 16
+MP_rounds: 5
+BN_rounds: 0
+Div_rounds: 0
 PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 242032640
-AddBits: 968.131
-CompareTimes: 48406528
+AddTimes: 202.819
+AddBits: 811.274
+CompareTimes: 40.5637
 CompareBits: 0
-AESTimes: 193626112
-AESBits: 774.504
-XORTimes: 48406528
-TransInBits: 1549.01
-TransInTimes: 96
-TransOutBits: 1549.01
-TransOutTimes: 96
-ClockTime: 0
-----------------------------------------------
+AESTimes: 162.255
+AESBits: 649.019
+XORTimes: 40.5637
+TransInBits: 1298.04
+TransInTimes: 42
+TransOutBits: 2109.31
+TransOutTimes: 42
+SimTime: 0.804265
+TotalSimtime:-0.0832665----------------------------------------------
 

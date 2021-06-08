@@ -1,7 +1,7 @@
 
 ----------------------------------------------
-Wall Clock time for LeNet test: 4.56016 sec
-CPU time for LeNet test: 4.52 sec
+Wall Clock time for LeNet test: 7.11203 sec
+CPU time for LeNet test: 4.78 sec
 ----------------------------------------------
 ----------------------------------------------
 Total communication: 60.2522MB (sent) and 60.2522MB (recv)

@@ -6,9 +6,9 @@ Running Semi-honest LeNet test on MNIST dataset
 ----------------------------------------------
 
 P1
-MatMul_Com: 13.7912
-ReLU_Com: 4.20147
-MP_Com: 12.7795
+MatMul_Com: 7.79776
+ReLU_Com: 2.14528
+MP_Com: 7.53664
 MP_ReLU_Com: 0
 BN_Com: 0
 Div_Com: 0
@@ -17,35 +17,35 @@ SS_Com: 0
 ----------------------------------------------
 
 P1
-MatMul_time: 5.7
+MatMul_time: 4.57
 ReLU_time: 0
-MP_time: 0.02
+MP_time: 0.01
 MP_ReLU_time: 0
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
 
 P1
-MatMul_rounds: 14
-ReLU_rounds: 13
-MP_rounds: 4
+MatMul_rounds: 4
+ReLU_rounds: 4
+MP_rounds: 2
 BN_rounds: 0
 Div_rounds: 0
 PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 21226240
-AddBits: 84.905
-CompareTimes: 4245248
+AddTimes: 12.1024
+AddBits: 48.4096
+CompareTimes: 2.42048
 CompareBits: 0
-AESTimes: 16980992
-AESBits: 67.924
-XORTimes: 4245248
-TransInBits: 135.848
-TransInTimes: 34
-TransOutBits: 135.848
-TransOutTimes: 34
-ClockTime: 0
-----------------------------------------------
+AESTimes: 9.68192
+AESBits: 38.7277
+XORTimes: 2.42048
+TransInBits: 77.4554
+TransInTimes: 12
+TransOutBits: 125.865
+TransOutTimes: 12
+SimTime: 0.0890922
+TotalSimtime:0.292437----------------------------------------------
 

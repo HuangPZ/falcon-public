@@ -17,7 +17,7 @@ SS_Com: 0
 ----------------------------------------------
 
 P0
-MatMul_time: 0.05
+MatMul_time: 0.06
 ReLU_time: 0
 MP_time: 0
 MP_ReLU_time: 0
@@ -35,17 +35,17 @@ PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 170240
+AddTimes: 0.17024
 AddBits: 0.68096
-CompareTimes: 34048
+CompareTimes: 0.034048
 CompareBits: 0
-AESTimes: 136192
+AESTimes: 0.136192
 AESBits: 0.544768
-XORTimes: 34048
+XORTimes: 0.034048
 TransInBits: 1.08954
 TransInTimes: 6
-TransOutBits: 1.08954
+TransOutBits: 1.7705
 TransOutTimes: 6
-ClockTime: 0
-----------------------------------------------
+SimTime: 0.000159299
+TotalSimtime:0.00303133----------------------------------------------
 

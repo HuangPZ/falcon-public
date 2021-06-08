@@ -1,6 +1,6 @@
 
 ----------------------------------------------
-Wall Clock time for MiniONN test: 3.14364 sec
+Wall Clock time for MiniONN test: 3.12638 sec
 CPU time for MiniONN test: 3.13 sec
 ----------------------------------------------
 ----------------------------------------------

@@ -6,8 +6,8 @@ Running Semi-honest Sarda test on MNIST dataset
 ----------------------------------------------
 
 P2
-MatMul_Com: 1.38854
-ReLU_Com: 0.689152
+MatMul_Com: 1.11616
+ReLU_Com: 0.55296
 MP_Com: 0
 MP_ReLU_Com: 0
 BN_Com: 0
@@ -17,7 +17,7 @@ SS_Com: 0
 ----------------------------------------------
 
 P2
-MatMul_time: 0.1
+MatMul_time: 0.05
 ReLU_time: 0
 MP_time: 0
 MP_ReLU_time: 0
@@ -26,8 +26,8 @@ Div_time: 0
 ----------------------------------------------
 
 P2
-MatMul_rounds: 6
-ReLU_rounds: 5
+MatMul_rounds: 3
+ReLU_rounds: 2
 MP_rounds: 0
 BN_rounds: 0
 Div_rounds: 0
@@ -35,17 +35,17 @@ PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 861440
-AddBits: 3.44576
-CompareTimes: 172288
+AddTimes: 0.6912
+AddBits: 2.7648
+CompareTimes: 0.13824
 CompareBits: 0
-AESTimes: 689152
-AESBits: 2.75661
-XORTimes: 172288
-TransInBits: 5.51322
-TransInTimes: 10
-TransOutBits: 5.51322
-TransOutTimes: 10
-ClockTime: 0
-----------------------------------------------
+AESTimes: 0.55296
+AESBits: 2.21184
+XORTimes: 0.13824
+TransInBits: 4.42368
+TransInTimes: 4
+TransOutBits: 7.18848
+TransOutTimes: 4
+SimTime: 0.00038848
+TotalSimtime:0.0120086----------------------------------------------
 

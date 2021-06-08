@@ -1,7 +1,7 @@
 
 ----------------------------------------------
-Wall Clock time for MiniONN test: 3.14352 sec
-CPU time for MiniONN test: 3.17 sec
+Wall Clock time for MiniONN test: 3.12852 sec
+CPU time for MiniONN test: 3.16 sec
 ----------------------------------------------
 ----------------------------------------------
 Total communication: 199.933MB (sent) and 199.933MB (recv)

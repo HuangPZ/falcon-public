@@ -1,6 +1,6 @@
 
 ----------------------------------------------
-Wall Clock time for SecureML test: 0.0596394 sec
+Wall Clock time for SecureML test: 0.0822553 sec
 CPU time for SecureML test: 0.06 sec
 ----------------------------------------------
 ----------------------------------------------

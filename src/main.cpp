@@ -194,19 +194,23 @@ int main(int argc, char** argv)
 				// myfile << "ChipCrossTimesIn: " <<chip.ChipCrossTimesIn << endl;
 				// myfile << "ChipCrossBitsOut: " <<(float)(chip.ChipCrossBitsOut)/1000000 << endl;
 				// myfile << "ChipCrossTimesOut: " <<chip.ChipCrossTimesOut << endl;
-				myfile << "AddTimes: " <<chip.AddTimes << endl;
+				myfile << "AddTimes: " <<(float)chip.AddTimes/1000000 << endl;
 				myfile << "AddBits: " <<(float)(chip.AddBits)/1000000 << endl;
-				myfile << "CompareTimes: " <<chip.CompareTimes << endl;
+				myfile << "CompareTimes: " <<(float)chip.CompareTimes/1000000 << endl;
 				myfile << "CompareBits: " <<(float)(chip.CompareBits)/1000000 << endl;
-				myfile << "AESTimes: " <<chip.AESTimes << endl;
+				myfile << "AESTimes: " <<(float)chip.AESTimes/1000000 << endl;
 				myfile << "AESBits: " <<(float)(chip.AESBits)/1000000 << endl;
-				myfile << "XORTimes: " <<chip.XORTimes << endl;
+				myfile << "XORTimes: " <<(float)chip.XORTimes/1000000 << endl;
 				myfile << "TransInBits: " <<(float)(chip.TransInBits)/1000000 << endl;
 				myfile << "TransInTimes: " <<chip.TransInTimes << endl;
 				myfile << "TransOutBits: " <<(float)(chip.TransOutBits)/1000000 << endl;
 				myfile << "TransOutTimes: " <<chip.TransOutTimes << endl;
-				myfile << "ClockTime: " <<chip.ClockTime << endl;
+				myfile << "SimTime: " <<chip.Simtime << endl;
+				myfile << "TotalSimtime:"<< chip.Simtime+(float)(chip.TransInBits+chip.TransOutBits)/(1e9)+\
+				(float)(chip.TransInTimes+chip.TransOutTimes)/(1e6);
+
 				myfile << "----------------------------------------------" << endl << endl; 	
+				chip.Reset();
 			}
 
 
@@ -224,6 +228,9 @@ int main(int argc, char** argv)
 			delete config;
 			delete net;
 			deleteObjects();
+			MatMul_Com=ReLU_Com=MP_Com=MP_ReLU_Com=Div_Com=BN_Com=PP_Com=SS_Com=0;
+			MatMul_rounds=ReLU_rounds=MP_rounds=Div_rounds=BN_rounds=PP_rounds=SS_rounds=0;
+			MatMul_time=ReLU_time=MP_time=MP_ReLU_time=Div_time=BN_time=0;
 	}
 	}
 
