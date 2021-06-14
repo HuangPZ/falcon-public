@@ -4,6 +4,7 @@
 #include "connect.h"
 #include "globals.h"
 #include "Chip.h"
+#include "CPU.h"
 using namespace std;
 
 extern void start_time();

@@ -17,7 +17,7 @@ SS_Com: 0
 ----------------------------------------------
 
 P0
-MatMul_time: 0.04
+MatMul_time: 0.05
 ReLU_time: 0
 MP_time: 0
 MP_ReLU_time: 0

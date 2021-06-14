@@ -1,7 +1,7 @@
 
 ----------------------------------------------
-Wall Clock time for VGG16 test: 1111.25 sec
-CPU time for VGG16 test: 1107.46 sec
+Wall Clock time for VGG16 test: 1144.8 sec
+CPU time for VGG16 test: 1127.75 sec
 ----------------------------------------------
 ----------------------------------------------
 Total communication: 1042.86MB (sent) and 1042.86MB (recv)
@@ -10,6 +10,6 @@ Total calls: 1042 (sends) and 1042 (recvs)
 ----------------------------------------------
 Communication, VGG16 test, P0: 1730.52MB (sent) 1730.52MB (recv)
 Rounds, VGG16 test, P0: 342(sends) 342(recvs)
-WAN comm time: 23.9486
-LAN comm time: 0.0689472
+WAN comm time: 67.203
+LAN comm time: 2.83723
 ----------------------------------------------

@@ -17,9 +17,9 @@ SS_Com: 0
 ----------------------------------------------
 
 P0
-MatMul_time: 1201.85
-ReLU_time: 0.19
-MP_time: 0.15
+MatMul_time: 1091.67
+ReLU_time: 0.23
+MP_time: 0.16
 MP_ReLU_time: 0
 BN_time: 0
 Div_time: 0

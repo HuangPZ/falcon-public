@@ -17,8 +17,8 @@ SS_Com: 0
 ----------------------------------------------
 
 P2
-MatMul_time: 0.03
-ReLU_time: 0.19
+MatMul_time: 0.05
+ReLU_time: 0.18
 MP_time: 0
 MP_ReLU_time: 0
 BN_time: 0

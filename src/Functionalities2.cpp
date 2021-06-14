@@ -9,7 +9,7 @@ using namespace std;
 extern Precompute PrecomputeObject;
 extern string SECURITY_TYPE;
 int functype = 2;
-
+extern CPU cpu;
 Chip chip;
 
 /******************************** Functionalities 2PC ********************************/
@@ -23,6 +23,7 @@ void funcTruncate(RSSVectorMyType &a, size_t power, size_t size)
 	PrecomputeObject.getDividedShares(r, rPrime, (1<<power), size);
 	for (int i = 0; i < size; ++i)
 		a[i] = a[i] - rPrime[i];
+	cpu.CPU_Add(size);
 	
 	funcReconstruct(a, reconst, size, "Truncate reconst", false);
 	dividePlain(reconst, (1 << power));
@@ -33,6 +34,7 @@ void funcTruncate(RSSVectorMyType &a, size_t power, size_t size)
 			a[i].first = r[i].first + reconst[i];
 			a[i].second = r[i].second;
 		}
+		cpu.CPU_Add(size);
 	}
 
 	if (partyNum == PARTY_B)
@@ -51,6 +53,7 @@ void funcTruncate(RSSVectorMyType &a, size_t power, size_t size)
 			a[i].first = r[i].first;
 			a[i].second = r[i].second + reconst[i];
 		}
+		cpu.CPU_Add(size);
 	}	
 }
 
@@ -63,6 +66,7 @@ void funcTruncatePublic(RSSVectorMyType &a, size_t divisor, size_t size)
 	PrecomputeObject.getDividedShares(r, rPrime, divisor, size);
 	for (int i = 0; i < size; ++i)
 		a[i] = a[i] - rPrime[i];
+	cpu.CPU_Add(size);
 	
 	funcReconstruct(a, reconst, size, "Truncate reconst", false);
 	dividePlain(reconst, divisor);
@@ -73,6 +77,7 @@ void funcTruncatePublic(RSSVectorMyType &a, size_t divisor, size_t size)
 			a[i].first = r[i].first + reconst[i];
 			a[i].second = r[i].second;
 		}
+		cpu.CPU_Add(size);
 	}
 
 	if (partyNum == PARTY_B)
@@ -82,6 +87,7 @@ void funcTruncatePublic(RSSVectorMyType &a, size_t divisor, size_t size)
 			a[i].first = r[i].first;
 			a[i].second = r[i].second;
 		}
+		
 	}
 
 	if (partyNum == PARTY_C)
@@ -91,6 +97,7 @@ void funcTruncatePublic(RSSVectorMyType &a, size_t divisor, size_t size)
 			a[i].first = r[i].first;
 			a[i].second = r[i].second + reconst[i];
 		}
+		cpu.CPU_Add(size);
 	}	
 }
 
@@ -173,6 +180,7 @@ int funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t
 			b[i] = a[i].first;
 			b[i] = b[i] ^ a[i].second;
 		}
+        cpu.CPU_Gate(size);
 
 		thread *threads = new thread[2];
 		threads[0] = thread(sendVector<smallType>, ref(a_next), nextParty(partyNum), size);
@@ -184,7 +192,7 @@ int funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t
 
 		for (int i = 0; i < size; ++i)
 			b[i] = b[i] ^ a_prev[i];
-
+        cpu.CPU_Gate(size);
 		if (print)
 		{
 			std::cout << str << ": \t\t";
@@ -204,6 +212,7 @@ int funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t
 			b[i] = a[i].first;
 			b[i] = b[i] ^ a[i].second;
 		}
+        cpu.CPU_Gate(size);
 
 		thread *threads = new thread[4];
 		threads[0] = thread(sendVector<smallType>, ref(a_next_send), nextParty(partyNum), size);
@@ -224,6 +233,7 @@ int funcReconstructBit(const RSSVectorSmallType &a, vector<smallType> &b, size_t
 			}
 			b[i] = b[i] ^ a_prev_recv[i];
 		}
+        cpu.CPU_Gate(size);
 
 		if (print)
 		{
@@ -251,6 +261,7 @@ void funcReconstruct(const RSSVectorSmallType &a, vector<smallType> &b, size_t s
 			b[i] = a[i].first;
 			b[i] = additionModPrime[b[i]][a[i].second];
 		}
+        cpu.CPU_Add(size);
 
 		thread *threads = new thread[2];
 
@@ -264,7 +275,7 @@ void funcReconstruct(const RSSVectorSmallType &a, vector<smallType> &b, size_t s
 
 		for (int i = 0; i < size; ++i)
 			b[i] = additionModPrime[b[i]][a_prev[i]];
-
+        cpu.CPU_Add(size);
 		if (print)
 		{
 			std::cout << str << ": \t\t";
@@ -329,6 +340,7 @@ void funcReconstruct(const RSSVectorMyType &a, vector<myType> &b, size_t size, s
 			b[i] = a[i].first;
 			b[i] = b[i] + a[i].second;
 		}
+        cpu.CPU_Add(size);
 
 		thread *threads = new thread[2];
 
@@ -342,7 +354,7 @@ void funcReconstruct(const RSSVectorMyType &a, vector<myType> &b, size_t size, s
 
 		for (int i = 0; i < size; ++i)
 			b[i] = b[i] + a_prev[i];
-
+        cpu.CPU_Add(size);
 		if (print)
 		{
 			std::cout << str << ": \t\t";
@@ -713,7 +725,7 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 	PrecomputeObject.getDividedShares(r, rPrime, (1<<truncation), final_size);
 	for (int i = 0; i < final_size; ++i)
 		temp3[i] = temp3[i] - rPrime[i].first;
-	
+    cpu.CPU_Add(final_size);
 	*pt_MatMul_Com+=funcReconstruct3out3(temp3, diffReconst, final_size, "Mat-Mul diff reconst", false);
 	*pt_MatMul_rounds+=1;
 	// =*pt_MatMul_Com+final_size*sizeof(myType);
@@ -732,6 +744,7 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 			c[i].first = r[i].first + diffReconst[i];
 			c[i].second = r[i].second;
 		}
+        cpu.CPU_Add(final_size);
 	}
 
 	if (partyNum == PARTY_B)
@@ -750,6 +763,7 @@ void funcMatMul(const RSSVectorMyType &a, const RSSVectorMyType &b, RSSVectorMyT
 			c[i].first = r[i].first;
 			c[i].second = r[i].second + diffReconst[i];
 		}
+        cpu.CPU_Add(final_size);
 	}	
 	*pt_MatMul_time+=clock()-clock_begin;
 }
@@ -776,7 +790,8 @@ int* funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 					    a[i].first * b[i].second +
 					    a[i].second * b[i].first;
 		}
-
+        cpu.CPU_Add(size*2);
+        cpu.CPU_Mul(size*3);
 		thread *threads = new thread[2];
 
 		threads[0] = thread(sendVector<myType>, ref(temp3), prevParty(partyNum), size);
@@ -807,6 +822,8 @@ int* funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 					    a[i].second * b[i].first -
 					    rPrime[i].first;
 		}
+        cpu.CPU_Add(size*3);
+        cpu.CPU_Mul(size*3);
 
 		sent[0]+=funcReconstruct3out3(temp3, diffReconst, size, "Dot-product diff reconst", false);
 		sent[1]+=1;
@@ -818,6 +835,7 @@ int* funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 				c[i].first = r[i].first + diffReconst[i];
 				c[i].second = r[i].second;
 			}
+            cpu.CPU_Add(size);
 		}
 
 		if (partyNum == PARTY_B)
@@ -836,6 +854,7 @@ int* funcDotProduct(const RSSVectorMyType &a, const RSSVectorMyType &b,
 				c[i].first = r[i].first;
 				c[i].second = r[i].second + diffReconst[i];
 			}
+            cpu.CPU_Add(size);
 		}
 	}
 	if (SECURITY_TYPE.compare("Malicious") == 0)
@@ -862,7 +881,7 @@ int* funcDotProduct(const RSSVectorSmallType &a, const RSSVectorSmallType &b,
 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[a[i].first][b[i].second]];
 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[a[i].second][b[i].first]];
 	}
-
+    cpu.CPU_Add(size*2);
 	//Add random shares of 0 locally
 	thread *threads = new thread[2];
 
@@ -905,6 +924,7 @@ int funcDotProductBits(const RSSVectorSmallType &a, const RSSVectorSmallType &b,
 				   (a[i].first and b[i].second) ^ 
 				   (a[i].second and b[i].first);
 	}
+    cpu.CPU_Gate(size*5);
 
 	//Add random shares of 0 locally
 	thread *threads = new thread[2];
@@ -939,6 +959,7 @@ int funcMultiplyNeighbours(const RSSVectorSmallType &c_1, RSSVectorSmallType &c_
 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[c_1[2*i].first][c_1[2*i+1].second]];
 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[c_1[2*i].second][c_1[2*i+1].first]];
 	}
+    cpu.CPU_Add(size*3);
 
 	//Add random shares of 0 locally
 	thread *threads = new thread[2];
@@ -988,7 +1009,7 @@ int* funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 	}
 
 	vector<smallType> a_next(size), a_prev(size);
-	if (BIT_SIZE == 64)
+	if (BIT_SIZE == 64){
 		for (int i = 0; i < size; ++i)
 		{
 			a_prev[i] = 0;
@@ -996,7 +1017,9 @@ int* funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 			reconst[i] = c_5[i].first;
 			reconst[i] = additionModPrime[reconst[i]][c_5[i].second];
 		}
-	else if (BIT_SIZE == 32)
+        cpu.CPU_Add(size);
+    }
+	else if (BIT_SIZE == 32){
 		for (int i = 0; i < size; ++i)
 		{
 			a_prev[i] = 0;
@@ -1004,6 +1027,8 @@ int* funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 			reconst[i] = c_4[i].first;
 			reconst[i] = additionModPrime[reconst[i]][c_4[i].second];
 		}
+        cpu.CPU_Add(size);
+    }
 
 	thread *threads = new thread[2];
 
@@ -1017,7 +1042,7 @@ int* funcCrunchMultiply(const RSSVectorSmallType &c, vector<smallType> &betaPrim
 
 	for (int i = 0; i < size; ++i)
 		reconst[i] = additionModPrime[reconst[i]][a_prev[i]];
-
+    cpu.CPU_Add(size);
 	for (int i = 0; i < size; ++i)
 	{
 		if (reconst[i] == 0)
@@ -1055,7 +1080,10 @@ void parallelFirst(smallType* temp3, const RSSSmallType* beta, const myType* r,
 			temp3[index3] = additionModPrime[temp3[index3]][multiplicationModPrime[diff.first][twoBetaMinusOne.second]];
 			temp3[index3] = additionModPrime[temp3[index3]][multiplicationModPrime[diff.second][twoBetaMinusOne.first]];
 		}
+
 	}
+    cpu.CPU_Add((end-start)*BIT_SIZE*2);
+    cpu.CPU_Mul((end-start)*BIT_SIZE);
 }
 
 void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* recv, const myType* r, 
@@ -1090,6 +1118,7 @@ void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* re
 				c[index3].second = additionModPrime[c[index3].second][xMinusR.second];
 			}
 		}
+        cpu.CPU_Add((end-start)*BIT_SIZE*2);
 	}
 
 
@@ -1117,6 +1146,7 @@ void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* re
 				c[index3].second = additionModPrime[c[index3].second][xMinusR.second];
 			}
 		}
+        cpu.CPU_Add((end-start)*BIT_SIZE*2);
 	}
 
 
@@ -1145,6 +1175,7 @@ void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* re
 				c[index3].second = additionModPrime[c[index3].second][1];
 			}
 		}
+        cpu.CPU_Add((end-start)*BIT_SIZE*2);
 	}	
 }
 
@@ -1348,6 +1379,8 @@ int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 		beta[i].second = wrapAround(a[i].second, r[i].second);
 		x[i].second = a[i].second + r[i].second;
 	}
+	cpu.CPU_Add(size*2);
+	cpu.CPU_Comp(size*2);
 
 	vector<myType> x_next(size), x_prev(size);
 	for (int i = 0; i < size; ++i)
@@ -1357,6 +1390,7 @@ int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 		reconst_x[i] = x[i].first;
 		reconst_x[i] = reconst_x[i] + x[i].second;
 	}
+    cpu.CPU_Add(size);
 
 	thread *threads = new thread[2];
 	threads[0] = thread(sendVector<myType>, ref(x_next), nextParty(partyNum), size);
@@ -1386,6 +1420,7 @@ int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 			theta[i].first = beta[i].first ^ delta[i] ^ alpha[i].first ^ eta[i].first ^ etaPrime[i];
 			theta[i].second = beta[i].second ^ alpha[i].second ^ eta[i].second;
 		}
+        cpu.CPU_Gate(size*6);
 	}
 	else if (partyNum == PARTY_B)
 	{
@@ -1394,6 +1429,7 @@ int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 			theta[i].first = beta[i].first ^ delta[i] ^ alpha[i].first ^ eta[i].first;
 			theta[i].second = beta[i].second ^ alpha[i].second ^ eta[i].second;
 		}
+        cpu.CPU_Gate(size*5);
 	}
 	else if (partyNum == PARTY_C)
 	{
@@ -1402,6 +1438,7 @@ int* funcWrap(const RSSVectorMyType &a, RSSVectorSmallType &theta, size_t size)
 			theta[i].first = beta[i].first ^ alpha[i].first ^ eta[i].first;
 			theta[i].second = beta[i].second ^ delta[i] ^ alpha[i].second ^ eta[i].second ^ etaPrime[i];
 		}	
+        cpu.CPU_Gate(size*6);
 	}
 	return sent;
 }
@@ -1426,6 +1463,7 @@ void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b,
 	// mask_Gen(mask_sent_b,size);
 	for(int i=0;i<size;i++)
 		sent_b[i]=b[i].first^mask_sent_b[i];
+    cpu.CPU_Gate(size);
 	thread* threads = new thread[2];
 	threads[0] = thread(sendVector<smallType>, ref(sent_b), nextParty(partyNum), size);
 	*pt_SS_Com+=sizeof(smallType)*size;
@@ -1439,6 +1477,7 @@ void funcSelectShares(const RSSVectorMyType &a, const RSSVectorSmallType &b,
 		selected[i].first=recvb[i]?a[i].first:0+shareprev[i];
 		selected[i].second=recvb[i]?a[i].second:0+sharenext[i];
 	}
+    cpu.CPU_Gate(size*5);
 	
 	
 
@@ -1513,13 +1552,14 @@ int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &
 		for (size_t j = 0; j < columns; ++j)
 			tempXOR[i*columns+j] = a0[i*columns+j] ^
 								   a1[loopCounter*rows*columns+i*columns+j];
-
+    cpu.CPU_Gate(rows*columns);
 	temp=funcDotProductBits(tempXOR, bRepeated, answer, size);
 	sent+=temp;
 	*pt_SS_Com+=temp;
 
 	for (int i = 0; i < size; ++i)
 		answer[i] = answer[i] ^ a0[i];
+    cpu.CPU_Gate(size);
 	return sent;
 }
 
@@ -1527,62 +1567,87 @@ int funcSelectBitShares(const RSSVectorSmallType &a0, const RSSVectorSmallType &
 // b holds bits of ReLU' of a TODO
 int* funcRELUPrime(const RSSVectorMyType &a, RSSVectorSmallType &b, size_t size)
 {
-	cout<<"startRELUP"<<endl;
-	int sent[2]={0,0};
-	int *tempsent2;
-	log_print("funcRELUPrime");
-	std::vector<myType> d(size,0);
-	std::vector<smallType> b_rec(size,0);
-	std::vector<myType> a_masked(size,0);
+	// cout<<"startRELUP"<<endl;
+    int clock_begin=clock();
+	int sent[2] = {0,0};
+	int tempsent = 0;
+	int* tempsent2;
+	log_print("funcRELUP");
 
-	std::vector<smallType> sharebAB(size,0),sharebBC(size,0),sharebCA(size,0);
-	for(int i=0;i<size;i++){
-		a_masked[i]=a[i].first-d[i];
+	std::vector<myType> d(size,0),share1(size,0),recv(size,0);
+	for(int i = 0; i < size; i++){
+		share1[i]=a[i].first;
 	}
+	chip.ChipGenMask(share1,d,size);
 	
-	if (partyNum == PARTY_A){
-		//mask_Gen(d,size);
-		sent[0]+=sizeof(myType)*size;
-		sent[1]+=1;
-		sendVector<myType>(a_masked,PARTY_B,size);
-	}
-	if (partyNum == PARTY_B){
-		receiveVector<myType>(a_masked,PARTY_A,size);
-		//mask_Gen(d,size);
-		//share_Gen(sharebAB,size);
-		//share_Gen(sharebBC,size);
+	thread *threads = new thread[2];
+
+	threads[0] = thread(sendVector<myType>, ref(d), nextParty(partyNum), size);
+	tempsent= sizeof(myType)*size;
+	sent[0]+=tempsent;
+	sent[1]+=1;
+	threads[1] = thread(receiveVector<myType>, ref(recv), prevParty(partyNum), size);
+	for (int i = 0; i < 2; i++)
+			threads[i].join();
+	delete[] threads;
+
+	chip.ChipReLUP(recv,a,b,size);
+
+	// int sent[2]={0,0};
+	// int *tempsent2;
+	// log_print("funcRELUPrime");
+	// std::vector<myType> d(size,0);
+	// std::vector<smallType> b_rec(size,0);
+	// std::vector<myType> a_masked(size,0);
+
+	// std::vector<smallType> sharebAB(size,0),sharebBC(size,0),sharebCA(size,0);
+	// for(int i=0;i<size;i++){
+	// 	a_masked[i]=a[i].first-d[i];
+	// }
+	
+	// if (partyNum == PARTY_A){
+	// 	//mask_Gen(d,size);
+	// 	sent[0]+=sizeof(myType)*size;
+	// 	sent[1]+=1;
+	// 	sendVector<myType>(a_masked,PARTY_B,size);
+	// }
+	// if (partyNum == PARTY_B){
+	// 	receiveVector<myType>(a_masked,PARTY_A,size);
+	// 	//mask_Gen(d,size);
+	// 	//share_Gen(sharebAB,size);
+	// 	//share_Gen(sharebBC,size);
 		
-		for(int i=0;i<size;i++){
-			b_rec[i]=(smallType)((a_masked[i]+d[i])>=0);
-			b[i].first = b_rec[i]+sharebAB[i];
-			b[i].second = b_rec[i]+sharebBC[i];
-			b_rec[i] = b[i].first;
-		}
-		sent[0]+=(sizeof(smallType))*size;
-		sent[1]+=1;
-		sendVector<smallType>(b_rec,PARTY_A,size);
+	// 	for(int i=0;i<size;i++){
+	// 		b_rec[i]=(smallType)((a_masked[i]+d[i])>=0);
+	// 		b[i].first = b_rec[i]+sharebAB[i];
+	// 		b[i].second = b_rec[i]+sharebBC[i];
+	// 		b_rec[i] = b[i].first;
+	// 	}
+	// 	sent[0]+=(sizeof(smallType))*size;
+	// 	sent[1]+=1;
+	// 	sendVector<smallType>(b_rec,PARTY_A,size);
 
-	}
-	if (partyNum == PARTY_A){
-		receiveVector<smallType>(b_rec,PARTY_B,size);
-		//share_Gen(sharebCA,size);
-		for(int i=0;i<size;i++){
-			b[i].first = sharebCA[i];
-			b[i].second = b_rec[i];
+	// }
+	// if (partyNum == PARTY_A){
+	// 	receiveVector<smallType>(b_rec,PARTY_B,size);
+	// 	//share_Gen(sharebCA,size);
+	// 	for(int i=0;i<size;i++){
+	// 		b[i].first = sharebCA[i];
+	// 		b[i].second = b_rec[i];
 
-		}
-	}
+	// 	}
+	// }
 
-	if (partyNum == PARTY_C){
-		//share_Gen(sharebBC,size);
-		//share_Gen(sharebCA,size);
+	// if (partyNum == PARTY_C){
+	// 	//share_Gen(sharebBC,size);
+	// 	//share_Gen(sharebCA,size);
 
-		for(int i=0;i<size;i++){
-			b[i].first = sharebBC[i];
-			b[i].second = sharebCA[i];
-		}
-	}
-	cout<<"endRELUP"<<endl;
+	// 	for(int i=0;i<size;i++){
+	// 		b[i].first = sharebBC[i];
+	// 		b[i].second = sharebCA[i];
+	// 	}
+	// }
+	// cout<<"endRELUP"<<endl;
 	return sent;
 }
 
@@ -1598,7 +1663,7 @@ int *pt_ReLU_rounds = &ReLU_rounds;
 //Input is a, outputs are temp = ReLU'(a) and b = RELU(a).
 int* funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyType &b, size_t size)
 {
-	cout<<"startRELU"<<endl;
+	// cout<<"startRELU"<<endl;
 	int clock_begin=clock();
 	int sent[2] = {0,0};
 	int tempsent = 0;
@@ -1627,7 +1692,7 @@ int* funcRELU(const RSSVectorMyType &a, RSSVectorSmallType &temp, RSSVectorMyTyp
 	*pt_ReLU_Com+=sent[0];
 	*pt_ReLU_rounds+=sent[1];
 	*pt_ReLU_time+=clock()-clock_begin;
-	cout<<"endRELU"<<endl;
+	// cout<<"endRELU"<<endl;
 
 	// RSSVectorSmallType c(size), bXORc(size);
 	// RSSVectorMyType m_c(size);

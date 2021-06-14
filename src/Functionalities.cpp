@@ -10,6 +10,8 @@
 // extern string SECURITY_TYPE;
 // int functype = 1;
 // Chip chip;
+// extern CPU cpu;
+
 // /******************************** Functionalities 2PC ********************************/
 // // Share Truncation, truncate shares of a by power (in place) (power is logarithmic)
 // void funcTruncate(RSSVectorMyType &a, size_t power, size_t size)
@@ -21,6 +23,7 @@
 // 	PrecomputeObject.getDividedShares(r, rPrime, (1<<power), size);
 // 	for (int i = 0; i < size; ++i)
 // 		a[i] = a[i] - rPrime[i];
+// 	cpu.CPU_Add(size);
 	
 // 	funcReconstruct(a, reconst, size, "Truncate reconst", false);
 // 	dividePlain(reconst, (1 << power));
@@ -31,6 +34,7 @@
 // 			a[i].first = r[i].first + reconst[i];
 // 			a[i].second = r[i].second;
 // 		}
+// 		cpu.CPU_Add(size);
 // 	}
 
 // 	if (partyNum == PARTY_B)
@@ -49,6 +53,7 @@
 // 			a[i].first = r[i].first;
 // 			a[i].second = r[i].second + reconst[i];
 // 		}
+// 		cpu.CPU_Add(size);
 // 	}	
 // }
 
@@ -61,6 +66,7 @@
 // 	PrecomputeObject.getDividedShares(r, rPrime, divisor, size);
 // 	for (int i = 0; i < size; ++i)
 // 		a[i] = a[i] - rPrime[i];
+// 	cpu.CPU_Add(size);
 	
 // 	funcReconstruct(a, reconst, size, "Truncate reconst", false);
 // 	dividePlain(reconst, divisor);
@@ -71,6 +77,7 @@
 // 			a[i].first = r[i].first + reconst[i];
 // 			a[i].second = r[i].second;
 // 		}
+// 		cpu.CPU_Add(size);
 // 	}
 
 // 	if (partyNum == PARTY_B)
@@ -80,6 +87,7 @@
 // 			a[i].first = r[i].first;
 // 			a[i].second = r[i].second;
 // 		}
+		
 // 	}
 
 // 	if (partyNum == PARTY_C)
@@ -89,6 +97,7 @@
 // 			a[i].first = r[i].first;
 // 			a[i].second = r[i].second + reconst[i];
 // 		}
+// 		cpu.CPU_Add(size);
 // 	}	
 // }
 
@@ -170,19 +179,21 @@
 // 			a_next[i] = a[i].first;
 // 			b[i] = a[i].first;
 // 			b[i] = b[i] ^ a[i].second;
+			
 // 		}
-
+// 		cpu.CPU_Gate(size);
 // 		thread *threads = new thread[2];
 // 		threads[0] = thread(sendVector<smallType>, ref(a_next), nextParty(partyNum), size);
 // 		sent+=sizeof(smallType)*size;
 // 		threads[1] = thread(receiveVector<smallType>, ref(a_prev), prevParty(partyNum), size);
+// 		// cpu.CPU_Recv(size*sizeof(smallType));
 // 		for (int i = 0; i < 2; i++)
 // 			threads[i].join();
 // 		delete[] threads;
 
 // 		for (int i = 0; i < size; ++i)
 // 			b[i] = b[i] ^ a_prev[i];
-
+// 		cpu.CPU_Gate(size);
 // 		if (print)
 // 		{
 // 			std::cout << str << ": \t\t";
@@ -249,7 +260,8 @@
 // 			b[i] = a[i].first;
 // 			b[i] = additionModPrime[b[i]][a[i].second];
 // 		}
-
+// 		cpu.CPU_Add(size);
+		
 // 		thread *threads = new thread[2];
 
 // 		threads[0] = thread(sendVector<smallType>, ref(a_next), nextParty(partyNum), size);
@@ -262,7 +274,7 @@
 
 // 		for (int i = 0; i < size; ++i)
 // 			b[i] = additionModPrime[b[i]][a_prev[i]];
-
+// 		cpu.CPU_Add(size);
 // 		if (print)
 // 		{
 // 			std::cout << str << ": \t\t";
@@ -327,6 +339,7 @@
 // 			b[i] = a[i].first;
 // 			b[i] = b[i] + a[i].second;
 // 		}
+// 		cpu.CPU_Add(size);
 
 // 		thread *threads = new thread[2];
 
@@ -340,7 +353,7 @@
 
 // 		for (int i = 0; i < size; ++i)
 // 			b[i] = b[i] + a_prev[i];
-
+// 		cpu.CPU_Add(size);
 // 		if (print)
 // 		{
 // 			std::cout << str << ": \t\t";
@@ -706,12 +719,11 @@
 // 	vector<myType> temp3(final_size, 0), diffReconst(final_size, 0);
 
 // 	matrixMultRSS(a, b, temp3, rows, common_dim, columns, transpose_a, transpose_b);
-
 // 	RSSVectorMyType r(final_size), rPrime(final_size);
 // 	PrecomputeObject.getDividedShares(r, rPrime, (1<<truncation), final_size);
 // 	for (int i = 0; i < final_size; ++i)
 // 		temp3[i] = temp3[i] - rPrime[i].first;
-	
+// 	cpu.CPU_Add(final_size);
 // 	*pt_MatMul_Com+=funcReconstruct3out3(temp3, diffReconst, final_size, "Mat-Mul diff reconst", false);
 // 	*pt_MatMul_rounds+=1;
 // 	// =*pt_MatMul_Com+final_size*sizeof(myType);
@@ -730,6 +742,7 @@
 // 			c[i].first = r[i].first + diffReconst[i];
 // 			c[i].second = r[i].second;
 // 		}
+// 		cpu.CPU_Add(final_size);
 // 	}
 
 // 	if (partyNum == PARTY_B)
@@ -748,6 +761,7 @@
 // 			c[i].first = r[i].first;
 // 			c[i].second = r[i].second + diffReconst[i];
 // 		}
+// 		cpu.CPU_Add(final_size);
 // 	}	
 // 	*pt_MatMul_time+=clock()-clock_begin;
 // }
@@ -774,6 +788,8 @@
 // 					    a[i].first * b[i].second +
 // 					    a[i].second * b[i].first;
 // 		}
+// 		cpu.CPU_Add(size*2);
+// 		cpu.CPU_Mul(size*3);
 
 // 		thread *threads = new thread[2];
 
@@ -805,6 +821,8 @@
 // 					    a[i].second * b[i].first -
 // 					    rPrime[i].first;
 // 		}
+// 		cpu.CPU_Add(size*3);
+// 		cpu.CPU_Mul(size*3);
 
 // 		sent[0]+=funcReconstruct3out3(temp3, diffReconst, size, "Dot-product diff reconst", false);
 // 		sent[1]+=1;
@@ -816,6 +834,7 @@
 // 				c[i].first = r[i].first + diffReconst[i];
 // 				c[i].second = r[i].second;
 // 			}
+// 			cpu.CPU_Add(size);
 // 		}
 
 // 		if (partyNum == PARTY_B)
@@ -834,6 +853,7 @@
 // 				c[i].first = r[i].first;
 // 				c[i].second = r[i].second + diffReconst[i];
 // 			}
+// 			cpu.CPU_Add(size);
 // 		}
 // 	}
 // 	if (SECURITY_TYPE.compare("Malicious") == 0)
@@ -860,6 +880,8 @@
 // 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[a[i].first][b[i].second]];
 // 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[a[i].second][b[i].first]];
 // 	}
+// 	cpu.CPU_Add(size);
+// 	cpu.CPU_Mul(size*2);
 
 // 	//Add random shares of 0 locally
 // 	thread *threads = new thread[2];
@@ -903,6 +925,7 @@
 // 				   (a[i].first and b[i].second) ^ 
 // 				   (a[i].second and b[i].first);
 // 	}
+// 	cpu.CPU_Gate(size*5);
 
 // 	//Add random shares of 0 locally
 // 	thread *threads = new thread[2];
@@ -937,6 +960,7 @@
 // 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[c_1[2*i].first][c_1[2*i+1].second]];
 // 		temp3[i] = additionModPrime[temp3[i]][multiplicationModPrime[c_1[2*i].second][c_1[2*i+1].first]];
 // 	}
+// 	cpu.CPU_Add(size*3);
 
 // 	//Add random shares of 0 locally
 // 	thread *threads = new thread[2];
@@ -986,7 +1010,7 @@
 // 	}
 
 // 	vector<smallType> a_next(size), a_prev(size);
-// 	if (BIT_SIZE == 64)
+// 	if (BIT_SIZE == 64){
 // 		for (int i = 0; i < size; ++i)
 // 		{
 // 			a_prev[i] = 0;
@@ -994,7 +1018,9 @@
 // 			reconst[i] = c_5[i].first;
 // 			reconst[i] = additionModPrime[reconst[i]][c_5[i].second];
 // 		}
-// 	else if (BIT_SIZE == 32)
+// 		cpu.CPU_Add(size);
+// 	}
+// 	else if (BIT_SIZE == 32){
 // 		for (int i = 0; i < size; ++i)
 // 		{
 // 			a_prev[i] = 0;
@@ -1002,6 +1028,8 @@
 // 			reconst[i] = c_4[i].first;
 // 			reconst[i] = additionModPrime[reconst[i]][c_4[i].second];
 // 		}
+// 		cpu.CPU_Add(size);
+// 	}
 
 // 	thread *threads = new thread[2];
 
@@ -1015,7 +1043,7 @@
 
 // 	for (int i = 0; i < size; ++i)
 // 		reconst[i] = additionModPrime[reconst[i]][a_prev[i]];
-
+// 	cpu.CPU_Add(size);
 // 	for (int i = 0; i < size; ++i)
 // 	{
 // 		if (reconst[i] == 0)
@@ -1038,7 +1066,6 @@
 // 		//Computing 2Beta-1
 // 		twoBetaMinusOne = subConstModPrime(beta[index2], 1);
 // 		twoBetaMinusOne = addModPrime(twoBetaMinusOne, beta[index2]);
-
 // 		for (size_t k = 0; k < BIT_SIZE; ++k)
 // 		{
 // 			index3 = index2*BIT_SIZE + k;
@@ -1053,7 +1080,14 @@
 // 			temp3[index3] = additionModPrime[temp3[index3]][multiplicationModPrime[diff.first][twoBetaMinusOne.second]];
 // 			temp3[index3] = additionModPrime[temp3[index3]][multiplicationModPrime[diff.second][twoBetaMinusOne.first]];
 // 		}
+		
+		
 // 	}
+// 	cpu.CPU_Add((end-start)*2);
+// 	cpu.CPU_Add((end-start)*BIT_SIZE*2);
+// 	cpu.CPU_Mul((end-start)*BIT_SIZE);
+
+	
 // }
 
 // void parallelSecond(RSSSmallType* c, const smallType* temp3, const smallType* recv, const myType* r, 
@@ -1087,7 +1121,9 @@
 // 				c[index3].first = additionModPrime[c[index3].first][1];
 // 				c[index3].second = additionModPrime[c[index3].second][xMinusR.second];
 // 			}
+			
 // 		}
+// 		cpu.CPU_Add((end-start)*2);
 // 	}
 
 
@@ -1115,6 +1151,7 @@
 // 				c[index3].second = additionModPrime[c[index3].second][xMinusR.second];
 // 			}
 // 		}
+// 		cpu.CPU_Add((end-start)*2);
 // 	}
 
 
@@ -1143,6 +1180,7 @@
 // 				c[index3].second = additionModPrime[c[index3].second][1];
 // 			}
 // 		}
+// 		cpu.CPU_Add((end-start)*2);
 // 	}	
 // }
 
@@ -1240,6 +1278,7 @@
 // 					diff[index3] = subConstModPrime(diff[index3], 1);
 // 			}
 // 		}
+// 		cpu.CPU_Add(size*2);
 
 // 		//(-1)^beta * x[i] - r[i]
 // 		tempsent2= funcDotProduct(diff, twoBetaMinusOne, xMinusR, sizeLong);
@@ -1280,6 +1319,10 @@
 // 				}			
 // 			}
 // 		}
+
+// 		cpu.CPU_Add(size*2);
+
+
 // 	}
 
 // 	RSSVectorSmallType temp_a(sizeLong/2), temp_b(sizeLong/2), temp_c(sizeLong/2);
@@ -1320,6 +1363,8 @@
 // 		beta[i].second = wrapAround(a[i].second, r[i].second);
 // 		x[i].second = a[i].second + r[i].second;
 // 	}
+// 	cpu.CPU_Add(size*2);
+// 	cpu.CPU_Comp(size*2);
 
 // 	vector<myType> x_next(size), x_prev(size);
 // 	for (int i = 0; i < size; ++i)
@@ -1329,6 +1374,7 @@
 // 		reconst_x[i] = x[i].first;
 // 		reconst_x[i] = reconst_x[i] + x[i].second;
 // 	}
+// 	cpu.CPU_Add(size);
 
 // 	thread *threads = new thread[2];
 // 	threads[0] = thread(sendVector<myType>, ref(x_next), nextParty(partyNum), size);
@@ -1341,7 +1387,7 @@
 
 // 	for (int i = 0; i < size; ++i)
 // 		reconst_x[i] = reconst_x[i] + x_prev[i];
-
+// 	cpu.CPU_Add(size);
 // 	wrap3(x, x_prev, delta, size); // All parties have delta
 // 	PrecomputeObject.getRandomBitShares(eta, size);
 
@@ -1358,6 +1404,7 @@
 // 			theta[i].first = beta[i].first ^ delta[i] ^ alpha[i].first ^ eta[i].first ^ etaPrime[i];
 // 			theta[i].second = beta[i].second ^ alpha[i].second ^ eta[i].second;
 // 		}
+// 		cpu.CPU_Gate(size*6);
 // 	}
 // 	else if (partyNum == PARTY_B)
 // 	{
@@ -1366,6 +1413,7 @@
 // 			theta[i].first = beta[i].first ^ delta[i] ^ alpha[i].first ^ eta[i].first;
 // 			theta[i].second = beta[i].second ^ alpha[i].second ^ eta[i].second;
 // 		}
+// 		cpu.CPU_Gate(size*5);
 // 	}
 // 	else if (partyNum == PARTY_C)
 // 	{
@@ -1374,6 +1422,7 @@
 // 			theta[i].first = beta[i].first ^ alpha[i].first ^ eta[i].first;
 // 			theta[i].second = beta[i].second ^ delta[i] ^ alpha[i].second ^ eta[i].second ^ etaPrime[i];
 // 		}	
+// 		cpu.CPU_Gate(size*6);
 // 	}
 // 	return sent;
 // }
@@ -1401,6 +1450,7 @@
 // 		bXORc[i].first  = c[i].first ^ b[i].first;
 // 		bXORc[i].second = c[i].second ^ b[i].second;
 // 	}
+// 	cpu.CPU_Gate(size*2);
 
 // 	*pt_SS_Com+=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
 //     *pt_SS_rounds+=1;
@@ -1428,7 +1478,8 @@
 // 				m_c[i].first = - m_c[i].first;
 // 				m_c[i].second = (myType)1 - m_c[i].second;
 // 			}
-
+// 	cpu.CPU_Add(size);
+// 	cpu.CPU_Comp(size);
 // 	tempsent2=funcDotProduct(a, m_c, selected, size, false, 0);
 // 	*pt_SS_Com+=tempsent2[0];
 // 	*pt_SS_rounds+=tempsent2[1];
@@ -1459,13 +1510,14 @@
 // 		for (size_t j = 0; j < columns; ++j)
 // 			tempXOR[i*columns+j] = a0[i*columns+j] ^
 // 								   a1[loopCounter*rows*columns+i*columns+j];
-
+// 	cpu.CPU_Gate(rows*columns);
 // 	temp=funcDotProductBits(tempXOR, bRepeated, answer, size);
 // 	sent+=temp;
 // 	*pt_SS_Com+=temp;
 
 // 	for (int i = 0; i < size; ++i)
 // 		answer[i] = answer[i] ^ a0[i];
+// 	cpu.CPU_Gate(size);
 // 	return sent;
 // }
 
@@ -1493,6 +1545,7 @@
 // 		b[i].first = theta[i].first ^ (getMSB(a[i].first));
 // 		b[i].second = theta[i].second ^ (getMSB(a[i].second));
 // 	}
+// 	cpu.CPU_Gate(size);
 // 	return sent;
 // }
 
@@ -1528,6 +1581,7 @@
 // 		bXORc[i].first  = c[i].first ^ temp[i].first;
 // 		bXORc[i].second = c[i].second ^ temp[i].second;
 // 	}
+// 	cpu.CPU_Gate(size*2);
 
 // 	tempsent=funcReconstructBit(bXORc, reconst_b, size, "bXORc", false);
 // 	// *pt_ReLU_Com+=tempsent;
@@ -1606,7 +1660,9 @@
 // 			for (int i = 0; i < size; ++i)
 // 				alpha[i] += (1 << j);
 // 		}
+		
 // 	}
+	
 // 	return sent;
 // }
 
@@ -1645,17 +1701,23 @@
 // 	funcGetShares(ones, data_one);
 
 // 	multiplyByScalar(b, 2, twoX);
+
 // 	subtractVectors<RSSMyType>(twoPointNine, twoX, w0, size);
 // 	funcDotProduct(b, w0, xw0, size, true, precision); 
 // 	subtractVectors<RSSMyType>(ones, xw0, epsilon0, size);
+
+	
 // 	if (PRECISE_DIVISION){
 // 		tempsent2=funcDotProduct(epsilon0, epsilon0, epsilon1, size, true, precision);
 // 		*pt_Div_Com+=tempsent2[0];
 // 		*pt_Div_rounds+=tempsent2[1];
 // 	}
 // 	addVectors(ones, epsilon0, termOne, size);
-// 	if (PRECISE_DIVISION)
+// 	if (PRECISE_DIVISION){
 // 		addVectors(ones, epsilon1, termTwo, size);
+
+// 	}
+
 // 	tempsent2=funcDotProduct(w0, termOne, answer, size, true, precision);
 // 	*pt_Div_Com+=tempsent2[0];
 // 	*pt_Div_rounds+=tempsent2[1];
@@ -1712,6 +1774,7 @@
 
 // 	multiplyByScalar(b, 2, twoX);
 // 	subtractVectors<RSSMyType>(twoPointNine, twoX, w0, B);
+
 // 	tempsent2=funcDotProduct(b, w0, xw0, B, true, precision); 
 // 	*pt_BN_Com+=tempsent2[0];
 // 	*pt_BN_rounds+=tempsent2[1];
@@ -1799,6 +1862,7 @@
 // 		for (size_t	j = 0; j < rows; ++j)
 // 			max[j] = max[j] + a[j*columns + i];
 // 	}
+// 	cpu.CPU_Add(columns*rows+columns);
 // 	*pt_MP_time+=clock()-clock_begin;
 // }
 

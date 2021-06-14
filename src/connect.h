@@ -10,9 +10,11 @@
 #include <stdint.h>
 #include <iomanip>
 #include <fstream>
+#include "CPU.h"
 // #include <thread>
 using namespace std;
 
+extern CPU cpu;
 extern BmrNet ** communicationSenders;
 extern BmrNet ** communicationReceivers;
 
@@ -180,6 +182,7 @@ void receiveVector(vector<T> &vec, size_t player, size_t size)
 
 	if(!communicationReceivers[player]->receiveMsg(vec.data(), size * sizeof(T), 0))
 		cout << "Receive myType vector error" << endl;
+	cpu.CPU_Recv(size * sizeof(T));
 }
 
 template<typename T>

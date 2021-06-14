@@ -8,7 +8,7 @@
 using namespace std;
 using namespace Eigen;
 
-
+extern CPU cpu;
 smallType additionModPrime[PRIME_NUMBER][PRIME_NUMBER];
 smallType subtractModPrime[PRIME_NUMBER][PRIME_NUMBER];
 smallType multiplicationModPrime[PRIME_NUMBER][PRIME_NUMBER];
@@ -519,6 +519,8 @@ void matrixMultRSS(const RSSVectorMyType &a, const RSSVectorMyType &b, vector<my
 					}
 		}
 	}
+	cpu.CPU_Mul(rows*common_dim*columns*3);
+	cpu.CPU_Add(rows*columns*2);
  
     // for (int i = 0; i < rows; ++i)
     // {
@@ -662,6 +664,7 @@ void multiplyByScalar(const RSSVectorMyType &a, size_t scalar, RSSVectorMyType &
 		b[i].first  = a[i].first * scalar;
 		b[i].second  = a[i].second * scalar;
 	}
+	cpu.CPU_Add(size*2);
 }
 
 //a is just a vector, b has to be a matrix of size rows*columns 

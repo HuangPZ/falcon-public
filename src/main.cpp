@@ -134,12 +134,14 @@ int main(int argc, char** argv)
 				<< "Running " << security << " " << network << " on " << dataset << " dataset" << endl;
 			myfile << "----------------------------------------------" << endl << endl; 
 			myfile.close();	
-			string filename1;
+			string filename1,filename2;
 			if(functype==2){
-				filename1 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";	
+				filename1 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";
+				filename2 = "Model_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"T.txt";
 			}
 			else{
 				filename1 = "Og_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"1.txt";	
+				filename2 = "Og_Falcon_comm_"+security+"_"+network+"_"+dataset+"_"+to_string(partyNum)+"_"+"T.txt";	
 			}
 
 			myfile.open (filename1.c_str());
@@ -227,10 +229,13 @@ int main(int argc, char** argv)
 			delete aes_prev;
 			delete config;
 			delete net;
+			commObject.reset();
 			deleteObjects();
 			MatMul_Com=ReLU_Com=MP_Com=MP_ReLU_Com=Div_Com=BN_Com=PP_Com=SS_Com=0;
 			MatMul_rounds=ReLU_rounds=MP_rounds=Div_rounds=BN_rounds=PP_rounds=SS_rounds=0;
 			MatMul_time=ReLU_time=MP_time=MP_ReLU_time=Div_time=BN_time=0;
+			cpu.Write(filename2);
+			cpu.Reset();
 	}
 	}
 

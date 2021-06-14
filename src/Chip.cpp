@@ -176,6 +176,33 @@ void Chip::ChipReLU(const vector<myType>& x, const RSSVectorMyType& x_share, RSS
 	Simtime += 3*sizeof(myType)*size/AES_throughput+AES_latency+100/frequency+4*size/100*Add_gate_latency/frequency;
 }
 
+void Chip::ChipReLUP(const vector<myType>& x, const RSSVectorMyType& x_share, RSSVectorSmallType& b,
+ size_t size){
+	int cbegin=clock();
+	TransInBits+=(sizeof(myType)+sizeof(RSSVectorMyType))*size;
+	TransInTimes+=1;
+	TransOutBits+=(sizeof(RSSVectorMyType)+sizeof(RSSVectorSmallType))*size;
+	TransOutTimes+=1;
+    // RSSVectorMyType sharemask(size);
+	//recover secret
+	AESTimes+=size;
+	AESBits+=sizeof(myType)*size;
+	AddTimes+=size*3;
+	AddBits+=sizeof(myType)*size*3;
+	//Do ReLU
+	AESTimes+=size*2;
+	AESBits+=sizeof(myType)*size*2;
+	AddTimes+=size;
+	AddBits+=sizeof(myType)*size;
+	CompareTimes+=size;
+	XORTimes+=size;
+
+	counter_comm[0]+=size;
+	counter_loc+=size*2;
+	ClockTime+=clock()-cbegin;
+	Simtime += 3*sizeof(myType)*size/AES_throughput+AES_latency+100/frequency+4*size/100*Add_gate_latency/frequency;
+}
+
 void Chip::ChipMax(const vector<myType>& x, const RSSVectorMyType &x_share, RSSVectorMyType &max, RSSVectorSmallType &maxPrime,
  						 size_t rows, size_t columns){
 	int cbegin=clock();

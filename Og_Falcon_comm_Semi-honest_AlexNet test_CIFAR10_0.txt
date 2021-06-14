@@ -17,12 +17,12 @@ SS_Com: 24.4777
 ----------------------------------------------
 
 P0
-MatMul_time: 16.07
-ReLU_time: 3.89
-MP_time: 3.75
-MP_ReLU_time: 3.27
-BN_time: 0.02
-Div_time: 0.08
+MatMul_time: 16.14
+ReLU_time: 3.88
+MP_time: 3.73
+MP_ReLU_time: 3.24
+BN_time: 0.03
+Div_time: 0.07
 ----------------------------------------------
 
 P0

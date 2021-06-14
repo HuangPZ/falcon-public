@@ -39,6 +39,8 @@ public:
                         size_t size);
     void ChipReLU(const vector<myType>& x, const RSSVectorMyType& x_share, RSSVectorMyType& y, RSSVectorSmallType& b, 
                         size_t size);
+    void ChipReLUP(const vector<myType>& x, const RSSVectorMyType& x_share, RSSVectorSmallType& b, 
+                        size_t size);
     void ChipMax(const vector<myType>& x, const RSSVectorMyType &x_share, RSSVectorMyType &max, RSSVectorSmallType &maxPrime,
  						 size_t rows, size_t columns);
 

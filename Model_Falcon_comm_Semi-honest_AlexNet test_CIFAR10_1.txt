@@ -10,16 +10,16 @@ MatMul_Com: 7.91859
 ReLU_Com: 2.15142
 MP_Com: 12.2388
 MP_ReLU_Com: 0
-BN_Com: 1.36448
-Div_Com: 0.018432
+BN_Com: 1.36832
+Div_Com: 0.033792
 PP_Com: 0
 SS_Com: 0
 ----------------------------------------------
 
 P1
-MatMul_time: 16.49
+MatMul_time: 17.25
 ReLU_time: 0
-MP_time: 0.04
+MP_time: 0.03
 MP_ReLU_time: 0
 BN_time: 0.01
 Div_time: 0
@@ -35,17 +35,17 @@ PP_rounds: 0
 SS_rounds: 0
 ----------------------------------------------
 
-AddTimes: 17.9878
-AddBits: 71.9514
-CompareTimes: 3.59757
+AddTimes: 18.0198
+AddBits: 72.0794
+CompareTimes: 3.60397
 CompareBits: 0
-AESTimes: 14.3903
-AESBits: 57.5611
-XORTimes: 3.59757
-TransInBits: 115.122
-TransInTimes: 20
-TransOutBits: 187.074
-TransOutTimes: 20
-SimTime: 0.143871
-TotalSimtime:0.446106----------------------------------------------
+AESTimes: 14.4159
+AESBits: 57.6635
+XORTimes: 3.60397
+TransInBits: 115.327
+TransInTimes: 120
+TransOutBits: 187.406
+TransOutTimes: 120
+SimTime: 0.145157
+TotalSimtime:0.448131----------------------------------------------
 

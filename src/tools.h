@@ -21,7 +21,9 @@
 #include "AESObject.h"
 #include "connect.h"
 #include "globals.h"
+#include "CPU.h"
 
+extern CPU cpu;
 extern int partyNum;
 
 extern AESObject* aes_next;
@@ -293,6 +295,11 @@ void addVectors(const vector<T> &a, const vector<T> &b, vector<T> &c, size_t siz
 {
 	for (size_t i = 0; i < size; ++i)
 		c[i] = a[i] + b[i];
+	if(sizeof(RSSMyType)==sizeof(T))
+		cpu.CPU_Add(size);
+	else
+		cpu.CPU_Gate(size);
+
 }
 
 template<typename T>
@@ -300,6 +307,10 @@ void subtractVectors(const vector<T> &a, const vector<T> &b, vector<T> &c, size_
 {
 	for (size_t i = 0; i < size; ++i)
 		c[i] = a[i] - b[i];
+	if(sizeof(RSSMyType)==sizeof(T))
+		cpu.CPU_Add(size);
+	else
+		cpu.CPU_Gate(size);
 }
 
 template<typename T>

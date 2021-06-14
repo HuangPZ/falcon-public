@@ -1,11 +1,11 @@
 
 ----------------------------------------------
-Wall Clock time for SecureML test: 0.112184 sec
+Wall Clock time for SecureML test: 0.111584 sec
 CPU time for SecureML test: 0.1 sec
 ----------------------------------------------
 ----------------------------------------------
 Communication, SecureML test, P1: 1.57133MB (sent) 1.57133MB (recv)
 Rounds, SecureML test, P1: 34(sends) 34(recvs)
-WAN comm time: 2.38085
-LAN comm time: 0.0068544
+WAN comm time: 2.41928
+LAN comm time: 0.00931412
 ----------------------------------------------

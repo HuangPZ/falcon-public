@@ -17,10 +17,10 @@ SS_Com: 5.65248
 ----------------------------------------------
 
 P1
-MatMul_time: 4.46
+MatMul_time: 4.59
 ReLU_time: 2.43
-MP_time: 1.91
-MP_ReLU_time: 1.79
+MP_time: 1.92
+MP_ReLU_time: 1.78
 BN_time: 0
 Div_time: 0
 ----------------------------------------------
